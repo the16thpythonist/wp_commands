@@ -24,7 +24,7 @@
   "autoload": {
     "psr-4": {
       "the16thpythonist\\Command\\": "src/the16thpythonist/Command",
-      "the16thpythonist\\Wordpress\\": "src/the16thpythonist/Command"
+      "the16thpythonist\\Wordpress\\": "src/the16thpythonist/Wordpress"
     }
   }
 }
