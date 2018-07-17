@@ -8,20 +8,104 @@
 
 namespace the16thpythonist\Command;
 
+use Log\LogPost;
 use Log\LogInterface;
 
+
+/**
+ * Class Command
+ *
+ * This is a abstract base class, that represents a Command, that can be executed by the package.
+ * To create a new, callable command, this class has to be subclassed. The child class only has to implement a single
+ * additional protected method "run" which will contain the actual code to be executed in the background.
+ * Additionally, after the class has been written, the static "register" method of that child class has to be called
+ * with the desired name for the command, so that Wordpress will execute it during start up.
+ *
+ * Example:
+ *
+ * NewCommand extends Command {
+ *
+ *      protected function run(array $args) {
+ *          // Implement your background task here
+ *      }
+ * }
+ * NewCommand::register("new_command");
+ * // From that point on the command will be accesible in the admin panel also, under the name "new_command"
+ *
+ * It works by registering a new wordpress ajax action for each command in such a way, that the code given in the run
+ * method will be executed in the ajax call. This way it can be called as a background task from the admin panel,
+ * because an Ajax request spawns a new instance of Wordpress/PHP. A background task can be dispatched from the actual
+ * code itself as well though, by simple creating a new instance of the class and calling the start method (with the
+ * appropriate args array, if necessary)
+ *
+ * Example:
+ *
+ * $command = NewCommand();
+ * // This will not be blocking. It will create a new AJAX request to run separately
+ * $command->start();
+ *
+ * CHANGELOG
+ *
+ * Added 22.06.2018
+ *
+ * @since 0.0.0.0
+ *
+ * @package the16thpythonist\Command
+ */
 abstract class Command
 {
-
+    /**
+     * This method has to be implemented.
+     *
+     * The run method will have to contain the actual logic of the command, that is supposed to be executed.
+     *
+     * @param array $args the array of arguments passed to the command
+     * @return mixed
+     */
     abstract protected function run(array $args);
 
+    /**
+     * @var LogInterface $log   the logging object for the command. Can be any object that suffices the LogInterface
+     */
     public $log;
-    static public $name;
-    public $params;
 
-    public function __construct(LogInterface $log_controller)
+    /**
+     * @var string $name        the name of the command. This attribute will be set after the child class to this
+     *                          abstract class has been registered, using the static function "register". This
+     *                          function takes a single parameter "name", which will then be used as the command name
+     *                          and saved in this attribute.
+     */
+    static public $name;
+
+    /**
+     * @var array               this attribute can be modified in the child class to specify which parameters the
+     *                          command absolutely expects. Simply putting the key names of the parameters in this array
+     *                          will prompt a check if these parameters are contained in the ajax call. If not an
+     *                          excpetion will be thrown.
+     */
+    public $params = array();
+
+    /**
+     * Command constructor.
+     *
+     * CHANGELOG
+     *
+     * Added 22.06.2018
+     *
+     * Changed 17.07.2018
+     * Changed the way the logging worked to use he LofPost object from the "wp-pi-logging" package
+     *
+     * @see Log/LogPost
+     * @see Log/LogInterface
+     *
+     * @since 0.0.0.0
+     *
+     * @param string $log_class a class that implements the Log/LogInterface interface. DEFAULT: Log/LogPost
+     */
+    public function __construct($log_class=LogPost::class)
     {
-        $this->log = $log_controller;
+        $this->log = new $log_class(NULL, 'Command: ' . static::$name);
+        $this->log->start();
     }
 
     /**
@@ -30,6 +114,10 @@ abstract class Command
      * This method sends an AJAX GET request to the server on which the PHP is running itself, which in turn triggers
      * a new PHP/Wordpress instance to spawn on the server, that is handling the actual content of the run method, if
      * the Commmand class was registered.
+     *
+     * CHANGELOG
+     *
+     * Added 22.06.2018
      *
      * @param array $args The arguments to be passed to the command
      * @return void
@@ -53,6 +141,13 @@ abstract class Command
      * This method first extract all the possible parameters from the $_GET array, that have been passed by the AJAX
      * call. Then these parameters are passed to the call of the actual "run" method, which has been implemented by a
      * child class to "Command"
+     *
+     * CHANGELOG
+     *
+     * Added 22.06.2018
+     *
+     * Changed 17.07.2018
+     * Added logging support
      *
      * @return void
      * @access public
@@ -78,7 +173,11 @@ abstract class Command
         $args = array_replace($this->params, $args);
 
         // Finally calling the actual run method, which contains the actual command to be executed
+        $this->log->info('Starting command...');
         $this->run($args);
+
+        $this->log->info('Command ended');
+        $this->log->stop();
     }
 
 
@@ -128,17 +227,18 @@ abstract class Command
      * to be executed. This whole process will be in the background of the actual main PHP process, because by being
      * called by an AJAX request to the server this method will be run in an entirely new instance of wordpress
      *
+     * CHANGELOG
+     *
+     * Added 22.06.2018
+     *
      * @return void
      *
      * @static
      * @access private
      */
-    static private function ajaxStart() {
-        // Creates a new command object from the sub class this method has been called from
+    static public function ajaxStart() {
         $command_class = static::class;
         $command = new $command_class();
-
-        /* @var $command Command */
         $command->runWrapped();
     }
 }
