@@ -1,0 +1,29 @@
+{
+  "name": "the16thpythonist/wp-commands",
+  "description": "A admin panel functionality for executing background tasks",
+  "type": "library",
+  "version": "0.0.0.0",
+  "authors": [
+    {
+      "name": "Jonas Teufel",
+      "email": "jonseb1998@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/the16thpythonist/wp-pi-logging.git"
+    }
+  ],
+  "require": {
+    "the16thpythonist/wp-pi-logging": "@dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6"
+  },
+  "autoload": {
+    "psr-4": {
+      "the16thpythonist\\Command\\": "src/the16thpythonist/Command"
+    }
+  }
+}
