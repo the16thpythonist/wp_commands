@@ -15,7 +15,7 @@ abstract class Command
 
     abstract protected function run(array $args);
 
-    private $log;
+    public $log;
     static public $name;
     public $params;
 
