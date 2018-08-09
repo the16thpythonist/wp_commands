@@ -95,6 +95,10 @@ abstract class Command
      * Changed 17.07.2018
      * Changed the way the logging worked to use he LofPost object from the "wp-pi-logging" package
      *
+     * Changed 09.08.2018
+     * The name of the command is now not longer saved as the static name field (didnt work due to the way static
+     * fields work). The name is now retrieved by the 'getName' method. Also using sprintf for Command name formatting
+     *
      * @see Log/LogPost
      * @see Log/LogInterface
      *
@@ -104,7 +108,7 @@ abstract class Command
      */
     public function __construct($log_class=LogPost::class)
     {
-        $this->log = new $log_class(NULL, 'Command: ' . static::$name);
+        $this->log = new $log_class(NULL, sprintf('Command: "%s"', $this->getName()));
         $this->log->start();
     }
 
@@ -180,6 +184,20 @@ abstract class Command
         $this->log->stop();
     }
 
+    /**
+     * Gets the name, that was assigned to the Command, when calling 'register'
+     *
+     * CHANGELOG
+     *
+     * Added 09.08.2018
+     *
+     * @since 0.0.0.1
+     *
+     * @return string
+     */
+    public function getName() {
+        return CommandNamePocket::pick(static::class);
+    }
 
     /**
      * Registers the static methods to be called when the according ajax request are made

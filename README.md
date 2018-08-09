@@ -13,3 +13,10 @@
 Todo:
 - Make the menu in the backend prettier
 - Add parameter support in the backend menu
+
+### 0.0.0.1 - 09.08.2018
+
+- Fixed the bug with the command name being used as the title of the log files always being the last command that 
+was registered in the code with the 'register' command.
+    - Added static class 'CommandNamePocket', which stores the command names in reference to the class names of the 
+    Command child classes
