@@ -20,3 +20,8 @@ Todo:
 was registered in the code with the 'register' command.
     - Added static class 'CommandNamePocket', which stores the command names in reference to the class names of the 
     Command child classes
+    
+### 0.0.0.2 - 14.08.2018
+
+- Fixed a bug with the command name not being registered in the CommandNamePocket and breaking the whole command 
+functionality

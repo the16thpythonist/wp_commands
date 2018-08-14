@@ -221,7 +221,8 @@ abstract class Command
      * @access public
      */
     static public function register(string $name) {
-        static::$name = $name;
+        //static::$name = $name;
+        CommandNamePocket::put($name, static::class);
 
         $start_command_name = 'start_' . $name;
         $update_command_name = 'update_' . $name;
