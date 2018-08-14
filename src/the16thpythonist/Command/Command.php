@@ -214,6 +214,10 @@ abstract class Command
      * The the start command name is now additionally appended to the static array within the CommandReference class,
      * so that there is always a available list of commands that are registered and ready to be called.
      *
+     * Changed 14.08.2018
+     * Removed the static name field of the class being overwritten with the new name, instead the name is being added
+     * to the static class "CommandNamePocket", with the class name being the key for retrieving the name later on.
+     *
      * @param string $name The command name under which this command class it to be callable by ajax requests
      * @return void
      *
