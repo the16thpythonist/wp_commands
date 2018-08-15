@@ -24,6 +24,10 @@ class CommandMenu
      *
      * Added 17.07.2018
      *
+     * Changed 15.08.2018
+     * Added an additional Registration object "CommandDashboardRegistration", which creates the dashboard widget,
+     * that display the logs posts for the most recently executed commands.
+     *
      * @see CommandMenuRegistration
      *
      * @since 0.0.0.0
@@ -34,5 +38,8 @@ class CommandMenu
          */
         $registration = new CommandMenuRegistration();
         $registration->register();
+
+        $dashboard_registration = new CommandDashboardRegistration();
+        $dashboard_registration->register();
     }
 }

@@ -25,3 +25,8 @@ was registered in the code with the 'register' command.
 
 - Fixed a bug with the command name not being registered in the CommandNamePocket and breaking the whole command 
 functionality
+
+### 0.0.0.3 - 15.08.2018
+
+- Added the dashboard widget, which displays the links of the log posts for the most recently executed commands.
+    - Added class 'Wordpress/CommandDashboardRegistration'

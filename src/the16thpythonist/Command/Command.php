@@ -65,6 +65,12 @@ abstract class Command
     abstract protected function run(array $args);
 
     /**
+     * @var string  This is the string, that is being displayed in front of the title of the log file, that is being
+     *              created for each new command
+     */
+    public static $LOG_PREFIX = 'Command';
+
+    /**
      * @var LogInterface $log   the logging object for the command. Can be any object that suffices the LogInterface
      */
     public $log;
@@ -99,6 +105,11 @@ abstract class Command
      * The name of the command is now not longer saved as the static name field (didnt work due to the way static
      * fields work). The name is now retrieved by the 'getName' method. Also using sprintf for Command name formatting
      *
+     * Changed 14.08.2018 - 0.0.0.3
+     * The title of the log post that is being created for this command is now not hardcoded anymore. The static field
+     * LOG_PREFIX is being used as the first part of the title and the separated with a colon is the name of the
+     * command, that was executed.
+     *
      * @see Log/LogPost
      * @see Log/LogInterface
      *
@@ -108,7 +119,7 @@ abstract class Command
      */
     public function __construct($log_class=LogPost::class)
     {
-        $this->log = new $log_class(NULL, sprintf('Command: "%s"', $this->getName()));
+        $this->log = new $log_class(NULL, sprintf('%s: %s', self::$LOG_PREFIX, $this->getName()));
         $this->log->start();
     }
 
