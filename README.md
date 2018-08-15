@@ -30,3 +30,8 @@ functionality
 
 - Added the dashboard widget, which displays the links of the log posts for the most recently executed commands.
     - Added class 'Wordpress/CommandDashboardRegistration'
+
+### 0.0.0.4 -15.08.2018
+
+- Added the static method 'fromCallable' to the Command class. Using this method with a command name and a callable 
+function, a new command can be registered directly, which does nothing but execute the function during its runtime.

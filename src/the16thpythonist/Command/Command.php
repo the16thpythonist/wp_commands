@@ -275,4 +275,48 @@ abstract class Command
         $command = new $command_class();
         $command->runWrapped();
     }
+
+    /**
+     * Creates a new callable Command, that only executes the given callable function
+     *
+     * This method is based on an extremely dirty hack.
+     * A new class is being created, that extends the Command class by dynamic code execution using 'eval'. This class
+     * contains a run method, which will only execute the given callable and do nothing else.
+     * Since the callable itself cannot be passed to the dynamic code directly it is stored in a static transfer class
+     * 'CommandFunctionTransfer'. The callable is then extracted from this static class within the dynamic code and
+     * executed. The dynamic code also calls the 'register' method of the new class with the given name
+     *
+     * CHANGELOG
+     *
+     * Added 15.08.2018
+     *
+     * @since 0.0.0.4
+     *
+     * @param string $name      the name of the function. This string in all upper characters will serve as the
+     *                          name of the temp dynamic class as well.
+     * @param callable $func    The callable object to be used as a command. Has to have to parameter: $args and $log
+     */
+    static public function fromCallable(string $name, callable $func) {
+        /*
+         * The Command class is created by dynamic code execution, thus no values can be passed into the dynamic code
+         * directly. Here the callable function is being put into a static transfer object, which is also know from the
+         * scope inside the dynamic code. Inside the dynamic code the callable is simply extracted again.
+         */
+        CommandFunctionTransfer::$callable = $func;
+        // The command name will also be used as the class name of the dynamic class
+        $class_name = strtoupper($name);
+        $code_lines = array(
+            'namespace the16thpythonist\Command;',
+            'class %s extends Command {',
+            'protected function run(array $args){',
+            '$f = CommandFunctionTransfer::$callable;',
+            '$f($args, $this->log);',
+            '}',
+            '}',
+            '%s::register("%s");'
+        );
+        $code = implode('', $code_lines);
+        eval(sprintf($code, $class_name, $class_name, $name));
+    }
+
 }
