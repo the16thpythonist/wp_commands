@@ -120,7 +120,7 @@ class CommandDashboardRegistration
          */
         $commands = array();
         $index = 0;
-        while (count($commands) < self::$RECENT_COMMANDS_LENGTH) {
+        while ((count($commands) < self::$RECENT_COMMANDS_LENGTH) && !(count($commands) >= count($posts))) {
             $post = $posts[$index];
             $title = $post->post_title;
 
