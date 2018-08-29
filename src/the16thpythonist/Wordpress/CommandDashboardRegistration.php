@@ -11,6 +11,7 @@ namespace the16thpythonist\Wordpress;
 use the16thpythonist\Command\Command;
 
 use Log\LogPost;
+use the16thpythonist\Command\CommandNamePocket;
 use WP_Query;
 
 /**
@@ -94,6 +95,15 @@ class CommandDashboardRegistration
      *
      * Added 15.08.2018
      *
+     * Changed 29.08.2018
+     * Fixed an issue with the dashboard plugin completely killing the CPU, because an index ran out of bounds, when
+     * there were less actual log posts, then the number of recent posts to be displayed
+     *
+     * Changed 29.08.2018
+     * Added the widget, which is used to select and actually execute the commands (which was only on the command
+     * exclusive page up to this point) also to the dashboard widget. The commands can now be executed right from
+     * the dashboard.
+     *
      * @since 0.0.0.3
      */
     public function display_widget() {
@@ -128,21 +138,74 @@ class CommandDashboardRegistration
              * The substring, for which to be checked to verify the log post being for a command is the log prefix, that
              * has been defined in the Command class. If it was hardcoded, this could break after a change of that
              * prefix.
+             * But after the log prefix has been checked it is being removed from the string to get the pure command
+             * name
              */
             if (strpos($title, Command::$LOG_PREFIX) !== False) {
+                $command_name = str_replace(Command::$LOG_PREFIX . ': ', '', $title);
                 $commands[] = array(
-                    'title'     => $title,
+                    'title'     => $command_name,
                     'date'      => date(self::$DATETIME_FORMAT, strtotime($post->post_date)),
                     'url'       => get_the_permalink($post->ID)
                 );
             }
             $index++;
         }
+
+        /*
+         * This url will lead to the page, where all the Log posts can be viewed. It makes sense to also include
+         * this generic link into the widget.
+         */
+        $logs_uri = get_site_url(null, '/wp-admin/edit.php?post_type=' . LogPost::$POST_TYPE);
+
+        /*
+         * An array containing all the command names is needed for displaying the selection widget, that is used for
+         * the widget, that actually executing the commands.
+         */
+        $command_names = CommandNamePocket::$names;
         ?>
         <div class="command-widget">
+            <h2>Execute commands</h2>
+            <p>
+                Use the following selection to select the command you wish to execute and then press the execute button.
+            </p>
+            <div id="command-container" style="display: flex; flex-direction: row;">
+                <select id="command-name" title="action" style="height: 25px;width: 80%">
+                    <?php foreach ($command_names as $command_name): ?>
+                        <option value="<?php echo 'start_' . $command_name; ?>"><?php echo $command_name; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <input id="command-call" type="button" value="execute" style="margin-bottom: -5px;height: 25px;width: 20%">
+            </div>
+            <script type="text/javascript">
+                function sendAJAX() {
+                    var action = 'action=' + select.attr('value');
+                    console.log(action);
+                    jQuery.ajax({
+                        url:        ajaxurl,
+                        type:       'Get',
+                        timeout:    5000,
+                        dataType:   'html',
+                        data:       'action=' + select.attr('value'),
+                        success:    function(response) {
+                            alert(response);
+                        },
+                        error:      function(response) {
+                            console.log(response);
+                        }
+                    });
+                }
+                var call = jQuery('input#command-call'),
+                    select = jQuery('select#command-name');
+                console.log("Script gets executed");
+                console.log(call.attr('value'));
+                call.on('click', sendAJAX);
+            </script>
             <h2>Command history</h2>
             <p>
-                The last 5 Commands, that have been executed
+                Displaying the last 5 commands, that were executed. (At this moment, the selection is not being
+                updated, once a command was executed from within this widget, please visit
+                <a href="<?php echo $logs_uri;?>">Log Posts</a> to view the log)
             </p>
             <div class="">
                 <?php foreach ($commands as $command): ?>

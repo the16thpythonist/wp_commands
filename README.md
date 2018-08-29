@@ -40,3 +40,7 @@ function, a new command can be registered directly, which does nothing but execu
 
 - Fixed an issue with the dashboard plugin completely killing the CPU, because an index ran out of bounds, when there 
 were less actual log posts, then the number of recent posts to be displayed
+
+### 0.0.0.6 - 29.08.2018
+
+- Added the functionality to choose and execute the commands directly from the admin dashboard.
