@@ -44,3 +44,9 @@ were less actual log posts, then the number of recent posts to be displayed
 ### 0.0.0.6 - 29.08.2018
 
 - Added the functionality to choose and execute the commands directly from the admin dashboard.
+
+### 0.0.0.7 - 17.10.2018
+
+- Fixed a minor issue with the menu box not using the correct hook for the registration
+- Included the package [wp-cpt-lib](https://github.com/the16thpythonist/wp-cpt-lib.git) to the composer requirements. 
+It is mainly a base package to introduce custom post types in a very object oriented way.

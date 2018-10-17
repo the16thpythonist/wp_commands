@@ -46,11 +46,14 @@ class CommandMenuRegistration
      *
      * Added 17.07.2018
      *
+     * Changed 17.10.2018
+     * Changed the hook, at which the menu us being registered from "init" to "admin_page" as the former caused a
+     * fatal error in the unit tests.
+     *
      * @since 0.0.0.0
      */
     public function register() {
-        //wp_die();
-        add_action('init', array($this, 'register_menu_page'));
+        add_action('admin_menu', array($this, 'register_menu_page'));
     }
 
     /**
