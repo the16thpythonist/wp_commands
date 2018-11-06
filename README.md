@@ -50,3 +50,7 @@ were less actual log posts, then the number of recent posts to be displayed
 - Fixed a minor issue with the menu box not using the correct hook for the registration
 - Included the package [wp-cpt-lib](https://github.com/the16thpythonist/wp-cpt-lib.git) to the composer requirements. 
 It is mainly a base package to introduce custom post types in a very object oriented way.
+
+### 0.0.0.8 - 06.11.2018
+
+- Minor bug fixes

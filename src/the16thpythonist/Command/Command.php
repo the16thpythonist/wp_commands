@@ -84,6 +84,11 @@ abstract class Command
     static public $name;
 
     /**
+     * @var array $name_pocket  This array saves the class names as keys and the chosen command names as values.
+     */
+    public static $name_pocket = array();
+
+    /**
      * @var array               this attribute can be modified in the child class to specify which parameters the
      *                          command absolutely expects. Simply putting the key names of the parameters in this array
      *                          will prompt a check if these parameters are contained in the ajax call. If not an
@@ -235,9 +240,10 @@ abstract class Command
      * @static
      * @access public
      */
-    static public function register(string $name) {
+    public static function register(string $name) {
         //static::$name = $name;
         CommandNamePocket::put($name, static::class);
+        static::$name_pocket[static::class] = $name;
 
         $start_command_name = 'start_' . $name;
         $update_command_name = 'update_' . $name;
@@ -270,7 +276,7 @@ abstract class Command
      * @static
      * @access private
      */
-    static public function ajaxStart() {
+    public static function ajaxStart() {
         $command_class = static::class;
         $command = new $command_class();
         $command->runWrapped();
@@ -296,7 +302,7 @@ abstract class Command
      *                          name of the temp dynamic class as well.
      * @param callable $func    The callable object to be used as a command. Has to have to parameter: $args and $log
      */
-    static public function fromCallable(string $name, callable $func) {
+    public static function fromCallable(string $name, callable $func) {
         /*
          * The Command class is created by dynamic code execution, thus no values can be passed into the dynamic code
          * directly. Here the callable function is being put into a static transfer object, which is also know from the
