@@ -8,6 +8,7 @@
 
 namespace the16thpythonist\Wordpress;
 
+use Log\VoidLog;
 use the16thpythonist\Command\Command;
 
 use Log\LogPost;
@@ -60,10 +61,19 @@ class CommandDashboardRegistration
      *
      * Added 14.08.2018
      *
+     * Changed 13.11.2018
+     * Added the registration of the ajax method, that returns the default parameters for a command name
+     *
      * @since 0.0.0.3
      */
     public function register() {
         add_action('wp_dashboard_setup', array($this, 'register_dashboard_widget'));
+
+        // Registering the ajax callback method, which returns the list of default parameters for any command name
+        add_action('wp_ajax_command_default_args', array($this, 'ajaxDefaultArguments'));
+
+        // Register the test command
+        // TestCommand::register('test-command');
     }
 
     /**
@@ -84,6 +94,39 @@ class CommandDashboardRegistration
             self::WIDGET_NAME,
             array($this, 'display_widget')
         );
+    }
+
+    /**
+     * Ajax callback for returning the default parameters for a given command name
+     *
+     * CHANGELOG
+     *
+     * 13.11.2018
+     */
+    public function ajaxDefaultArguments() {
+
+        // The name of the command, for which the arguments are requested has to be given in the GET array
+        if (array_key_exists('name', $_GET)) {
+
+            $name = $_GET['name'];
+
+            if (!array_key_exists($name, Command::$class_pocket)) {
+                throw new \Exception(sprintf('The command name "%s" does not match any registered function'));
+            }
+            // Getting the class name according to the command name. This is saved within a static assoc array of the
+            // "Command" abstract base class
+            $class = Command::$class_pocket[$name];
+
+            // Getting the array, that specifies the expected arguments from the specific class
+            $instance = new $class(VoidLog::class);
+            $args = $instance->params;
+
+            // Returning a response, that contains the default parameters for the given command name
+            echo json_encode($args);
+        } else {
+            throw new \Exception('No command name given!');
+        }
+        wp_die();
     }
 
     /**
@@ -163,43 +206,49 @@ class CommandDashboardRegistration
          * the widget, that actually executing the commands.
          */
         $command_names = CommandNamePocket::$names;
+
+        // 13.11.2018
+        // The value of each possible selection will no longer start with the prefix 'start_', this prefix will be
+        // appended in the function, which actually sends the ajax request.
         ?>
         <div class="command-widget">
             <h2>Execute commands</h2>
             <p>
-                Use the following selection to select the command you wish to execute and then press the execute button.
+                Use the following selection to select a command, fill in the parameters and press the execute button!
             </p>
-            <div id="command-container" style="display: flex; flex-direction: row;">
-                <select id="command-name" title="action" style="height: 25px;width: 80%">
+            <div id="command-container" style="display: flex; flex-direction: column;">
+                <select id="command-name" title="action" style="height: 25px;width: 80%;">
                     <?php foreach ($command_names as $command_name): ?>
-                        <option value="<?php echo 'start_' . $command_name; ?>"><?php echo $command_name; ?></option>
+                        <option value="<?php echo $command_name; ?>"><?php echo $command_name; ?></option>
                     <?php endforeach; ?>
                 </select>
+
+                <div id="parameter-container" style="display: flex; flex-direction: column">
+                </div>
                 <input id="command-call" type="button" value="execute" style="margin-bottom: -5px;height: 25px;width: 20%">
             </div>
             <script type="text/javascript">
-                function sendAJAX() {
-                    var action = 'action=' + select.attr('value');
-                    console.log(action);
-                    jQuery.ajax({
-                        url:        ajaxurl,
-                        type:       'Get',
-                        timeout:    5000,
-                        dataType:   'html',
-                        data:       'action=' + select.attr('value'),
-                        success:    function(response) {
-                            alert(response);
-                        },
-                        error:      function(response) {
-                            console.log(response);
-                        }
+                loadCSS("<?php echo plugin_dir_url(__FILE__) . 'command.css' ?>");
+                let script_url = "<?php echo plugin_dir_url(__FILE__); ?>command.js";
+                console.log(`Attempting to load the script "${script_url}"`);
+                jQuery.getScript(script_url, function () {
+
+                    let call = jQuery('input#command-call');
+                    let select = jQuery('select#command-name');
+
+                    updateParameterContainer();
+
+                    call.on('click', function () {
+                        let command_name = select.attr('value');
+                        let parameters = getCommandParameters();
+                        executeCommand(command_name, parameters);
+                        console.log(`Command "${command_name}" was executed!`);
                     });
-                }
-                var call = jQuery('input#command-call'),
-                    select = jQuery('select#command-name');
-                console.log("Script gets executed");
-                console.log(call.attr('value'));
-                call.on('click', sendAJAX);
+
+                    select.on('change', function () {
+                        updateParameterContainer();
+                    })
+                });
             </script>
             <h2>Command history</h2>
             <p>

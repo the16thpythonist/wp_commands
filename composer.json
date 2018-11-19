@@ -2,7 +2,7 @@
   "name": "the16thpythonist/wp-commands",
   "description": "A admin panel functionality for executing background tasks",
   "type": "library",
-  "version": "0.0.0.5",
+  "version": "0.0.0.9",
   "authors": [
     {
       "name": "Jonas Teufel",

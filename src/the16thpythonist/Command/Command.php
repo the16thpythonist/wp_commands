@@ -89,10 +89,15 @@ abstract class Command
     public static $name_pocket = array();
 
     /**
+     * @var array $class_pocket This array saves the command names as keys and the corresponding classes as values
+     */
+    public static $class_pocket = array();
+
+    /**
      * @var array               this attribute can be modified in the child class to specify which parameters the
      *                          command absolutely expects. Simply putting the key names of the parameters in this array
      *                          will prompt a check if these parameters are contained in the ajax call. If not an
-     *                          excpetion will be thrown.
+     *                          exception will be thrown.
      */
     public $params = array();
 
@@ -169,11 +174,15 @@ abstract class Command
      * Changed 17.07.2018
      * Added logging support
      *
+     * Changed 13.11.2918
+     * Fixed command parameter support
+     *
      * @return void
      * @access public
      */
     public function runWrapped() {
         $args = array();
+        // $this->log->info(var_export($_GET, true));
         foreach ($this->params as $param => $default) {
             if (array_key_exists($param, $_GET)) {
                 $args[$param] = $_GET[$param];
@@ -184,16 +193,26 @@ abstract class Command
         $expected_number_args = count(array_keys($this->params));
         $given_number_args = count(array_keys($args));
         if ($expected_number_args != $given_number_args) {
-            $this->log->warning('Command expected ' . $expected_number_args . ' args, but only received ' . $given_number_args);
-        }
+            $this->log->warning(sprintf('Command expected "%s" args, but only received "%s"', $expected_number_args, $given_number_args));
 
-        // Using the $params array as a basis, as that contains all the default values for the parameters and if values
-        // for those parameters have been passed with the AJAX call, then the default values will be overridden with
-        // the actual ones.
-        $args = array_replace($this->params, $args);
+            // In case the wrong amount was put in, the command execution terminates
+            $this->log->stop();
+            return;
+
+        } else {
+            $this->log->info(sprintf('Got the expected number of args "%s"', $given_number_args));
+
+            // parameter array only copied, if correct amount
+            // Using the $params array as a basis, as that contains all the default values for the parameters and if values
+            // for those parameters have been passed with the AJAX call, then the default values will be overridden with
+            // the actual ones.
+            $args = array_replace($this->params, $args);
+        }
 
         // Finally calling the actual run method, which contains the actual command to be executed
         $this->log->info('Starting command...');
+
+        // Actually running the custom code in the command
         $this->run($args);
 
         $this->log->info('Command ended');
@@ -234,6 +253,10 @@ abstract class Command
      * Removed the static name field of the class being overwritten with the new name, instead the name is being added
      * to the static class "CommandNamePocket", with the class name being the key for retrieving the name later on.
      *
+     * Changed 13.11.2018
+     * Saving the class name and chosen command name as key value pairs to the static arrays name_pocket and
+     * class_pocket.
+     *
      * @param string $name The command name under which this command class it to be callable by ajax requests
      * @return void
      *
@@ -243,7 +266,10 @@ abstract class Command
     public static function register(string $name) {
         //static::$name = $name;
         CommandNamePocket::put($name, static::class);
+
+        // Saving the name of the command and the class name each as keys in associative arrays
         static::$name_pocket[static::class] = $name;
+        static::$class_pocket[$name] = static::class;
 
         $start_command_name = 'start_' . $name;
         $update_command_name = 'update_' . $name;
@@ -324,5 +350,7 @@ abstract class Command
         $code = implode('', $code_lines);
         eval(sprintf($code, $class_name, $class_name, $name));
     }
+
+
 
 }

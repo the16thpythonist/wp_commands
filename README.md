@@ -54,3 +54,10 @@ It is mainly a base package to introduce custom post types in a very object orie
 ### 0.0.0.8 - 06.11.2018
 
 - Minor bug fixes
+
+### 0.0.0.9 - 19.11.2018
+
+- Added a facade, which does all the registration in wordpress
+- Added JS scripts, that make it possible to input parameters to the executed command 
+from the Widget in the Admin dashboard
+- disabled the registration for the separate admin menu. Doing everything over the dashboard widget for now
