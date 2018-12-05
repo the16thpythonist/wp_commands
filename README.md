@@ -61,3 +61,21 @@ It is mainly a base package to introduce custom post types in a very object orie
 - Added JS scripts, that make it possible to input parameters to the executed command 
 from the Widget in the Admin dashboard
 - disabled the registration for the separate admin menu. Doing everything over the dashboard widget for now
+
+### 0.0.0.10 - 05.12.2018
+
+- Added a function to the facade, which will return all the LogPost objects which have been 
+created by previously executed commands
+- Changed the dashboard widget, which is used for command execution
+    - If there are no parameters available for a command, an info message will be displayed,
+    - Changed the design to be more modern and colorful
+- Added a utility AJAX function, which will listen to the action 'get_recent_commands'. It 
+will returns a list with info about the most recently executed commands
+- Renamed the 'command.js' script to 'command-widget.js' as it only contains javascript specific 
+to the functionality of the dashboard widget
+- Added the 'command.js' script, which will be used for utility functions provided by this package
+    - Added function 'getRecentCommands', which will send an Ajax request to receive a list 
+    of info on the most recently executed commands on the website.
+    - Changed the display of the most recently executed commands to update after the execute 
+    Button has been pressed. The entries contain links, which will lead to the edit page of the log 
+    post, that was created by the named command.

@@ -32,7 +32,7 @@ class CommandDashboardRegistration
      * The unique id, with which the widget is being registered in wordpress.
      * This is a constant, because it is not supposed to be customizable whatsoever.
      */
-    const WIDGET_ID     = '16-command-dashboard-widget';
+    const WIDGET_ID     = 'command-dashboard-widget';
 
     /**
      * The title of the widget box in the admin dashboard.
@@ -64,6 +64,9 @@ class CommandDashboardRegistration
      * Changed 13.11.2018
      * Added the registration of the ajax method, that returns the default parameters for a command name
      *
+     * Changed 04.12.2018
+     * Added the stylesheet to be included with wordpress
+     *
      * @since 0.0.0.3
      */
     public function register() {
@@ -72,8 +75,26 @@ class CommandDashboardRegistration
         // Registering the ajax callback method, which returns the list of default parameters for any command name
         add_action('wp_ajax_command_default_args', array($this, 'ajaxDefaultArguments'));
 
+        // 04.12.2018
+        // Adding the stylesheet to be included by wordpress, but only within the admin backend
+        add_action('admin_enqueue_scripts', array($this, 'registerStylesheet'));
+
+        // 26.11.2018
         // Register the test command
         // TestCommand::register('test-command');
+    }
+
+    /**
+     * Adds the stylesheet "command.css", which contains the style/layout rules for the dashboard widget
+     * to be included by wordpress
+     *
+     * CHANGELOG
+     *
+     * Added 04.12.2018
+     */
+    public function registerStylesheet() {
+        // Adding the CSS stylesheet for the widget to wordpress
+        wp_enqueue_style('commands', plugin_dir_url(__FILE__) . 'command.css');
     }
 
     /**
@@ -212,10 +233,7 @@ class CommandDashboardRegistration
         // appended in the function, which actually sends the ajax request.
         ?>
         <div class="command-widget">
-            <h2>Execute commands</h2>
-            <p>
-                Use the following selection to select a command, fill in the parameters and press the execute button!
-            </p>
+            <p>Use the following section to <strong>select a command</strong> and press the button <strong>to execute it</strong>!</p>
             <div id="command-container" style="display: flex; flex-direction: column;">
                 <select id="command-name" title="action" style="height: 25px;width: 80%;">
                     <?php foreach ($command_names as $command_name): ?>
@@ -223,13 +241,23 @@ class CommandDashboardRegistration
                     <?php endforeach; ?>
                 </select>
 
-                <div id="parameter-container" style="display: flex; flex-direction: column">
+                <div class="command-container" id="parameter-container" style="display: flex; flex-direction: column">
                 </div>
                 <input id="command-call" type="button" value="execute" style="margin-bottom: -5px;height: 25px;width: 20%">
             </div>
+
+            <hr>
+
+            <p>
+                View the <strong>3 most recently executed Commands</strong>:
+            </p>
+            <div class="command-container" id="recent-command-container">
+
+            </div>
+
             <script type="text/javascript">
-                loadCSS("<?php echo plugin_dir_url(__FILE__) . 'command.css' ?>");
-                let script_url = "<?php echo plugin_dir_url(__FILE__); ?>command.js";
+                //loadCSS("<?php echo plugin_dir_url(__FILE__) . 'command.css' ?>");
+                let script_url = "<?php echo plugin_dir_url(__FILE__); ?>command-widget.js";
                 console.log(`Attempting to load the script "${script_url}"`);
                 jQuery.getScript(script_url, function () {
 
@@ -237,6 +265,7 @@ class CommandDashboardRegistration
                     let select = jQuery('select#command-name');
 
                     updateParameterContainer();
+                    getRecentCommands(3, displayRecentCommands);
 
                     call.on('click', function () {
                         let command_name = select.attr('value');
@@ -250,20 +279,6 @@ class CommandDashboardRegistration
                     })
                 });
             </script>
-            <h2>Command history</h2>
-            <p>
-                Displaying the last 5 commands, that were executed. (At this moment, the selection is not being
-                updated, once a command was executed from within this widget, please visit
-                <a href="<?php echo $logs_uri;?>">Log Posts</a> to view the log)
-            </p>
-            <div class="">
-                <?php foreach ($commands as $command): ?>
-                    <p>
-                        <?php echo $command['date']; ?>:
-                        <a href="<?php echo $command['url']; ?>"><?php echo $command['title']; ?></a>
-                    </p>
-                <?php endforeach; ?>
-            </div>
         </div>
         <?php
     }
