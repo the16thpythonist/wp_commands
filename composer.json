@@ -23,11 +23,6 @@
     "composer/installers": "~1.0",
     "the16thpythonist/wp-pi-logging": "dev-master",
     "the16thpythonist/wp-cpt-lib": "dev-master",
-    "phpunit/phpunit": "^6",
-    "wp-coding-standards/wpcs": "*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^6",
     "wp-coding-standards/wpcs": "*"
   },
   "autoload": {
