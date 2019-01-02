@@ -20,11 +20,12 @@
     }
   ],
   "require": {
-    "the16thpythonist/wp-pi-logging": "@dev",
-    "the16thpythonist/wp-cpt-lib": "@dev"
+    "the16thpythonist/wp-pi-logging": "dev-master",
+    "the16thpythonist/wp-cpt-lib": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6"
+    "phpunit/phpunit": "^6",
+    "wp-coding-standards/wpcs": "*"
   },
   "autoload": {
     "psr-4": {
