@@ -23,6 +23,7 @@
     "composer/installers": "~1.0",
     "the16thpythonist/wp-pi-logging": "dev-master",
     "the16thpythonist/wp-cpt-lib": "dev-master",
+    "the16thpythonist/wp-data-safe": "dev-master",
     "wp-coding-standards/wpcs": "*"
   },
   "autoload": {
