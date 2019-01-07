@@ -2,7 +2,7 @@
   "name": "the16thpythonist/wp-commands",
   "description": "A admin panel functionality for executing background tasks",
   "type": "library",
-  "version": "0.0.0.9",
+  "version": "0.0.0.10",
   "authors": [
     {
       "name": "Jonas Teufel",
@@ -20,7 +20,6 @@
     }
   ],
   "require": {
-    "composer/installers": "~1.0",
     "the16thpythonist/wp-pi-logging": "dev-master",
     "the16thpythonist/wp-cpt-lib": "dev-master",
     "the16thpythonist/wp-data-safe": "dev-master"
