@@ -194,26 +194,28 @@ class CommandDashboardRegistration
          */
         $commands = array();
         $index = 0;
-        while ((count($commands) < self::$RECENT_COMMANDS_LENGTH) && !(count($commands) >= count($posts))) {
-            $post = $posts[$index];
-            $title = $post->post_title;
+        if (count($posts) > 1) {
+            while ((count($commands) < self::$RECENT_COMMANDS_LENGTH) && !(count($commands) >= count($posts))) {
+                $post = $posts[$index];
+                $title = $post->post_title;
 
-            /*
-             * The substring, for which to be checked to verify the log post being for a command is the log prefix, that
-             * has been defined in the Command class. If it was hardcoded, this could break after a change of that
-             * prefix.
-             * But after the log prefix has been checked it is being removed from the string to get the pure command
-             * name
-             */
-            if (strpos($title, Command::$LOG_PREFIX) !== False) {
-                $command_name = str_replace(Command::$LOG_PREFIX . ': ', '', $title);
-                $commands[] = array(
-                    'title'     => $command_name,
-                    'date'      => date(self::$DATETIME_FORMAT, strtotime($post->post_date)),
-                    'url'       => get_the_permalink($post->ID)
-                );
+                /*
+                 * The substring, for which to be checked to verify the log post being for a command is the log prefix, that
+                 * has been defined in the Command class. If it was hardcoded, this could break after a change of that
+                 * prefix.
+                 * But after the log prefix has been checked it is being removed from the string to get the pure command
+                 * name
+                 */
+                if (strpos($title, Command::$LOG_PREFIX) !== False) {
+                    $command_name = str_replace(Command::$LOG_PREFIX . ': ', '', $title);
+                    $commands[] = array(
+                        'title'     => $command_name,
+                        'date'      => date(self::$DATETIME_FORMAT, strtotime($post->post_date)),
+                        'url'       => get_the_permalink($post->ID)
+                    );
+                }
+                $index++;
             }
-            $index++;
         }
 
         /*
