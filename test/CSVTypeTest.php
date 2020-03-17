@@ -10,9 +10,11 @@ class CSVTypeTest extends TestCase
     // TESTING THE "APPLY" FUNCTION
     // ****************************
 
+    /**
+     * Basic functionality of apply
+     */
     public function testApply(): void
     {
-        // This tests the basic case of a comma separated list of strings to be converted into an array correctly.
         $parameter = "test1,test2,test3";
         $array = CSVType::apply($parameter);
 
@@ -20,18 +22,36 @@ class CSVTypeTest extends TestCase
         $this->assertEquals($expected, $array);
     }
 
+    /**
+     * If the apply method turns a CSV string of numeric values into a list of strings (and not numerals)
+     */
     public function testApplyIntegerList(): void
     {
         $parameter = "1,2,3";
         $array = CSVType::apply($parameter);
 
         $expected = ["1","2","3"];
+        $this->assertSame($expected, $array);
+    }
+
+    /**
+     * If a string without commas will be converted correctly into an array with single element.
+     */
+    public function testApplyNoCommas(): void
+    {
+        $parameter = "hello world";
+        $array = CSVType::apply($parameter);
+
+        $expected = ["hello world"];
         $this->assertEquals($expected, $array);
     }
 
     // TESTING THE CHECK FUNCTION
     // **************************
 
+    /**
+     * Basic functionality of check to detect array type.
+     */
     public function testCheck(): void
     {
         // Tests if an array is checked as true

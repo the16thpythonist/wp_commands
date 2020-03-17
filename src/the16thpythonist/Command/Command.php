@@ -11,6 +11,8 @@ namespace the16thpythonist\Command;
 use Log\LogPost;
 use Log\LogInterface;
 
+use ReflectionClass;
+
 
 /**
  * Class Command
@@ -96,7 +98,7 @@ abstract class Command
      * @var string  This is the string, that is being displayed in front of the title of the log file, that is being
      *              created for each new command
      */
-    public static $LOG_PREFIX = 'Command';
+    public static $LOG_PREFIX = 'Command: ';
 
     /**
      * @var LogInterface $log   the logging object for the command. Can be any object that suffices the LogInterface
@@ -133,10 +135,14 @@ abstract class Command
      * The name of the command is now not longer saved as the static name field (didnt work due to the way static
      * fields work). The name is now retrieved by the 'getName' method. Also using sprintf for Command name formatting
      *
-     * Changed 14.08.2018 - 0.0.0.3
+     * Changed 14.08.2018
      * The title of the log post that is being created for this command is now not hardcoded anymore. The static field
      * LOG_PREFIX is being used as the first part of the title and the separated with a colon is the name of the
      * command, that was executed.
+     *
+     * Changed 17.03.2020
+     * Changed the format for the log name from "%s: %s" to "%s%s" so the LOG_PREFIX is now a true prefix. Moved the
+     * Dot and the whitespace to the actual prefix variable...
      *
      * @see Log/LogPost
      * @see Log/LogInterface
@@ -147,7 +153,7 @@ abstract class Command
      */
     public function __construct($log_class=LogPost::class)
     {
-        $this->log = new $log_class(NULL, sprintf('%s: %s', self::$LOG_PREFIX, $this->getName()));
+        $this->log = new $log_class(NULL, sprintf('%s%s', self::$LOG_PREFIX, $this->getName()));
         $this->log->start();
     }
 
@@ -182,6 +188,9 @@ abstract class Command
      * Changed 15.03.2020
      * Added the Documentation
      *
+     * Changed 17.03.2020
+     * Updated the getting of the command name for the ajax call to the updated way to do it: via the getName() method.
+     *
      * @param array $args The arguments to be passed to the command
      * @return void
      *
@@ -193,7 +202,7 @@ abstract class Command
 
         // Adding the argument, which specifies, which actual ajax action to execute as the start varition of this
         // very command object itself
-        $command_name = 'start_' . static::$name;
+        $command_name = static::getName();
         $args['action'] = $command_name;
         wp_remote_get($ajax_url, $args);
     }
@@ -221,46 +230,102 @@ abstract class Command
      * Changed 13.11.2918
      * Fixed command parameter support
      *
-     * @return void
+     * Changed 16.03.2020
+     * Rewrote the whole method sort of. Most importantly added a try catch block so that the command exits properly
+     * even if an error occurs... Also wrapped all code relating to the args into "extractArgs" method.
+     *
+     * Changed 17.03.2020
+     * Changed the return from void to int. The function now returns the integer exit code for different cases of the
+     * try catch block.
+     *
+     * @return int
      * @access public
      */
-    public function runWrapped() {
-        $args = array();
+    public function runWrapped(): int
+    {
+        $exit_code = 0;
+        try {
+            $args = $this->extractArgs();
 
-        foreach ($this->params as $param => $default) {
-            if (array_key_exists($param, $_GET)) {
-                $args[$param] = $_GET[$param];
+            $this->log->info('Starting command...');
+
+            // Actually running the specific implementation of the run method with the extracted arguments.
+            // So basically the actual command itself.
+            $this->run($args);
+
+            $this->log->info('Command ended with exit code 0');
+        } catch (\ArgumentCountError $e) {
+            $this->log->error($e->getMessage());
+            $this->log->info('Command ended with exit code 7');
+            $exit_code = 7;
+        } catch (\Exception $e) {
+            $this->log->error($e->getMessage());
+            $this->log->info('Command ended with exit code 1');
+            $exit_code = 1;
+        } finally {
+            $this->log->stop();
+            return $exit_code;
+        }
+    }
+
+    protected function extractArgs(): array
+    {
+        $args = static::argsFromGET($this->params);
+        if (static::isParamsExtendedFormat($this->params)) {
+            return static::processArgsExtended($this->params, $args);
+        } else {
+            return static::processArgsBasic($this->params, $args);
+        }
+    }
+
+    protected static function isParamsExtendedFormat(array $params): bool
+    {
+        $param_formats = [];
+        foreach ($params as $key => $value) {
+            if (is_string($value)) {
+                $param_formats[] = 'basic';
+            }
+            elseif (is_array($value)) {
+                // TODO: Validate if the array is correct maybe?
+                $param_formats[] = 'extended';
+            }
+            else {
+                $message = sprintf("The values for the params array in class '%s' must either be string for basic notation or settings arrays for extended notation!", static::class);
+                throw new \ParseError($message);
             }
         }
-        // Logging an error message, in case the amount of arguments found in the $_GET array does not match the number
-        // of arguments expected by the comment
-        $expected_number_args = count(array_keys($this->params));
-        $given_number_args = count(array_keys($args));
-        if ($expected_number_args != $given_number_args) {
-            $this->log->warning(sprintf('Command expected "%s" args, but only received "%s"', $expected_number_args, $given_number_args));
 
-            // In case the wrong amount was put in, the command execution terminates
-            $this->log->stop();
-            return;
-
-        } else {
-            $this->log->info(sprintf('Got the expected number of args "%s"', $given_number_args));
-
-            // parameter array only copied, if correct amount
-            // Using the $params array as a basis, as that contains all the default values for the parameters and if values
-            // for those parameters have been passed with the AJAX call, then the default values will be overridden with
-            // the actual ones.
-            $args = array_replace($this->params, $args);
+        if (in_array('basic', $param_formats) && in_array('extended', $param_formats)) {
+            $message = sprintf("You cannot combine the usage of basic and extended notation for class '%s'", static::class);
+            throw new \ParseError($message);
         }
 
-        // Finally calling the actual run method, which contains the actual command to be executed
-        $this->log->info('Starting command...');
+        return in_array('extended', $param_formats);
+    }
 
-        // Actually running the custom code in the command
-        $this->run($args);
+    protected static function processArgsBasic(array $params, array $args): array
+    {
+        return array_replace($params, $args);
+    }
 
-        $this->log->info('Command ended');
-        $this->log->stop();
+    protected static function processArgsExtended(array $params, array $args): array
+    {
+        $processed_args = [];
+        foreach ($params as $name => $settings) {
+            if (key_exists($name, $args)) {
+                $type_class = $settings['type'];
+                $value = $type_class::apply($args[$name]);
+                $processed_args[$name] = $value;
+            } else {
+                if ($settings['optional']) {
+                    $processed_args[$name] = $settings['default'];
+                } else {
+                    $message = "Command has been invoked with positional argument missing";
+                    throw new \ArgumentCountError($message);
+                }
+            }
+        }
+        return $processed_args;
     }
 
     /**
@@ -282,9 +347,10 @@ abstract class Command
      *
      * Added 15.03.2020
      */
-    private function argumentsFromGET(){
+    protected static function argsFromGET(array $params): array
+    {
         $args = array();
-        foreach ($this->params as $param => $default) {
+        foreach ($params as $param => $default) {
             // When a command is being invoked from the front end, the arguments to this command call are being passed
             // to the server via the _GET assoc array.
             // "$this->params" is an associative array, whose keys represent the names of the arguments, which are
@@ -314,11 +380,15 @@ abstract class Command
      *
      * Added 09.08.2018
      *
+     * Changed 16.03.2020
+     * Made the method static
+     *
      * @since 0.0.0.1
      *
      * @return string
      */
-    public function getName() {
+    public static function getName(): string
+    {
         // The "CommandNamePocket" class is basically a static class, which acts as an associative array. During the
         // "register" method for the command the string name of the command has been saved in it, with the key being
         // the class name of this very class.
@@ -329,68 +399,32 @@ abstract class Command
         return CommandNamePocket::pick(static::class);
     }
 
-    // REGISTERING AND UNREGISTERING THE COMMAND
-    // *****************************************
-
-    /**
-     * Registers the static methods to be called when the according ajax request are made
-     *
-     * Based on the command name given, two variations of this name will be made 'start_{name}' and 'update_{name}'
-     * and these will be registered as action names for wordpress ajax requests, with the two static methods of this
-     * class being the targets of those ajax calls.
-     *
-     * CHANGELOG
-     *
-     * Added 22.06.2018
-     *
-     * Changed 17.07.2018
-     * The the start command name is now additionally appended to the static array within the CommandReference class,
-     * so that there is always a available list of commands that are registered and ready to be called.
-     *
-     * Changed 14.08.2018
-     * Removed the static name field of the class being overwritten with the new name, instead the name is being added
-     * to the static class "CommandNamePocket", with the class name being the key for retrieving the name later on.
-     *
-     * Changed 13.11.2018
-     * Saving the class name and chosen command name as key value pairs to the static arrays name_pocket and
-     * class_pocket.
-     *
-     * Changed 16.03.2020
-     * Moved the functionality of this method into two separate methods: "registerWordpress" is now responsible to
-     * register the command for wordpress by adding the ajax action hook and "registerCommand" is not responsible
-     * to register the command within the command name pocket and the command reference...
-     *
-     * @param string $name The command name under which this command class it to be callable by ajax requests
-     * @return void
-     *
-     * @static
-     * @access public
-     */
-    public static function register(string $name) {
-        static::registerWordpress($name);
-        static::registerCommand($name);
+    // TODO: Since this function relies on the usage of a refelection class it is rather inefficient, better cache it.
+    public static function getParamsArray(): array
+    {
+        $reflection_class = new ReflectionClass(static::class);
+        $default_properties = $reflection_class->getDefaultProperties();
+        return $default_properties['params'];
     }
 
-    protected static function registerCommand(string $name): void
+    public static function getParameterDefaultValues(): array
     {
-        // So this line is weird...
-        // This is the place, where the name of the command is being saved to be used later, so one might be asking
-        // why not just assign the value to a static attribute of the class? The short answer is because it is not
-        // possible for a child class. The long answer can be found in the Documentation for the "CommandNamePocket"
-        // class.
-        // This class basically works like a static associative array, where the name of the command is saved externally
-        // The name is being associated with the CLASS NAME of this very class. It will be able to be accessed later on
-        // by this class name as well.
-        CommandNamePocket::put($name, static::class);
-
-        // Adding the command to a static container, which will contain a list of all the command names registered
-        // during the runtime of a PHP instance.
-        CommandReference::addCommand($name);
+        $params = static::getParamsArray();
+        if (static::isParamsExtendedFormat($params)) {
+            array_walk($params, function (&$value, $key) {$value = $value['default']; });
+        }
+        return $params;
     }
 
-    protected static function registerWordpress(string $name): void
+    public static function getParameterTypes(): array
     {
-        add_action('wp_ajax_' . $name, array(static::class, 'ajaxStart'));
+        $params = static::getParamsArray();
+        if (static::isParamsExtendedFormat($params)) {
+            array_walk($params, function (&$value, $key) {$value = $value['type']; });
+        } else {
+            array_walk($params, function (&$value, $key) {$value = 'string'; });
+        }
+        return $params;
     }
 
     /**
@@ -416,6 +450,7 @@ abstract class Command
     public static function ajaxStart() {
         $command = static::lazyInstance();
         $command->runWrapped();
+        wp_die();
     }
 
     /**
@@ -479,6 +514,212 @@ abstract class Command
         );
         $code = implode('', $code_lines);
         eval(sprintf($code, $class_name, $class_name, $name));
+    }
+
+    // REGISTERING AND UNREGISTERING THE COMMAND
+    // *****************************************
+
+    /**
+     * Registers the static methods to be called when the according ajax request are made
+     *
+     * Based on the command name given, two variations of this name will be made 'start_{name}' and 'update_{name}'
+     * and these will be registered as action names for wordpress ajax requests, with the two static methods of this
+     * class being the targets of those ajax calls.
+     *
+     * CHANGELOG
+     *
+     * Added 22.06.2018
+     *
+     * Changed 17.07.2018
+     * The the start command name is now additionally appended to the static array within the CommandReference class,
+     * so that there is always a available list of commands that are registered and ready to be called.
+     *
+     * Changed 14.08.2018
+     * Removed the static name field of the class being overwritten with the new name, instead the name is being added
+     * to the static class "CommandNamePocket", with the class name being the key for retrieving the name later on.
+     *
+     * Changed 13.11.2018
+     * Saving the class name and chosen command name as key value pairs to the static arrays name_pocket and
+     * class_pocket.
+     *
+     * Changed 16.03.2020
+     * Moved the functionality of this method into two separate methods: "registerWordpress" is now responsible to
+     * register the command for wordpress by adding the ajax action hook and "registerCommand" is not responsible
+     * to register the command within the command name pocket and the command reference...
+     *
+     * @param string $name The command name under which this command class it to be callable by ajax requests
+     * @return void
+     *
+     * @static
+     * @access public
+     */
+    public static function register(string $name) {
+        static::registerWordpress($name);
+        static::registerCommand($name);
+    }
+
+    /**
+     * Registers the command to be available for execution.
+     *
+     * This function registers the given string command name in the static associative array "CommandNamePocket".
+     * This array is used to store the string names for all the commands during runtime in a static class.
+     *
+     * EXAMPLE
+     * Consider the instance
+     *
+     * ```php
+     * // Registering the command
+     * TestCommand::registerCommand("test_command");
+     *
+     * CommandNamePocket::contains("test_command"); // true
+     * ```
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     *
+     * @param string $name
+     */
+    protected static function registerCommand(string $name): void
+    {
+        // So this line is weird...
+        // This is the place, where the name of the command is being saved to be used later, so one might be asking
+        // why not just assign the value to a static attribute of the class? The short answer is because it is not
+        // possible for a child class. The long answer can be found in the Documentation for the "CommandNamePocket"
+        // class.
+        // This class basically works like a static associative array, where the name of the command is saved externally
+        // The name is being associated with the CLASS NAME of this very class. It will be able to be accessed later on
+        // by this class name as well.
+        CommandNamePocket::put($name, static::class);
+
+        // Adding the command to a static container, which will contain a list of all the command names registered
+        // during the runtime of a PHP instance.
+        CommandReference::addCommand($name);
+    }
+
+    /**
+     * Registers the command to be available to the wordpress front end
+     *
+     * This function registers the given CHILD class of the "Command" base class to be available to the wordpress
+     * front end, by registering the "runWrapped" method as a new AJAX callback for the given command name.
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     *
+     * @param string $name
+     */
+    protected static function registerWordpress(string $name): void
+    {
+        // "add_action" is the wordpress function which is used to register a callable as the callback to a specific
+        // event. The event in this case is triggered when an ajax request with the name of this command is sent to
+        // the server.
+        add_action('wp_ajax_' . $name, array(static::class, 'ajaxStart'));
+    }
+
+    /**
+     * Whether or not the command has already been registered.
+     *
+     * EXAMPLE
+     * Assume TestCommand to be a child class of Command
+     *
+     * ```php
+     * TestCommand::isRegistered(); // false
+     * TestCommand::register();
+     * TestCommand::isRegistered(); // true
+     * ```
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     *
+     * @return bool
+     */
+    public static function isRegistered(): bool
+    {
+        return CommandNamePocket::hasKey(static::class);
+    }
+
+    /**
+     * Make the command unavailable again, after it has been registered.
+     *
+     * This function unregisters the command again from both the CommandNamePocket and wordpress itself.
+     * The function will throw an AssertionError in case it is called, when the command isn't actually registered yet.
+     *
+     * EXAMPLE
+     *
+     * Assume TestCommand to be a subclass of Command.
+     * ```php
+     * // No prior call to register...
+     * TestCommand::unregister(); // throws error
+     * ```
+     *
+     * ```php
+     * TestCommand::register();
+     * TestCommand::isRegistered(); // true
+     * TestCommand::unregister();
+     * TestCommand::isRegistered(); // false
+     * ```
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     *
+     * @param string $name
+     * @throws \AssertionError
+     */
+    public static function unregister(string $name): void
+    {
+        if (!static::isRegistered()) {
+            $message = sprintf("You cannot unregister the command '%s' before it has been registered", static::class);
+            throw new \AssertionError($message);
+        }
+
+        static::unregisterWordpress();
+        static::unregisterCommand();
+    }
+
+    /**
+     * Makes the command unavailable for execution.
+     *
+     * During the registration process commands are being registered as a key value pair within the static class
+     * "CommandNamePocket". This class keeps track of the string command names during runtime and also presents a
+     * global entry point to acquire a list of all available commands.
+     *
+     * This method unregisters the key value pair within CommandNamePocket, thus making it unable to be found by the
+     * application.
+     *
+     * NOTE
+     * This method does not check whether the command is actually registered yet and might run into an unhandled,
+     * unknown error, when it is being called in such a case
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     */
+    protected static function unregisterCommand(): void
+    {
+        CommandNamePocket::withdraw(static::class);
+    }
+
+    /**
+     * Makes the command unavailable for the wordpress front end
+     *
+     * The registration process for a command includes registering the "runWrapped" method of the subclass as a new
+     * callback for a wordpress ajax action, thus making the command execute, when the command name is called via
+     * ajax.
+     *
+     * This method unregisters this callback binding.
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     * Added 16.03.2020
+     */
+    protected static function unregisterWordpress(): void
+    {
+        $name = static::getName();
+        remove_action('wp_ajax_' . $name);
     }
 
 

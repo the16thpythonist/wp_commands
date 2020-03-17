@@ -98,4 +98,49 @@ class CommandNamePocket
         return self::$names[$class];
     }
 
+    public static function withdraw(string $class): void
+    {
+        unset(self::$names[$class]);
+    }
+
+    public static function getClass(string $name): string {
+        foreach (self::$names as $class => $value) {
+            if ($value == $name) {
+                return $class;
+            }
+        }
+        $message = sprintf("corresponding class for the command name '%s' cannot be found", $name);
+        throw new \Error();
+    }
+
+    /**
+     * Returns whether or not the assoc array contains the given value (command name)
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     *
+     * @param string $name
+     * @return bool
+     */
+    public static function contains(string $name): bool
+    {
+        return in_array($name, self::$names);
+    }
+
+    /**
+     * Returns whether or not the assoc array contains the given key (class name)
+     *
+     * CHANGELOG
+     *
+     * Added 16.03.2020
+     *
+     * @param string $class
+     * @return bool
+     */
+    public static function hasKey(string $class): bool
+    {
+        return array_key_exists($class, self::$names);
+    }
+
 }

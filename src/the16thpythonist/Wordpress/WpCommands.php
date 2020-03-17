@@ -45,38 +45,14 @@ class WpCommands
      *
      * Added 04.12.2018
      *
+     * Changed 17.03.2019
+     * Moved the actual implementation to a static method of the WpCommandsRegistration class because that class also
+     * needs the method and we need to avoid a circular dependency
+     *
      * @param int $count    The max(!) amount of LogPost objects to be in the returned array
      * @return array
      */
     public static function getCommandLogs(int $count=-1) {
-
-        // Fetching all the posts objects that match the Log post type and which have the necessary prefix in the title
-        $args = array(
-            'post_type'         => LogPost::$POST_TYPE,
-            'posts_per_page'    => $count,
-            'orderby'           => 'date',
-            'order'             => 'DESC',
-            's'                 => Command::$LOG_PREFIX
-        );
-        $query = new \WP_Query($args);
-        $posts = $query->get_posts();
-
-        // Since the posts array only contains the raw WP_Post objects. They are being wrapped by the
-        // LogPost class
-        $log_posts = array();
-        /** @var \WP_Post $post */
-        foreach ($posts as $post) {
-            // These post properties will be needed to create the LogPost wrapper object
-            $post_title = $post->post_title;
-            $post_id = $post->ID;
-
-            // Loading all the log data into the wrapper object and then adding it to the list of
-            // objects to be returned
-            $log_post = new LogPost($post_id, $post_title);
-            $log_post->load();
-            $log_posts[] = $log_post;
-        }
-
-        return $log_posts;
+        return WpCommandsRegistration::getCommandLogs($count);
     }
 }

@@ -11,6 +11,8 @@ namespace the16thpythonist\Wordpress;
 use Log\LogPost;
 use the16thpythonist\Command\Command;
 
+use the16thpythonist\Command\CommandNamePocket;
+
 /**
  * Class WpCommandsRegistration
  *
@@ -36,6 +38,9 @@ class WpCommandsRegistration
 
     }
 
+    // REGISTRATION PROCESS
+    // ********************
+
     /**
      *
      * CHANGELOG
@@ -57,8 +62,6 @@ class WpCommandsRegistration
         $this->registerScripts();
     }
 
-    // 04.12.2018
-    // REGISTER OF THE USED STYLES AND SCRIPTS
     /**
      * This function hooks the scripts enqueue's into the admin hook AS WELL AS the normal user hook, which means
      * all the utility scripts can be used from any user as well!
@@ -85,19 +88,30 @@ class WpCommandsRegistration
         wp_enqueue_script('commands-utility', plugin_dir_url(__FILE__) . 'command.js');
     }
 
-    // 04.12.2018
-    // GENERAL UTILITY FUNCTIONS PROVIDED VIA AJAX
     /**
      * This function registers all the AJAX utilities within wordpress
      *
      * CHANGELOG
      *
      * Added 04.12.2018
+     *
+     * Changed 17.03.2020
+     * Added the registration of the "wp_ajax_get_command_default_args". This was originally implemented within
+     * CommandDashboardRegistration, but it didnt make sense there conceptionally, so it has been moved here.
+     * Added the registration of the "wp_ajax_get_command_arg_types", which will return an array of types for the
+     * arguments.
      */
     public function registerAjax() {
         // Adding a function which will provide a list of the most recent commands, that have been executed
         add_action('wp_ajax_get_recent_commands', array($this, 'ajaxGetRecentCommands'));
+
+        // 17.03.2020
+        add_action('wp_ajax_get_command_default_args', [$this, 'ajaxGetArgumentDefaultValues']);
+        add_action('wp_ajax_get_command_arg_types', [$this, 'ajaxGetArgumentTypes']);
     }
+
+    // AJAX CALLBACKS
+    // **************
 
     /**
      * Responds to an AJAX GET request with the action 'get_recent_commands'.
@@ -122,7 +136,7 @@ class WpCommandsRegistration
 
         // First we get the logs for all these past commands. Because the info what will be returned for each command
         // will be the name of the command, that was executed, the date when and the link to the log file
-        $log_posts = WpCommands::getCommandLogs($amount);
+        $log_posts = self::getCommandLogs($amount);
         $results = array();
         /** @var LogPost $log_post */
         foreach ($log_posts as $log_post) {
@@ -130,10 +144,11 @@ class WpCommandsRegistration
             // Deriving the command name from the name of the log file, because the command log files are created by
             // using exactly the command name and a prefix. We will simply get rid of the prefix
             $log_name = $log_post->subject;
-            $command_name = str_replace(Command::$LOG_PREFIX, '', $log_name);
+            $command_name = self::getCommandNameFromLogName($log_name);
 
             // The url to the log file can simply be generated as a wordpress permalink and we only need the post id
             // of the log to do that!
+            // TODO: This is the responsibility of the LOG class!
             $command_log_url = get_edit_post_link($log_post->post_id);
 
             // The date at which the command was started is even saved as a separate attribute of the LogPost!
@@ -152,4 +167,95 @@ class WpCommandsRegistration
         wp_die();
     }
 
+    public function ajaxGetArgumentDefaultValues() {
+        try {
+            $name = $_GET['name'];
+
+            static::validateCommandRegistered($name);
+
+            $class = CommandNamePocket::getClass($name);
+            $defaults = call_user_func([$class, 'getArgumentDefaultValues']);
+
+            echo json_encode($defaults);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        } finally {
+            wp_die();
+        }
+    }
+
+    public function ajaxGetArgumentTypes() {
+        try {
+            $name = $_GET['name'];
+
+            static::validateCommandRegistered($name);
+
+            $class = CommandNamePocket::getClass($name);
+            $types = call_user_func([$class, 'getArgumentTypes']);
+
+            echo json_encode($types);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        } finally {
+            wp_die();
+        }
+    }
+
+    // GENERAL UTILITY FUNCTIONS
+    // *************************
+
+    protected static function validateCommandRegistered(string $command_name): void
+    {
+        if (!CommandNamePocket::contains($command_name)) {
+            $message = "Command for which to get the default arguments is not registered!";
+            throw new \AssertionError($message);
+        }
+    }
+
+    /**
+     * Returns an array of LogPost object, where each log was the output of a previously executed Command.
+     * The Logs in the array will be sorted by date and in a descending order, which means, that those Commands
+     * issued most recently will be the first items in the list.
+     *
+     * CHANGELOG
+     *
+     * Added 04.12.2018
+     *
+     * @param int $count    The max(!) amount of LogPost objects to be in the returned array
+     * @return array
+     */
+    public static function getCommandLogs(int $count=-1) {
+
+        // Fetching all the posts objects that match the Log post type and which have the necessary prefix in the title
+        $args = array(
+            'post_type'         => LogPost::$POST_TYPE,
+            'posts_per_page'    => $count,
+            'orderby'           => 'date',
+            'order'             => 'DESC',
+            's'                 => Command::$LOG_PREFIX
+        );
+        $query = new \WP_Query($args);
+        $posts = $query->get_posts();
+
+        // Since the posts array only contains the raw WP_Post objects. They are being wrapped by the
+        // LogPost class
+        $log_posts = array();
+        /** @var \WP_Post $post */
+        foreach ($posts as $post) {
+            // Loading all the log data into the wrapper object and then adding it to the list of
+            // objects to be returned
+            $log_post = new LogPost($post->ID, $post->post_title);
+            $log_post->load();
+            $log_posts[] = $log_post;
+        }
+
+        return $log_posts;
+    }
+
+    protected static function getCommandNameFromLogName(string $log_name): string
+    {
+        // The name of the log is created for every command in the same name. That is by simply putting a prefix in
+        // front of the command name.
+        return str_replace(Command::$LOG_PREFIX, '', $log_name);
+    }
 }

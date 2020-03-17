@@ -67,21 +67,19 @@ class CommandDashboardRegistration
      * Changed 04.12.2018
      * Added the stylesheet to be included with wordpress
      *
+     * Changed 17.03.2020
+     * Removed the registration of the TestCommand. This is something the user should decide to do on his own.
+     * Removed the registration of "wp_ajax_command_default_args". It has been moved to the WpCommandsRegistration
+     * class as it makes more sense there conceptionally.
+     *
      * @since 0.0.0.3
      */
     public function register() {
         add_action('wp_dashboard_setup', array($this, 'register_dashboard_widget'));
 
-        // Registering the ajax callback method, which returns the list of default parameters for any command name
-        add_action('wp_ajax_command_default_args', array($this, 'ajaxDefaultArguments'));
-
         // 04.12.2018
         // Adding the stylesheet to be included by wordpress, but only within the admin backend
         add_action('admin_enqueue_scripts', array($this, 'registerStylesheet'));
-
-        // 26.11.2018
-        // Register the test command
-        // TestCommand::register('test-command');
     }
 
     /**
@@ -115,39 +113,6 @@ class CommandDashboardRegistration
             self::WIDGET_NAME,
             array($this, 'display_widget')
         );
-    }
-
-    /**
-     * Ajax callback for returning the default parameters for a given command name
-     *
-     * CHANGELOG
-     *
-     * 13.11.2018
-     */
-    public function ajaxDefaultArguments() {
-
-        // The name of the command, for which the arguments are requested has to be given in the GET array
-        if (array_key_exists('name', $_GET)) {
-
-            $name = $_GET['name'];
-
-            if (!array_key_exists($name, Command::$class_pocket)) {
-                throw new \Exception(sprintf('The command name "%s" does not match any registered function'));
-            }
-            // Getting the class name according to the command name. This is saved within a static assoc array of the
-            // "Command" abstract base class
-            $class = Command::$class_pocket[$name];
-
-            // Getting the array, that specifies the expected arguments from the specific class
-            $instance = new $class(VoidLog::class);
-            $args = $instance->params;
-
-            // Returning a response, that contains the default parameters for the given command name
-            echo json_encode($args);
-        } else {
-            throw new \Exception('No command name given!');
-        }
-        wp_die();
     }
 
     /**

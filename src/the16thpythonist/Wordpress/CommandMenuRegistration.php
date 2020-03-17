@@ -21,6 +21,7 @@ use the16thpythonist\Command\CommandReference;
  * Added 17.07.2018
  *
  * @since 0.0.0.0
+ * @deprecated
  *
  * @package the16thpythonist\Wordpress
  */

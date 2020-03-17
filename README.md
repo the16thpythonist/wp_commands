@@ -79,3 +79,5 @@ to the functionality of the dashboard widget
     - Changed the display of the most recently executed commands to update after the execute 
     Button has been pressed. The entries contain links, which will lead to the edit page of the log 
     post, that was created by the named command.
+   
+### 0.0.1  - 17.03.2020
