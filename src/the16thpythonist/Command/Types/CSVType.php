@@ -28,6 +28,8 @@ namespace the16thpythonist\Command\Types;
  */
 class CSVType extends ParameterType
 {
+    const NAME = 'csv array';
+
     /**
      * Converts a given string parameter into an array of strings
      *
@@ -53,6 +55,16 @@ class CSVType extends ParameterType
         return str_getcsv($parameter);
     }
 
+    public static function unapply($value): string
+    {
+        if (static::check($value)) {
+            return implode(',', $value);
+        } else {
+            $message = sprintf("cannot unapply CSVType on a value, which is not type '%s'", static::NAME);
+            throw new \TypeError($message);
+        }
+    }
+
     /**
      * Whether or not the given value is of the array type.
      *
@@ -66,5 +78,10 @@ class CSVType extends ParameterType
     public static function check($value): bool
     {
         return is_array($value);
+    }
+
+    public static function getName(): string
+    {
+        return static::NAME;
     }
 }

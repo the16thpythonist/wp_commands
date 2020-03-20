@@ -13,6 +13,18 @@ use Log\LogInterface;
 
 use ReflectionClass;
 
+/*
+ * public interface of Command:
+ *
+ *      start($args)
+ *      ajaxStart()
+ *
+ *      static register()
+ *      static unregister()
+ *      static getName()
+ *      static fromCallable() // Not the Concern of this class make a separate one.
+ */
+
 
 /**
  * Class Command
@@ -238,10 +250,13 @@ abstract class Command
      * Changed the return from void to int. The function now returns the integer exit code for different cases of the
      * try catch block.
      *
+     * Changed 19.03.2020
+     * Made the method protected.
+     *
      * @return int
      * @access public
      */
-    public function runWrapped(): int
+    protected function runWrapped(): int
     {
         $exit_code = 0;
         try {
@@ -278,6 +293,29 @@ abstract class Command
         }
     }
 
+    /**
+     * Whether or not the passed "params" array is defined in the extended notation
+     *
+     * The params array to be passed to this function refers to the "params" array, which has to be defined within a
+     * subclass of "Command" to specify the parameters, which the command expects.
+     * This array can be defined in two ways:
+     * 1) Basic: The basic notation was the original way of defining the params array and it is being further supported
+     * to retain backward compatibility. For the basic notation the keys of the array would be the names of the
+     * parameters and the values of the array would be strings, that contain the default values for the parameters.
+     * 2) Extended: The new extended notation has the keys also be the names of the parameters, but the values are
+     * associative arrays, which contain key value definitions for the settings regarding this parameter. These
+     * settings involve whether or not the parameter is optional, its type, default value etc.
+     *
+     * NOTE: It is not supported to mix the two notations within a single params array. Thus this method will
+     * throw an error in case this is attempted!
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     *
+     * @param array $params
+     * @return bool
+     */
     protected static function isParamsExtendedFormat(array $params): bool
     {
         $param_formats = [];
@@ -295,6 +333,8 @@ abstract class Command
             }
         }
 
+        // If the params array contains both parameters in simple and extended notation, that is not supported.
+        // the params array notation has to be either basic or extended.
         if (in_array('basic', $param_formats) && in_array('extended', $param_formats)) {
             $message = sprintf("You cannot combine the usage of basic and extended notation for class '%s'", static::class);
             throw new \ParseError($message);
@@ -303,11 +343,66 @@ abstract class Command
         return in_array('extended', $param_formats);
     }
 
+    /**
+     * will construct the arguments array for the command call according to basic notation of the params array
+     *
+     * This function takes the params array and the args array as arguments.
+     * The params array has to be defined according to the "basic" notation. That is the keys being the string names of
+     * the epxtected parameters and the values being the string default values for those parameters.
+     * The args array is the array of the arguments which was extracted from the _GET array for the command call. It
+     * does not have to contain all the parameter values, as the missing ones are being substituted with the default
+     * values defined in the params array
+     *
+     * EXAMPLE
+     *
+     * ```php
+     * $params = [ "param1" => "default", "param2" => "default"];
+     * $args = [ "param1" => "1" ];
+     * Command::processArgsBasic($params, $args); // ["param1" => "1", "param2" => "default"]
+     * ```
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     *
+     * @param array $params
+     * @param array $args
+     * @return array
+     */
     protected static function processArgsBasic(array $params, array $args): array
     {
         return array_replace($params, $args);
     }
 
+    /**
+     * Will construct the arguments array for the command call according to the extended params notation.
+     *
+     * This function takes the params array and the args array as arguments.
+     * The params array refers to the array, which is defined within a subclass of "Command", which specifies the
+     * parameters, the command expects for its execution. The extended notation refers to the following params array
+     * structure: The string keys are the names of the expected parameters and the values are assoc arrays, which
+     * contain the settings for this parameter.
+     * The args array is the array of the arguments which was extracted from the _GET array for the command call. It
+     * does not have to contain all the parameter values, as the missing ones are being substituted with the default
+     * values defined in the params array
+     *
+     * EXAMPLE
+     *
+     * ```php
+     * $params = [ "param1" => ["optional" => true, "type" => StringType::class, "default" => "default"],
+     *             "param2" => ["optional" => false, "type" => IntType::class, "default" => 0]];
+     * $args = ["param2" => "10"];
+     * Command::processArgsExtended($params, $args); // ["param1" => "default", "param2" => 10]
+     * ```
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     *
+     * @param array $params
+     * @param array $args
+     * @return array
+     */
     protected static function processArgsExtended(array $params, array $args): array
     {
         $processed_args = [];
@@ -397,34 +492,6 @@ abstract class Command
         // It is just important, that the "pick" method will return the command name, that has been associated with this
         // class.
         return CommandNamePocket::pick(static::class);
-    }
-
-    // TODO: Since this function relies on the usage of a refelection class it is rather inefficient, better cache it.
-    public static function getParamsArray(): array
-    {
-        $reflection_class = new ReflectionClass(static::class);
-        $default_properties = $reflection_class->getDefaultProperties();
-        return $default_properties['params'];
-    }
-
-    public static function getParameterDefaultValues(): array
-    {
-        $params = static::getParamsArray();
-        if (static::isParamsExtendedFormat($params)) {
-            array_walk($params, function (&$value, $key) {$value = $value['default']; });
-        }
-        return $params;
-    }
-
-    public static function getParameterTypes(): array
-    {
-        $params = static::getParamsArray();
-        if (static::isParamsExtendedFormat($params)) {
-            array_walk($params, function (&$value, $key) {$value = $value['type']; });
-        } else {
-            array_walk($params, function (&$value, $key) {$value = 'string'; });
-        }
-        return $params;
     }
 
     /**
@@ -591,10 +658,6 @@ abstract class Command
         // The name is being associated with the CLASS NAME of this very class. It will be able to be accessed later on
         // by this class name as well.
         CommandNamePocket::put($name, static::class);
-
-        // Adding the command to a static container, which will contain a list of all the command names registered
-        // during the runtime of a PHP instance.
-        CommandReference::addCommand($name);
     }
 
     /**

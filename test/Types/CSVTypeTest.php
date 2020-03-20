@@ -7,8 +7,7 @@ use the16thpythonist\Command\Types\CSVType;
 
 class CSVTypeTest extends TestCase
 {
-    // TESTING THE "APPLY" FUNCTION
-    // ****************************
+    // THE "apply" METHOD
 
     /**
      * Basic functionality of apply
@@ -46,8 +45,7 @@ class CSVTypeTest extends TestCase
         $this->assertEquals($expected, $array);
     }
 
-    // TESTING THE CHECK FUNCTION
-    // **************************
+    // THE "check" METHOD
 
     /**
      * Basic functionality of check to detect array type.
@@ -57,5 +55,30 @@ class CSVTypeTest extends TestCase
         // Tests if an array is checked as true
         $value = ["test1", "test2", "test3"];
         $this->assertTrue(CSVType::check($value));
+    }
+
+    // THE "unapply" METHOD
+
+    /**
+     * If "unapply" works on a basic array to string conversion
+     */
+    public function testUnapply(): void
+    {
+        $value = ["test1", "test2"];
+        $string = CSVType::unapply($value);
+
+        $expected = "test1,test2";
+        $this->assertSame($expected, $string);
+    }
+
+    /**
+     * If "unapply" throws and error for a string (non-array) value
+     */
+    public function testUnapplyWithStringValue(): void
+    {
+        $value = "test1,test2";
+
+        $this->expectException(TypeError::class);
+        CSVType::unapply($value);
     }
 }

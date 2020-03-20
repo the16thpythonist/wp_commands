@@ -8,8 +8,6 @@
 
 namespace the16thpythonist\Wordpress;
 
-use the16thpythonist\Command\CommandReference;
-
 
 /**
  * Class CommandMenuRegistration
@@ -88,7 +86,8 @@ class CommandMenuRegistration
      * @since 0.0.0.0
      */
     public function display_page() {
-        $commands = CommandReference::getCommands();
+        // TODO: REWRITE THIS!
+        $commands = []; //CommandReference::getCommands();
         $ajax_url = admin_url('admin-ajax.php');
         ?>
 

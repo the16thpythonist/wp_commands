@@ -60,7 +60,30 @@ abstract class ParameterType
     abstract public static function apply(string $parameter);
 
     /**
-     * This is an abstract method which will have to be implemented by the subclass
+     * This is an abstract method which will have to be implemented by the subclasses.
+     *
+     * this method accepts a value of the very type, which is described by the individual ParameterType child class.
+     * This value will then be converted (back) into a string and returned.
+     * This is basically the inverse operation to the actual "apply" operation of the class.
+     *
+     *  EXAMPLE
+     * Consider the example of a child class, which describes a integer type value "IntType"
+     *
+     * ```php
+     * $valid = 100
+     * IntType::unapply($valid); // "100"
+     *
+     * $invalid = "text"
+     * IntType::apply($invalid); // throws Exception
+     * ```
+     *
+     * @param $value
+     * @return string
+     */
+    abstract public static function unapply($value): string;
+
+    /**
+     * This is an abstract method which will have to be implemented by the subclass.
      *
      * This method accepts a value and checks, whether the type of this value conforms with the type, which is
      * described by the individual ParameterType child class.
@@ -80,4 +103,14 @@ abstract class ParameterType
      * @return bool
      */
     abstract public static function check($value): bool ;
+
+    /**
+     * This is an abstract method which will have to be implemented by the subclass.
+     *
+     * This method returns the string name of the type on which it is called. For a sublcass "StringType" that would be
+     * "string" for example or for "IntType" it would be "int"
+     *
+     * @return string
+     */
+    abstract public static function getName(): string;
 }

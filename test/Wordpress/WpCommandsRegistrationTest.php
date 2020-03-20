@@ -18,25 +18,25 @@ class WpCommandsRegistrationTest extends CommandTestCase
     public $ACCESS_CLASS = WpCommandsRegistration::class;
 
     /**
-     * If "getCommandNameFromLogName" properly converts the log name to command name
-     */
-    public function testGetCommandNameFromLogName() {
-        $log_name = "Command: my_command";
-
-        $command_name = $this->invokeStaticProtectedMethod('getCommandNameFromLogName', [$log_name]);
-
-        $expected = "my_command";
-        $this->assertSame($expected, $command_name);
-    }
-
-    /**
      * If "validateCommandRegistered" will not throw any errors if the command is registered
      */
-    public function testValidateCommandRegistered() {
+    public function testValidateCommandRegistered(): void
+    {
         // Since this is a subclass of CommandTestCase, the TestCommand class has been registered in the setUp
         // fixture before this test case, so naturally the method should not do anything
         $this->invokeStaticProtectedMethod('validateCommandRegistered', [$this->TEST_COMMAND_NAME]);
         $this->assertTrue(true);
     }
+
+    /**
+     * If "validateCommandRegistered" will throw an error if the command is NOT registered
+     */
+    public function testValidateCommandRegisteredWithUnregisteredCommand(): void
+    {
+        $this->unregisterTestCommand();
+        $this->expectException(AssertionError::class);
+        $this->invokeStaticProtectedMethod('validateCommandRegistered', [$this->TEST_COMMAND_NAME]);
+    }
+
 
 }

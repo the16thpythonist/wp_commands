@@ -346,29 +346,17 @@ class CommandTest extends TestCase
         // TestCommand has three parameters, which should be provided for a command call:
         // "int_arg", "string_arg" and "array_arg" (as comma separated values)
         $_GET = [
-            'int_arg'       => '100',
-            'string_arg'    => 'Hello',
-            'array_arg'     => '10,20'
+            'int_arg' => '100',
+            'string_arg' => 'Hello',
+            'array_arg' => '10,20'
         ];
 
         $test_command = TestCommand::lazyInstance();
-        $exit_code = $test_command->runWrapped();
+        $runWrapped = $this->getProtectedMethod("runWrapped");
+        $exit_code = $runWrapped->invokeArgs($test_command, []);
 
         // The exit code 0 means that the command has terminated without an error.
         $this->assertSame(0, $exit_code);
-    }
-
-    /**
-     * If the "getParamsArray" static method work / returns the correct array.
-     */
-    public function testGetParamsArray(): void
-    {
-        $params = TestCommand::getParamsArray();
-
-        $test_command = new TestCommand();
-        $expected = $test_command->params;
-
-        $this->assertSame($params, $expected);
     }
 
     /**

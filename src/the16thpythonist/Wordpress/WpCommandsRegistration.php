@@ -12,6 +12,7 @@ use Log\LogPost;
 use the16thpythonist\Command\Command;
 
 use the16thpythonist\Command\CommandNamePocket;
+use the16thpythonist\Command\CommandFacade;
 
 /**
  * Class WpCommandsRegistration
@@ -134,6 +135,7 @@ class WpCommandsRegistration
         // the AMOUNT of recent commands to be returned.
         $amount = $_GET['amount'];
 
+        $command_facade = new CommandFacade();
         // First we get the logs for all these past commands. Because the info what will be returned for each command
         // will be the name of the command, that was executed, the date when and the link to the log file
         $log_posts = self::getCommandLogs($amount);
@@ -144,7 +146,7 @@ class WpCommandsRegistration
             // Deriving the command name from the name of the log file, because the command log files are created by
             // using exactly the command name and a prefix. We will simply get rid of the prefix
             $log_name = $log_post->subject;
-            $command_name = self::getCommandNameFromLogName($log_name);
+            $command_name = $command_facade->getCommandFromLogName($log_name);
 
             // The url to the log file can simply be generated as a wordpress permalink and we only need the post id
             // of the log to do that!
@@ -167,14 +169,19 @@ class WpCommandsRegistration
         wp_die();
     }
 
+    /**
+     * Ajax callback for retrieving a list of default values for the arguments of a command
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     */
     public function ajaxGetArgumentDefaultValues() {
         try {
             $name = $_GET['name'];
 
-            static::validateCommandRegistered($name);
-
-            $class = CommandNamePocket::getClass($name);
-            $defaults = call_user_func([$class, 'getArgumentDefaultValues']);
+            $command_facade = new CommandFacade();
+            $defaults = $command_facade->getCommandParameterDefaultValues($name);
 
             echo json_encode($defaults);
         } catch (\Exception $e) {
@@ -184,14 +191,19 @@ class WpCommandsRegistration
         }
     }
 
+    /**
+     * Ajax callback for retrieving a list of types for arguments of a command
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     */
     public function ajaxGetArgumentTypes() {
         try {
             $name = $_GET['name'];
 
-            static::validateCommandRegistered($name);
-
-            $class = CommandNamePocket::getClass($name);
-            $types = call_user_func([$class, 'getArgumentTypes']);
+            $command_facade = new CommandFacade();
+            $types = $command_facade->getCommandParameterTypes($name);
 
             echo json_encode($types);
         } catch (\Exception $e) {
@@ -204,6 +216,20 @@ class WpCommandsRegistration
     // GENERAL UTILITY FUNCTIONS
     // *************************
 
+
+
+    /**
+     * Given a command name, makes sure this command is actually registered.
+     *
+     * In case the command with the given command name is properly registered, this function does nothing. But if the
+     * command is not registered it will throw an AssertionError.
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     *
+     * @param string $command_name
+     */
     protected static function validateCommandRegistered(string $command_name): void
     {
         if (!CommandNamePocket::contains($command_name)) {
@@ -250,12 +276,5 @@ class WpCommandsRegistration
         }
 
         return $log_posts;
-    }
-
-    protected static function getCommandNameFromLogName(string $log_name): string
-    {
-        // The name of the log is created for every command in the same name. That is by simply putting a prefix in
-        // front of the command name.
-        return str_replace(Command::$LOG_PREFIX, '', $log_name);
     }
 }

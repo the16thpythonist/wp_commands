@@ -28,6 +28,8 @@ namespace the16thpythonist\Command\Types;
  */
 class IntType extends ParameterType
 {
+    const NAME = 'int';
+
     /**
      * Converts the given string parameter into an int value, if possible
      *
@@ -54,6 +56,16 @@ class IntType extends ParameterType
         }
     }
 
+    public static function unapply($value): string
+    {
+        if (static::check($value)) {
+            return sprintf("%s", $value);
+        } else {
+            $message = sprintf("Cannot unapply IntType on value, which is not type '%s'", static::NAME);
+            throw new \TypeError($message);
+        }
+    }
+
     /**
      * Whether or not the given value is an int
      *
@@ -75,5 +87,10 @@ class IntType extends ParameterType
     public static function check($value): bool
     {
         return is_int($value) && !is_string($value);
+    }
+
+    public static function getName(): string
+    {
+        return static::NAME;
     }
 }

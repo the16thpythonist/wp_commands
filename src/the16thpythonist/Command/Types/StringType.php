@@ -36,13 +36,30 @@ use phpDocumentor\Reflection\Types\Mixed_;
  */
 class StringType extends ParameterType
 {
+    const NAME = "string";
+
     public static function apply(string $parameter): string
     {
         return $parameter;
     }
 
+    public static function unapply($value): string
+    {
+        if (static::check($value)) {
+            return $value;
+        } else {
+            $message = sprintf("Cannot unapply StringType from value, that is not type '%s'!", static::NAME);
+            throw new \TypeError();
+        }
+    }
+
     public static function check($value): bool
     {
         return is_string($value);
+    }
+
+    public static function getName(): string
+    {
+        return static::NAME;
     }
 }

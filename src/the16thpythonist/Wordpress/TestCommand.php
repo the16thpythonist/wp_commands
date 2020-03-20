@@ -20,7 +20,7 @@ use the16thpythonist\Command\Types\CSVType;
  */
 class TestCommand extends Command
 {
-    public $params = array(
+    public $params = [
         'int_arg'           => [
             'optional'      => false,
             'type'          => IntType::class,
@@ -36,7 +36,7 @@ class TestCommand extends Command
             'type'          => CSVType::class,
             'default'       => []
         ]
-    );
+    ];
 
     public static $LOG_CLASS = VoidLog::class;
 

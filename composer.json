@@ -36,6 +36,7 @@
       "the16thpythonist\\Command\\": "src/the16thpythonist/Command",
       "the16thpythonist\\Wordpress\\": "src/the16thpythonist/Wordpress",
       "the16thpythonist\\Command\\Types\\": "src/the16thpythonist/Command/Types",
+      "the16thpythonist\\Command\\Parameters\\": "src/the16thpythonist/Command/Parameters",
       "the16thpythonist\\Command\\Testing\\Testcase\\": "test/Testcase"
     }
   }
