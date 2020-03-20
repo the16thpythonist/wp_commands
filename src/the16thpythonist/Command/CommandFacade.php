@@ -159,6 +159,20 @@ class CommandFacade
         return str_replace(Command::$LOG_PREFIX, '', $log_name);
     }
 
+    /**
+     * Returns the string, which is used as the prefix for command log files
+     *
+     * CHANGELOG
+     *
+     * Added 20.03.2020
+     *
+     * @return string
+     */
+    public function getCommandLogPrefix(): string
+    {
+        return Command::$LOG_PREFIX;
+    }
+
     // HELPER FUNCTIONS
     // ****************
 

@@ -9,9 +9,6 @@
 namespace the16thpythonist\Wordpress;
 
 use Log\LogPost;
-use the16thpythonist\Command\Command;
-
-use the16thpythonist\Command\CommandNamePocket;
 use the16thpythonist\Command\CommandFacade;
 
 /**
@@ -23,10 +20,15 @@ use the16thpythonist\Command\CommandFacade;
  *
  * Added 19.11.2018
  *
+ * Changed 20.03.2020
+ * Added the protected property $command_facade, which will contain a CommandFacade object during the lifetime of a
+ * registration object...
+ *
  * @package the16thpythonist\Wordpress
  */
 class WpCommandsRegistration
 {
+    protected $command_facade;
     /**
      * WpCommandsRegistration constructor.
      *
@@ -36,7 +38,7 @@ class WpCommandsRegistration
      */
     public function __construct()
     {
-
+        $this->command_facade = new CommandFacade();
     }
 
     // REGISTRATION PROCESS
@@ -129,13 +131,15 @@ class WpCommandsRegistration
      *
      * Changed 05.12.2018
      * Actually used the function for getting the permalink for the log url
+     *
+     * Changed 20.03.2020
+     * Using the $command_facade property now to get the command name based on the log name.
      */
     public function ajaxGetRecentCommands() {
         // The parameters for this function, which will have to be passed with the GET request will have to be
         // the AMOUNT of recent commands to be returned.
         $amount = $_GET['amount'];
 
-        $command_facade = new CommandFacade();
         // First we get the logs for all these past commands. Because the info what will be returned for each command
         // will be the name of the command, that was executed, the date when and the link to the log file
         $log_posts = self::getCommandLogs($amount);
@@ -146,7 +150,7 @@ class WpCommandsRegistration
             // Deriving the command name from the name of the log file, because the command log files are created by
             // using exactly the command name and a prefix. We will simply get rid of the prefix
             $log_name = $log_post->subject;
-            $command_name = $command_facade->getCommandFromLogName($log_name);
+            $command_name = $this->command_facade->getCommandFromLogName($log_name);
 
             // The url to the log file can simply be generated as a wordpress permalink and we only need the post id
             // of the log to do that!
@@ -175,13 +179,15 @@ class WpCommandsRegistration
      * CHANGELOG
      *
      * Added 17.03.2020
+     *
+     * Changed 20.03.2020
+     * Using the $command_facade property now to retrieve the list of default parameter values
      */
     public function ajaxGetArgumentDefaultValues() {
         try {
             $name = $_GET['name'];
 
-            $command_facade = new CommandFacade();
-            $defaults = $command_facade->getCommandParameterDefaultValues($name);
+            $defaults = $this->command_facade->getCommandParameterDefaultValues($name);
 
             echo json_encode($defaults);
         } catch (\Exception $e) {
@@ -197,13 +203,15 @@ class WpCommandsRegistration
      * CHANGELOG
      *
      * Added 17.03.2020
+     *
+     * Changed 20.03.2020
+     * Using the $command_facade property now to retrieve the list of parameter types
      */
     public function ajaxGetArgumentTypes() {
         try {
             $name = $_GET['name'];
 
-            $command_facade = new CommandFacade();
-            $types = $command_facade->getCommandParameterTypes($name);
+            $types = $this->command_facade->getCommandParameterTypes($name);
 
             echo json_encode($types);
         } catch (\Exception $e) {
@@ -216,28 +224,6 @@ class WpCommandsRegistration
     // GENERAL UTILITY FUNCTIONS
     // *************************
 
-
-
-    /**
-     * Given a command name, makes sure this command is actually registered.
-     *
-     * In case the command with the given command name is properly registered, this function does nothing. But if the
-     * command is not registered it will throw an AssertionError.
-     *
-     * CHANGELOG
-     *
-     * Added 17.03.2020
-     *
-     * @param string $command_name
-     */
-    protected static function validateCommandRegistered(string $command_name): void
-    {
-        if (!CommandNamePocket::contains($command_name)) {
-            $message = "Command for which to get the default arguments is not registered!";
-            throw new \AssertionError($message);
-        }
-    }
-
     /**
      * Returns an array of LogPost object, where each log was the output of a previously executed Command.
      * The Logs in the array will be sorted by date and in a descending order, which means, that those Commands
@@ -247,18 +233,21 @@ class WpCommandsRegistration
      *
      * Added 04.12.2018
      *
+     * Changed 20.03.2020
+     * The command log prefix is now retrieved through a CommandFacade object instance.
+     *
      * @param int $count    The max(!) amount of LogPost objects to be in the returned array
      * @return array
      */
     public static function getCommandLogs(int $count=-1) {
-
+        $command_facade = new CommandFacade();
         // Fetching all the posts objects that match the Log post type and which have the necessary prefix in the title
         $args = array(
             'post_type'         => LogPost::$POST_TYPE,
             'posts_per_page'    => $count,
             'orderby'           => 'date',
             'order'             => 'DESC',
-            's'                 => Command::$LOG_PREFIX
+            's'                 => $command_facade->getCommandLogPrefix()
         );
         $query = new \WP_Query($args);
         $posts = $query->get_posts();
