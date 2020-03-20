@@ -81,6 +81,10 @@ class CommandNamePocket
     /**
      * Stores the name of a command in the pocket associated with the class name
      *
+     * CHANGELOG
+     *
+     * Added ?
+     *
      * @param string $name  the string name of the command to be saved
      * @param string $class the sub class name of the Command child, which wants to save their name
      */
@@ -91,6 +95,10 @@ class CommandNamePocket
     /**
      * Retrieves the name of a command given the class name as a key
      *
+     * CHANGELOG
+     *
+     * Added ?
+     *
      * @param string $class the name of the class for which the command name is to be retrieved
      * @return string
      */
@@ -98,11 +106,38 @@ class CommandNamePocket
         return self::$names[$class];
     }
 
+    /**
+     * Removes a command from the pocket given its class name.
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     *
+     * @param string $class
+     */
     public static function withdraw(string $class): void
     {
         unset(self::$names[$class]);
     }
 
+    /**
+     * Returns the command class name given its corresponding string command name
+     *
+     * DESIGN CHOICE
+     *
+     * Adding the functionality to make a "reverse lookup" using the command name as the key to retrieve the class name
+     * came only later. So this function has the worst imaginable implementation: It just searches the array.
+     * This could be done much better by adding an additional assoc array as a property, which just stores the key
+     * value pairs in reverse, this way even the reverse lookup would be O(1) instead of O(n).
+     * But for now this impl. should be OK as long as it doesnt affect the performance visibly.
+     *
+     * CHANGELOG
+     *
+     * Added 17.03.2020
+     *
+     * @param string $name
+     * @return string
+     */
     public static function getClass(string $name): string {
         foreach (self::$names as $class => $value) {
             if ($value == $name) {
