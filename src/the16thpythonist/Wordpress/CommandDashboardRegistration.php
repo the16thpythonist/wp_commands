@@ -8,11 +8,11 @@
 
 namespace the16thpythonist\Wordpress;
 
-use Log\VoidLog;
-use the16thpythonist\Command\Command;
+use the16thpythonist\Command\CommandFacade;
 
 use Log\LogPost;
-use the16thpythonist\Command\CommandNamePocket;
+use Log\VoidLog;
+
 use WP_Query;
 
 /**
@@ -23,6 +23,14 @@ use WP_Query;
  *
  * To use the widget, a instance of this class has to be created and the register method has to be called.
  * This is supposed to happen only once during the wordpress runtime.
+ *
+ * CHANGELOG
+ *
+ * Added 14.08.2018
+ *
+ * Changed 23.03.2020
+ * Added additional instance property $command_facade, which will store a CommandFacade instance. This object will be
+ * used for all access to the command business logic.
  *
  * @package the16thpythonist\Wordpress
  */
@@ -51,6 +59,13 @@ class CommandDashboardRegistration
      * @var string This is the datetime format used for displaying the date of a recently executed command.
      */
     public static $DATETIME_FORMAT = 'dS M, H:i';
+
+    public $command_facade;
+
+    public function __construct()
+    {
+        $this->command_facade = new CommandFacade();
+    }
 
     /**
      * Hooks in all the methods, that register stuff with wordpress
@@ -133,6 +148,9 @@ class CommandDashboardRegistration
      * exclusive page up to this point) also to the dashboard widget. The commands can now be executed right from
      * the dashboard.
      *
+     * Changed 23.03.2020
+     * Replaced all the usages of Command and CommandNamePocket with uses of CommandFacade.
+     *
      * @since 0.0.0.3
      */
     public function display_widget() {
@@ -171,8 +189,9 @@ class CommandDashboardRegistration
                  * But after the log prefix has been checked it is being removed from the string to get the pure command
                  * name
                  */
-                if (strpos($title, Command::$LOG_PREFIX) !== False) {
-                    $command_name = str_replace(Command::$LOG_PREFIX . ': ', '', $title);
+                $log_prefix = $this->command_facade->getCommandLogPrefix();
+                if (strpos($title, $log_prefix) !== False) {
+                    $command_name = $this->command_facade->getCommandFromLogName($title);
                     $commands[] = array(
                         'title'     => $command_name,
                         'date'      => date(self::$DATETIME_FORMAT, strtotime($post->post_date)),
@@ -193,7 +212,7 @@ class CommandDashboardRegistration
          * An array containing all the command names is needed for displaying the selection widget, that is used for
          * the widget, that actually executing the commands.
          */
-        $command_names = CommandNamePocket::$names;
+        $command_names = $this->command_facade->registeredCommands();
 
         // 13.11.2018
         // The value of each possible selection will no longer start with the prefix 'start_', this prefix will be

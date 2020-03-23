@@ -173,6 +173,19 @@ class CommandFacade
         return Command::$LOG_PREFIX;
     }
 
+    /**
+     *
+     * CHANGELOG
+     *
+     * Added 23.03.2020
+     *
+     * @return array
+     */
+    public function registeredCommands(): array
+    {
+        return array_values(CommandNamePocket::$names);
+    }
+
     // HELPER FUNCTIONS
     // ****************
 
