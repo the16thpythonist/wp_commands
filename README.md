@@ -80,4 +80,19 @@ to the functionality of the dashboard widget
     Button has been pressed. The entries contain links, which will lead to the edit page of the log 
     post, that was created by the named command.
    
-### 0.0.1  - 17.03.2020
+### 0.0.1  - 23.03.2020
+
+- Refactored most of the command business logic
+    - Added "Parameter" class which provides a general representation for parameters defined for a command
+    - Added "ParameterConverter" which handles the conversion of the various formats of the params array to a 
+    more general form of a Parameter objects. This more general representation os now used throughout the code to 
+    access parameter information
+    - Added a new "extended" way of defining parameters for a command. This new format enables the used to define 
+    whether a command is to be optional or not and also a type. By defining a type the string value from the front 
+    end will be automatically converted to the right type
+    - Added "ParameterType" abstract base class, which can be used to define new types for parameters. The methods to 
+    be implemeted include the functionality of automatic conversion from and to string.
+        - Added the basic types "StringType", "IntType" and "CSVType" (for array inputs)
+    - Added the class "CommandFacade", which will wrap all the access to the business logic of the command system.
+        - All the access of wordpress related classes to the business logic has been replaced with using this new 
+        facade facility.
