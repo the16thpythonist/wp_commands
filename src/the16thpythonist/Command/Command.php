@@ -11,7 +11,11 @@ namespace the16thpythonist\Command;
 use Log\LogPost;
 use Log\LogInterface;
 
+use the16thpythonist\Command\Parameters\Parameter;
+use the16thpythonist\Command\Parameters\ParameterConverter;
+
 use ReflectionClass;
+use the16thpythonist\Command\Types\ParameterType;
 
 /*
  * public interface of Command:
@@ -133,6 +137,9 @@ abstract class Command
      */
     public $params = array();
 
+    protected $parameter_converter;
+    protected $parameters;
+
     /**
      * Command constructor.
      *
@@ -167,6 +174,9 @@ abstract class Command
     {
         $this->log = new $log_class(NULL, sprintf('%s%s', self::$LOG_PREFIX, $this->getName()));
         $this->log->start();
+
+        $this->parameter_converter = new ParameterConverter($this->params);
+        $this->parameters = $this->parameter_converter->getParametersAssociative();
     }
 
     /**
@@ -283,14 +293,65 @@ abstract class Command
         }
     }
 
+    /**
+     * Returns the arguments array for the command call by extracting it from the _GET array.
+     *
+     * CHANGELOG
+     *
+     * Added 20.03.2020
+     *
+     * Changed 23.03.2020
+     * Removed the if cases from this function and replaced it with a simple single call to "processArgs". The
+     * specifics of the different "params" formats are no longer a concern for this class. This funcionlaty has been
+     * moved to the "ParameterConverter" class. We can now assume, that no matter the format $this->parameters will
+     * contain a generalized representation.
+     *
+     * @return array
+     */
     protected function extractArgs(): array
     {
-        $args = static::argsFromGET($this->params);
-        if (static::isParamsExtendedFormat($this->params)) {
-            return static::processArgsExtended($this->params, $args);
-        } else {
-            return static::processArgsBasic($this->params, $args);
+        $args = static::argsFromGET($this->parameters);
+        static::processArgs($this->parameters, $args);
+    }
+
+    /**
+     * will construct the arguments array for the command call according to parameters array
+     *
+     * The "parameters" array refers to the array, whose values are Parameter objects, which each represent the
+     * specifications of one of the commands defined parameters.
+     * The "args" array is the raw associative array, whose keys are strings names of the parameters and the values
+     * the string values for those parameters extracted from the _GET array
+     *
+     * CHANGELOG
+     *
+     * Added 23.03.2020
+     *
+     * @param array $parameters An array of Parameter objects, each representing the definition of a command parameter
+     * @param array $args
+     * @return array
+     */
+    protected function processArgs(array $parameters, array $args): array
+    {
+        /**
+         * @type Parameter $parameter
+         * @type ParameterType $type_class
+         */
+        $processed_args = [];
+        foreach ($parameters as $parameter) {
+            if (key_exists($parameter->name, $args)) {
+                $type_class = $parameter->type;
+                $value = $type_class::apply($args[$parameter->name]);
+                $processed_args[$parameter->name] = $value;
+            } else {
+                if ($parameter->optional) {
+                    $processed_args[$parameter->name] = $parameter->default;
+                } else {
+                    $message = "Command has been invoked with positional argument missing";
+                    throw new \ArgumentCountError($message);
+                }
+            }
         }
+        return $processed_args;
     }
 
     /**
@@ -312,6 +373,13 @@ abstract class Command
      * CHANGELOG
      *
      * Added 17.03.2020
+     *
+     * Deprecated 23.03.2020
+     * This function is not longer needed, as the specifics of the parameter format are no longer a concern of this
+     * class. The functionality of recognizing the parameter format and converting it into a general representation
+     * has been moved to the ParameterConverter class.
+     *
+     * @deprecated
      *
      * @param array $params
      * @return bool
@@ -365,6 +433,13 @@ abstract class Command
      *
      * Added 17.03.2020
      *
+     * Deprecated 23.03.2020
+     * This function is not longer needed, as the specifics of the parameter format are no longer a concern of this
+     * class. The functionality of recognizing the parameter format and converting it into a general representation
+     * has been moved to the ParameterConverter class.
+     *
+     * @deprecated
+     *
      * @param array $params
      * @param array $args
      * @return array
@@ -398,6 +473,13 @@ abstract class Command
      * CHANGELOG
      *
      * Added 17.03.2020
+     *
+     * Deprecated 23.03.2020
+     * This function is not longer needed, as the specifics of the parameter format are no longer a concern of this
+     * class. The functionality of recognizing the parameter format and converting it into a general representation
+     * has been moved to the ParameterConverter class.
+     *
+     * @deprecated
      *
      * @param array $params
      * @param array $args
@@ -435,23 +517,33 @@ abstract class Command
      * EXAMPLE
      *
      * ```php
-     * $multiply_command->argumentsFromGET // array('a' => '2', 'b' => '4')
+     * $multiply_command->argumentsFromGET($multiply_command->parameters) // array('a' => '2', 'b' => '4')
      * ```
      *
      * CHANGELOG
      *
      * Added 15.03.2020
+     *
+     * Changed 23.03.2020
+     *
+     *
+     * @param array $parameters The array of Parameter objects, where each is the general representation of a command
+     * parameter.
+     * @return array
      */
-    protected static function argsFromGET(array $params): array
+    protected static function argsFromGET(array $parameters): array
     {
+        /**
+         * @type Parameter $parameter
+         */
         $args = array();
-        foreach ($params as $param => $default) {
+        foreach ($parameters as $parameter) {
             // When a command is being invoked from the front end, the arguments to this command call are being passed
             // to the server via the _GET assoc array.
             // "$this->params" is an associative array, whose keys represent the names of the arguments, which are
             // expected by the command.
-            if (array_key_exists($param, $_GET)) {
-                $args[$param] = $_GET[$param];
+            if (array_key_exists($parameter->name, $_GET)) {
+                $args[$parameter->name] = $_GET[$parameter->name];
             }
         }
 

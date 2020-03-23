@@ -6,6 +6,8 @@ use the16thpythonist\Command\Command;
 use the16thpythonist\Command\CommandNamePocket;
 use the16thpythonist\Command\CommandReference;
 
+use the16thpythonist\Command\Parameters\Parameter;
+
 use the16thpythonist\Command\Types\StringType;
 use the16thpythonist\Command\Types\IntType;
 use the16thpythonist\Command\Types\CSVType;
@@ -315,9 +317,9 @@ class CommandTest extends TestCase
      */
     public function testArgsFromGET(): void
     {
-        $params = [
-            'param1'        => 'default',
-            'param2'        => 'default',
+        $parameters = [
+            'param1' => new Parameter('param1', 'default'),
+            'param2' => new Parameter('param2', 'default'),
         ];
 
         $_GET = [
@@ -329,7 +331,7 @@ class CommandTest extends TestCase
         ];
 
         $argsFromGET = $this->getProtectedMethod('argsFromGET');
-        $args = $argsFromGET->invokeArgs(null, [$params]);
+        $args = $argsFromGET->invokeArgs(null, [$parameters]);
 
         $expected = [
             'param1'        => '1',
