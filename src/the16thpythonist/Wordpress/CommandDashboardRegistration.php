@@ -218,6 +218,17 @@ class CommandDashboardRegistration
         // The value of each possible selection will no longer start with the prefix 'start_', this prefix will be
         // appended in the function, which actually sends the ajax request.
         ?>
+        <div id="app">
+            <app></app>
+        </div>
+
+        <script>
+            new Vue({
+                components: {
+                    app: wpcommandsapp
+                }
+            }).$mount('#app')
+        </script>
         <div class="command-widget">
             <p>Use the following section to <strong>select a command</strong> and press the button <strong>to execute it</strong>!</p>
             <div id="command-container" style="display: flex; flex-direction: column;">

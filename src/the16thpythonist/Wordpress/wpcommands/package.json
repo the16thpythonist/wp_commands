@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name wpcommands-frontend --inline-vue",
+    "build": "vue-cli-service build --target lib --name wpcommandsapp --inline-vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
