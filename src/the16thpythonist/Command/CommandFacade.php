@@ -154,7 +154,7 @@ class CommandFacade
      * @param string $log_name
      * @return array
      */
-    public function getCommandFromLogName(string $log_name): array
+    public function getCommandFromLogName(string $log_name): string
     {
         return str_replace(Command::$LOG_PREFIX, '', $log_name);
     }
