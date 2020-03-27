@@ -89,6 +89,8 @@ class WpCommandsRegistration
      */
     public function enqueueScripts() {
         wp_enqueue_script('commands-utility', plugin_dir_url(__FILE__) . 'command.js');
+
+        wp_enqueue_script('vue', 'https://unpkg.com/vue');
         wp_enqueue_script('frontend', plugin_dir_url(__FILE__) . 'wpcommands/dist/wpcommmandsapp.umd.js');
     }
 
