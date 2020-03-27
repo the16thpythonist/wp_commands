@@ -96,3 +96,10 @@ to the functionality of the dashboard widget
     - Added the class "CommandFacade", which will wrap all the access to the business logic of the command system.
         - All the access of wordpress related classes to the business logic has been replaced with using this new 
         facade facility.
+        
+     
+## TODO
+
+- Changing the front end to use VueJS, which will make it more simple to develop for the front end.
+- Change the front end to implement the new functionalities of the extended parameter system.
+- Write more tests!
