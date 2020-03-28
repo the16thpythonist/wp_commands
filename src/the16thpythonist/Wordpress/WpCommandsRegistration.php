@@ -86,6 +86,9 @@ class WpCommandsRegistration
      * CHANGELOG
      *
      * Added 04.12.2018
+     *
+     * Changed 27.03.2020
+     * Added the stylesheet for the vue main package and the umd package for the local Vue frontend code
      */
     public function enqueueScripts() {
         wp_enqueue_script('commands-utility', plugin_dir_url(__FILE__) . 'command.js');
