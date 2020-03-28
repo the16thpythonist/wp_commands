@@ -15,13 +15,15 @@
                     v-model="parameterValues[parameter.name]"
                     :id="parameter.name"
                     :name="parameter.name"
-                    :placeholder="parameter.default">
+                    :placeholder="parameter.default"
+                    @input="handleInput">
             <input
                     v-else
                     type="text"
                     v-model="parameterValues[parameter.name]"
                     :id="parameter.name"
-                    :name="parameter.name">
+                    :name="parameter.name"
+                    @input="handleInput">
         </div>
     </div>
 </template>
@@ -29,17 +31,23 @@
 <script>
     export default {
         name: "ParameterInput",
+        props: {
+            value: Object,
+            command: Object
+        },
         data: function () {
             return {
-                parameterValues: {}
+                parameterValues: this.value
             }
-        },
-        props: {
-            command: Object
         },
         computed: {
             parameters: function () {
                 return this.command.parameters;
+            }
+        },
+        methods: {
+            handleInput: function (e) {
+                this.$emit('input', this.parameterValues);
             }
         }
     }
