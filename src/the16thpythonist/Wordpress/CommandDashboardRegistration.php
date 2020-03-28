@@ -87,14 +87,15 @@ class CommandDashboardRegistration
      * Removed the registration of "wp_ajax_command_default_args". It has been moved to the WpCommandsRegistration
      * class as it makes more sense there conceptionally.
      *
+     * Changed 28.03.2020
+     * Removed the action for registering the stylesheets
+     * Registering the stylesheets is not the concern of this class. This should be a concern of the overall
+     * WpCommandsRegistration class and as such it has been moved there.
+     *
      * @since 0.0.0.3
      */
     public function register() {
         add_action('wp_dashboard_setup', array($this, 'register_dashboard_widget'));
-
-        // 04.12.2018
-        // Adding the stylesheet to be included by wordpress, but only within the admin backend
-        add_action('admin_enqueue_scripts', array($this, 'registerStylesheet'));
     }
 
     /**
@@ -104,6 +105,12 @@ class CommandDashboardRegistration
      * CHANGELOG
      *
      * Added 04.12.2018
+     *
+     * Deprecated 28.03.2020
+     * Registering the stylesheets is not the concern of this class. This should be a concern of the overall
+     * WpCommandsRegistration class and as such it has been moved there.
+     *
+     * @deprecated
      */
     public function registerStylesheet() {
         // Adding the CSS stylesheet for the widget to wordpress

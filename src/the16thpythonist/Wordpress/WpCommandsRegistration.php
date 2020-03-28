@@ -53,6 +53,9 @@ class WpCommandsRegistration
      * Changed 04.12.2018
      * Added the AJAX function registrations to be executed as well.
      * Added the JS Script registrations to be executed as well.
+     *
+     * Changed 28.03.2020
+     * Added the stylesheets to be registered here using the new method "registerStylesheets"
      */
     public function register() {
         // Registering the Command Menu
@@ -63,6 +66,32 @@ class WpCommandsRegistration
         $this->registerAjax();
         // Registering all the needed scripts to be linked to each element
         $this->registerScripts();
+
+        // 28.03.2020
+        $this->registerStylesheets();
+    }
+
+    /**
+     * Registers the stylesheets to be added to the header within wordpress
+     *
+     * CHANGELOG
+     *
+     * Added 28.03.2020
+     */
+    public function registerStylesheets() {
+        $callable = array($this, 'enqueueStylesheets');
+        add_action('admin_enqueue_scripts', $callable);
+    }
+
+    /**
+     *
+     * CHANGELOG
+     *
+     * Added 28.03.2020
+     */
+    public function enqueueStylesheets() {
+        wp_enqueue_style('wpcommands', plugin_dir_url(__FILE__) . 'command.css');
+        wp_enqueue_style('wpcommands-frontend', plugin_dir_url(__FILE__). 'frontend/dist/wpcommandlib.css');
     }
 
     /**
