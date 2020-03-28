@@ -15,7 +15,7 @@
                     v-model="parameterValues[parameter.name]"
                     :id="parameter.name"
                     :name="parameter.name"
-                    :value="parameter.default">
+                    :placeholder="parameter.default">
             <input
                     v-else
                     type="text"
