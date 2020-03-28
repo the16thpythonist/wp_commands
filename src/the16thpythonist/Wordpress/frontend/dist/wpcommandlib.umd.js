@@ -8243,43 +8243,20 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.runtime.esm.js
 var vue_runtime_esm = __webpack_require__("2b0e");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=7f19c1a8&
-var Appvue_type_template_id_7f19c1a8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}})}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=38458cf6&
+var Appvue_type_template_id_38458cf6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('CommandSelector',{attrs:{"commands":_vm.commands}}),_c('ParameterInput',{attrs:{"command":_vm.cmd}})],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=7f19c1a8&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=38458cf6&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=template&id=47fd895f&scoped=true&
-var CommandSelectorvue_type_template_id_47fd895f_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-selector"},_vm._l((_vm.commands),function(command,index){return _c('option',{domProps:{"value":command.name}},[_vm._v(_vm._s(command.name))])}),0)}
-var CommandSelectorvue_type_template_id_47fd895f_scoped_true_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=template&id=47fd895f&scoped=true&
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
-var es_function_name = __webpack_require__("b0c0");
-
-// CONCATENATED MODULE: ./src/lib/command.js
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=template&id=3ec594df&scoped=true&
+var CommandSelectorvue_type_template_id_3ec594df_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-selector"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.selectedCommand),expression:"selectedCommand"}],on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.selectedCommand=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},_vm._l((_vm.commands),function(command,index){return _c('option',{domProps:{"value":command}},[_vm._v(_vm._s(command.name))])}),0)])}
+var CommandSelectorvue_type_template_id_3ec594df_scoped_true_staticRenderFns = []
 
 
-function CommandParameter(name, defaultValue, type, optionalFlag) {
-  this.name = name;
-  this.default = defaultValue;
-  this.type = type;
-  this.optional = optionalFlag;
-}
+// CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=template&id=3ec594df&scoped=true&
 
-function Command(name, parameters) {
-  this.name = name;
-  this.parameters = parameters;
-}
-
-/* harmony default export */ var command = ({
-  myvar: "Bye",
-  Command: Command,
-  CommandParameter: CommandParameter
-});
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=script&lang=js&
 //
 //
@@ -8287,12 +8264,13 @@ function Command(name, parameters) {
 //
 //
 //
-
+//
+//
 /* harmony default export */ var CommandSelectorvue_type_script_lang_js_ = ({
   name: "CommandSelector",
   data: function data() {
     return {
-      commandChoice: {}
+      selectedCommand: {}
     };
   },
   props: {
@@ -8406,16 +8384,113 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_CommandSelectorvue_type_script_lang_js_,
-  CommandSelectorvue_type_template_id_47fd895f_scoped_true_render,
-  CommandSelectorvue_type_template_id_47fd895f_scoped_true_staticRenderFns,
+  CommandSelectorvue_type_template_id_3ec594df_scoped_true_render,
+  CommandSelectorvue_type_template_id_3ec594df_scoped_true_staticRenderFns,
   false,
   null,
-  "47fd895f",
+  "3ec594df",
   null
   
 )
 
 /* harmony default export */ var CommandSelector = (component.exports);
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=template&id=16f4d26b&scoped=true&
+var ParameterInputvue_type_template_id_16f4d26b_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-parameters"},_vm._l((_vm.parameters),function(parameter,index){return _c('div',{staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-info"},[_c('label',{staticClass:"command-parameter-name",attrs:{"for":parameter.name}},[_vm._v(" "+_vm._s(parameter.name)+" ")]),_c('div',{staticClass:"command-parameter-type"},[_vm._v("Type: "+_vm._s(parameter.type))])]),(parameter.optional)?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":parameter.default,"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}})])}),0)}
+var ParameterInputvue_type_template_id_16f4d26b_scoped_true_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=template&id=16f4d26b&scoped=true&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var ParameterInputvue_type_script_lang_js_ = ({
+  name: "ParameterInput",
+  data: function data() {
+    return {
+      parameterValues: {}
+    };
+  },
+  props: {
+    command: Object
+  },
+  computed: {
+    parameters: function parameters() {
+      return this.command.parameters;
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_ParameterInputvue_type_script_lang_js_ = (ParameterInputvue_type_script_lang_js_); 
+// CONCATENATED MODULE: ./src/components/ParameterInput.vue
+
+
+
+
+
+/* normalize component */
+
+var ParameterInput_component = normalizeComponent(
+  components_ParameterInputvue_type_script_lang_js_,
+  ParameterInputvue_type_template_id_16f4d26b_scoped_true_render,
+  ParameterInputvue_type_template_id_16f4d26b_scoped_true_staticRenderFns,
+  false,
+  null,
+  "16f4d26b",
+  null
+  
+)
+
+/* harmony default export */ var ParameterInput = (ParameterInput_component.exports);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
+var es_function_name = __webpack_require__("b0c0");
+
+// CONCATENATED MODULE: ./src/lib/command.js
+
+
+function CommandParameter(name, defaultValue, type, optionalFlag) {
+  this.name = name;
+  this.default = defaultValue;
+  this.type = type;
+  this.optional = optionalFlag;
+}
+
+function Command(name, parameters) {
+  this.name = name;
+  this.parameters = parameters;
+}
+
+/* harmony default export */ var command = ({
+  myvar: "Bye",
+  Command: Command,
+  CommandParameter: CommandParameter
+});
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=script&lang=js&
 //
 //
@@ -8423,11 +8498,21 @@ var component = normalizeComponent(
 //
 //
 //
+//
+
+
 
 /* harmony default export */ var Appvue_type_script_lang_js_ = ({
   name: "App",
+  data: function data() {
+    return {
+      commands: [new command.Command("test1", []), new command.Command("test2", [])],
+      cmd: new command.Command("name1", [new command.CommandParameter("param1", "default", "string", true), new command.CommandParameter("param2", "10", "int", false)])
+    };
+  },
   components: {
-    CommandSelector: CommandSelector
+    CommandSelector: CommandSelector,
+    ParameterInput: ParameterInput
   }
 });
 // CONCATENATED MODULE: ./src/App.vue?vue&type=script&lang=js&
@@ -8446,7 +8531,7 @@ var Appvue_type_style_index_0_lang_css_ = __webpack_require__("034f");
 
 var App_component = normalizeComponent(
   src_Appvue_type_script_lang_js_,
-  Appvue_type_template_id_7f19c1a8_render,
+  Appvue_type_template_id_38458cf6_render,
   staticRenderFns,
   false,
   null,
