@@ -22,6 +22,10 @@ function WpCommandsApi() {
     this.getRecentCommandExecutions = function () {
         return [];
     };
+
+    this.executeCommand = function (commandName, parameters) {
+        return true;
+    }
 }
 
 export default {
