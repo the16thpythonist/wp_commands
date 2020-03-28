@@ -50,10 +50,12 @@ function WpCommandsApiMock() {
         ])
     };
 
-    const recentExecutions = [
-        new command.CommandExecution('background-task1', new Date(), 'https://google.com'),
-        new command.CommandExecution('background-task2', new Date(), 'https://google.com'),
-        new command.CommandExecution('background-task1', new Date(), 'https://google.com')
+    const logPath = 'https://google.de';
+
+    this.recentExecutions = [
+        new command.CommandExecution('background-task1', new Date(), logPath),
+        new command.CommandExecution('background-task2', new Date(), logPath),
+        new command.CommandExecution('background-task1', new Date(), logPath)
     ];
 
     // PROTECTED METHODS
@@ -79,6 +81,7 @@ function WpCommandsApiMock() {
     };
 
     this.executeCommand = function (commandName, parameters) {
+        this.recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
         console.log(`Executing command "${commandName}" with parameters: ${JSON.stringify(parameters)}`);
         return true;
     }

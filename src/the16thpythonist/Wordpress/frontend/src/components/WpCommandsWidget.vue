@@ -40,6 +40,7 @@
                         this.selectedCommand.name,
                         this.commandParameters
                     );
+                    this.api.getRecentCommandExecutions();
                 }
             }
         },

@@ -1,6 +1,6 @@
 <template>
     <div class="command-selector">
-        <select v-model="selectedCommand">
+        <select v-model="selectedCommand" @input="handleInput">
             <option v-for="(command, index) in commands" :value="command">{{ command.name }}</option>
         </select>
     </div>
@@ -9,13 +9,19 @@
 <script>
     export default {
         name: "CommandSelector",
+        props: {
+            value: Object,
+            commands: Array
+        },
         data: function () {
             return {
-                selectedCommand: {}
+                selectedCommand: this.value
             };
         },
-        props: {
-            commands: Array
+        methods: {
+            handleInput: function (e) {
+                this.$emit('input', this.selectedCommand);
+            }
         }
     }
 </script>

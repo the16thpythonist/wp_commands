@@ -1695,22 +1695,22 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=596fd1e4&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/WpCommandsWidget.vue?vue&type=template&id=4b6a29a1&scoped=true&
-var WpCommandsWidgetvue_type_template_id_4b6a29a1_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-widget"},[_c('CommandSelector',{attrs:{"commands":_vm.commands},model:{value:(_vm.selectedCommand),callback:function ($$v) {_vm.selectedCommand=$$v},expression:"selectedCommand"}}),_c('ParameterInput',{attrs:{"command":_vm.selectedCommand},model:{value:(_vm.commandParameters),callback:function ($$v) {_vm.commandParameters=$$v},expression:"commandParameters"}}),_c('button',{on:{"click":function($event){$event.preventDefault();return _vm.onExecute($event)}}},[_vm._v("Execute")]),_c('RecentCommands',{attrs:{"command-executions":_vm.recentExecutions}})],1)}
-var WpCommandsWidgetvue_type_template_id_4b6a29a1_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/WpCommandsWidget.vue?vue&type=template&id=0617b146&scoped=true&
+var WpCommandsWidgetvue_type_template_id_0617b146_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-widget"},[_c('CommandSelector',{attrs:{"commands":_vm.commands},model:{value:(_vm.selectedCommand),callback:function ($$v) {_vm.selectedCommand=$$v},expression:"selectedCommand"}}),_c('ParameterInput',{attrs:{"command":_vm.selectedCommand},model:{value:(_vm.commandParameters),callback:function ($$v) {_vm.commandParameters=$$v},expression:"commandParameters"}}),_c('button',{on:{"click":function($event){$event.preventDefault();return _vm.onExecute($event)}}},[_vm._v("Execute")]),_c('RecentCommands',{attrs:{"command-executions":_vm.recentExecutions}})],1)}
+var WpCommandsWidgetvue_type_template_id_0617b146_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/WpCommandsWidget.vue?vue&type=template&id=4b6a29a1&scoped=true&
+// CONCATENATED MODULE: ./src/components/WpCommandsWidget.vue?vue&type=template&id=0617b146&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=template&id=3ec594df&scoped=true&
-var CommandSelectorvue_type_template_id_3ec594df_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-selector"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.selectedCommand),expression:"selectedCommand"}],on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.selectedCommand=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},_vm._l((_vm.commands),function(command,index){return _c('option',{domProps:{"value":command}},[_vm._v(_vm._s(command.name))])}),0)])}
-var CommandSelectorvue_type_template_id_3ec594df_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=template&id=62e576d4&scoped=true&
+var CommandSelectorvue_type_template_id_62e576d4_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-selector"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.selectedCommand),expression:"selectedCommand"}],on:{"input":_vm.handleInput,"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.selectedCommand=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},_vm._l((_vm.commands),function(command,index){return _c('option',{domProps:{"value":command}},[_vm._v(_vm._s(command.name))])}),0)])}
+var CommandSelectorvue_type_template_id_62e576d4_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=template&id=3ec594df&scoped=true&
+// CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=template&id=62e576d4&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=script&lang=js&
 //
@@ -1723,13 +1723,19 @@ var CommandSelectorvue_type_template_id_3ec594df_scoped_true_staticRenderFns = [
 //
 /* harmony default export */ var CommandSelectorvue_type_script_lang_js_ = ({
   name: "CommandSelector",
+  props: {
+    value: Object,
+    commands: Array
+  },
   data: function data() {
     return {
-      selectedCommand: {}
+      selectedCommand: this.value
     };
   },
-  props: {
-    commands: Array
+  methods: {
+    handleInput: function handleInput(e) {
+      this.$emit('input', this.selectedCommand);
+    }
   }
 });
 // CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=script&lang=js&
@@ -1839,11 +1845,11 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_CommandSelectorvue_type_script_lang_js_,
-  CommandSelectorvue_type_template_id_3ec594df_scoped_true_render,
-  CommandSelectorvue_type_template_id_3ec594df_scoped_true_staticRenderFns,
+  CommandSelectorvue_type_template_id_62e576d4_scoped_true_render,
+  CommandSelectorvue_type_template_id_62e576d4_scoped_true_staticRenderFns,
   false,
   null,
-  "3ec594df",
+  "62e576d4",
   null
   
 )
@@ -2098,7 +2104,8 @@ function WpCommandsApiMock() {
     'background-task1': new command.Command('background-task1', [new command.CommandParameter('param1', '', 'string', false), new command.CommandParameter('param2', '', 'int', false), new command.CommandParameter('param3', 'hello,world,!', 'csv', true)]),
     'background-task2': new command.Command('background-task2', [new command.CommandParameter('count', '10', 'int', true)])
   };
-  var recentExecutions = [new command.CommandExecution('background-task1', new Date(), 'https://google.com'), new command.CommandExecution('background-task2', new Date(), 'https://google.com'), new command.CommandExecution('background-task1', new Date(), 'https://google.com')]; // PROTECTED METHODS
+  var logPath = 'https://google.de';
+  this.recentExecutions = [new command.CommandExecution('background-task1', new Date(), logPath), new command.CommandExecution('background-task2', new Date(), logPath), new command.CommandExecution('background-task1', new Date(), logPath)]; // PROTECTED METHODS
   // PUBLIC METHODS
 
   this.getRegisteredCommands = function () {
@@ -2121,6 +2128,7 @@ function WpCommandsApiMock() {
   };
 
   this.executeCommand = function (commandName, parameters) {
+    this.recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
     console.log("Executing command \"".concat(commandName, "\" with parameters: ").concat(JSON.stringify(parameters)));
     return true;
   };
@@ -2168,6 +2176,7 @@ function WpCommandsApiMock() {
     onExecute: function onExecute() {
       if (this.checkParameters()) {
         this.api.executeCommand(this.selectedCommand.name, this.commandParameters);
+        this.api.getRecentCommandExecutions();
       }
     }
   },
@@ -2189,11 +2198,11 @@ function WpCommandsApiMock() {
 
 var WpCommandsWidget_component = normalizeComponent(
   components_WpCommandsWidgetvue_type_script_lang_js_,
-  WpCommandsWidgetvue_type_template_id_4b6a29a1_scoped_true_render,
-  WpCommandsWidgetvue_type_template_id_4b6a29a1_scoped_true_staticRenderFns,
+  WpCommandsWidgetvue_type_template_id_0617b146_scoped_true_render,
+  WpCommandsWidgetvue_type_template_id_0617b146_scoped_true_staticRenderFns,
   false,
   null,
-  "4b6a29a1",
+  "0617b146",
   null
   
 )
