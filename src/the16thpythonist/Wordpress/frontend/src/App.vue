@@ -2,6 +2,7 @@
   <div id="app">
     <CommandSelector :commands="commands"></CommandSelector>
     <ParameterInput :command="cmd"></ParameterInput>
+    <RecentCommands :command-executions="[]"></RecentCommands>
   </div>
 </template>
 
@@ -10,6 +11,7 @@ import CommandSelector from "./components/CommandSelector.vue";
 import ParameterInput from "./components/ParameterInput";
 
 import command from "./lib/command";
+import RecentCommands from "./components/RecentCommands";
 
 export default {
   name: "App",
@@ -26,6 +28,7 @@ export default {
     }
   },
   components: {
+    RecentCommands,
     CommandSelector,
     ParameterInput
   }

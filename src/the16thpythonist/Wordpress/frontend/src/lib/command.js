@@ -11,8 +11,14 @@ function Command(name, parameters) {
     this.parameters = parameters;
 }
 
+function CommandExecution(name, dateTime, logPath) {
+    this.name = name;
+    this.time = dateTime;
+    this.log = logPath;
+}
+
 export default {
-    myvar: "Bye",
     Command: Command,
-    CommandParameter: CommandParameter
+    CommandParameter: CommandParameter,
+    CommandExecution: CommandExecution
 }
