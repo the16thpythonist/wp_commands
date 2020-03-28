@@ -8394,12 +8394,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var CommandSelector = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=template&id=16f4d26b&scoped=true&
-var ParameterInputvue_type_template_id_16f4d26b_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-parameters"},_vm._l((_vm.parameters),function(parameter,index){return _c('div',{staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-info"},[_c('label',{staticClass:"command-parameter-name",attrs:{"for":parameter.name}},[_vm._v(" "+_vm._s(parameter.name)+" ")]),_c('div',{staticClass:"command-parameter-type"},[_vm._v("Type: "+_vm._s(parameter.type))])]),(parameter.optional)?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":parameter.default,"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}})])}),0)}
-var ParameterInputvue_type_template_id_16f4d26b_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"ac07160a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=template&id=1c00bde9&scoped=true&
+var ParameterInputvue_type_template_id_1c00bde9_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-parameters"},_vm._l((_vm.parameters),function(parameter,index){return _c('div',{staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-info"},[_c('label',{staticClass:"command-parameter-name",attrs:{"for":parameter.name}},[_vm._v(" "+_vm._s(parameter.name)+" ")]),_c('div',{staticClass:"command-parameter-type"},[_vm._v("Type: "+_vm._s(parameter.type))])]),(parameter.optional)?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name,"placeholder":parameter.default},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}})])}),0)}
+var ParameterInputvue_type_template_id_1c00bde9_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=template&id=16f4d26b&scoped=true&
+// CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=template&id=1c00bde9&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=script&lang=js&
 //
@@ -8458,11 +8458,11 @@ var ParameterInputvue_type_template_id_16f4d26b_scoped_true_staticRenderFns = []
 
 var ParameterInput_component = normalizeComponent(
   components_ParameterInputvue_type_script_lang_js_,
-  ParameterInputvue_type_template_id_16f4d26b_scoped_true_render,
-  ParameterInputvue_type_template_id_16f4d26b_scoped_true_staticRenderFns,
+  ParameterInputvue_type_template_id_1c00bde9_scoped_true_render,
+  ParameterInputvue_type_template_id_1c00bde9_scoped_true_staticRenderFns,
   false,
   null,
-  "16f4d26b",
+  "1c00bde9",
   null
   
 )
