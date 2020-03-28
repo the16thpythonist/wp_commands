@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Test message="Welcome to Your Vue.js App"/>
+
   </div>
 </template>
 
 <script>
-import Test from './components/Test.vue'
+import CommandSelector from "./components/CommandSelector.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Test
+    CommandSelector
   }
-}
+};
 </script>
 
 <style>

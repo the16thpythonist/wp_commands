@@ -225,7 +225,7 @@ class CommandDashboardRegistration
         <script>
             new Vue({
                 components: {
-                    app: wpcommandsapp
+                    app: wpcommandlib
                 }
             }).$mount('#app')
         </script>
