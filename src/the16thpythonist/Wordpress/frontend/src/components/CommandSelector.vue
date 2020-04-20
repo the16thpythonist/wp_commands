@@ -88,5 +88,11 @@
 </script>
 
 <style scoped>
-
+    .command-selector {
+        display: flex;
+        flex-direction: column;
+    }
+    .command-selector select {
+        width: 100%;
+    }
 </style>
