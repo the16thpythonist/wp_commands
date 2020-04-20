@@ -77,7 +77,7 @@ function WpCommandsApiMock() {
     };
 
     this.getRecentCommandExecutions = function () {
-        return recentExecutions;
+        return this.recentExecutions;
     };
 
     this.executeCommand = function (commandName, parameters) {

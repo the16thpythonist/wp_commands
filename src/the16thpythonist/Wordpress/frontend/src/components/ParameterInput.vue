@@ -15,15 +15,13 @@
                     v-model="parameterValues[parameter.name]"
                     :id="parameter.name"
                     :name="parameter.name"
-                    :placeholder="parameter.default"
-                    @input="handleInput">
+                    :placeholder="parameter.default">
             <input
                     v-else
                     type="text"
                     v-model="parameterValues[parameter.name]"
                     :id="parameter.name"
-                    :name="parameter.name"
-                    @input="handleInput">
+                    :name="parameter.name">
         </div>
     </div>
 </template>
@@ -36,8 +34,20 @@
             command: Object
         },
         data: function () {
+            // Changed 19.04.2020
+            // The initialization of the command was moved here.
+            // The values start out as a shallow copy of the value property and then get populated with the default
+            // values from the parameter specification.
+            let values = {...this.value};
+            this.command.parameters.forEach((parameter) => {
+                if (parameter.optional) {
+                    values[parameter.name] = parameter.default;
+                }
+            });
+
+            // actually returning the object with the data variables
             return {
-                parameterValues: this.value
+                parameterValues: values
             }
         },
         computed: {
@@ -47,13 +57,26 @@
         },
         watch: {
             /**
+             * This function gets called every time the "command" variable changes.
+             *
+             * If the command variable changes, that means that another command with other parameters has been selected
+             * to not cause interference with the parameters of the previous command, this function first resets the
+             * state variable "parameterValues" and then populates it with the default variables of the new command.
+             *
              * CHANGELOG
              *
              * Added 29.03.2020
              */
             command: function (newCommand, oldCommand) {
                 if (newCommand !== oldCommand) {
+                    this.parameterValues = {};
                     this.fillDefaultValues();
+                }
+            },
+            parameterValues: {
+                deep: true,
+                handler: function (value) {
+                    this.$emit('input', value);
                 }
             }
         },
@@ -82,24 +105,35 @@
              * CHANGELOG
              *
              * Added 29.03.2020
+             *
+             * Changed 19.04.2020
+             * This function contained a logic error. previously the whole parameterValues variable would be overwritten
+             * with the default value instead of just the value of the key. Added the indexing with the parameter name
+             * now.
              */
             fillDefaultValues: function() {
                 this.parameters.forEach((parameter) => {
                     if (parameter.optional) {
-                        this.parameterValues = parameter.default;
+                        this.parameterValues[parameter.name] = parameter.default;
                     }
                 });
             }
         },
         /**
+         * This is the lifecycle hook for when the component is being created.
          *
+         * @deprecated
          *
          * CHANGELOG
          *
          * Added 29.03.2020
+         *
+         * Deprecated 19.04.2020
+         * So using the lifecycle hook turned out to be a bad solution. The better solution for doing initialization
+         * would be to do it within the very data function.
          */
         created: function () {
-            this.fillDefaultValues();
+            // this.fillDefaultValues();
         }
     }
 </script>

@@ -32,23 +32,27 @@
             RecentCommands
         },
         data: function () {
+            // Moved the init here
+            let api_object = new api.WpCommandsApiMock();
+            let commands = api_object.getRegisteredCommands();
+            let recentExecutions = api_object.getRecentCommandExecutions();
             return {
                 // The Api object is used to interface with the server. In its methods it sends the appropriate AJAX
                 // requests to the endpoints of the wordpress server to retrieve information such as all the
                 // registered commands, command parameters etc.
-                api: new api.WpCommandsApiMock(),
+                api: api_object,
                 // This array will hold the list of "Command" objects. Each of these objects will represent a command
                 // which has been registered and which can be executed.
-                commands: [],
+                commands: commands,
                 // This object will be the command, that has been selected by the user using the CommandSelector.
-                selectedCommand: {},
+                selectedCommand: commands[0],
                 // This object will store the information about the parameter value, which the user has put in for the
                 // selected command. The keys of the object will be the parameter names and the values will be the
                 // values from the input fields.
                 commandParameters: {},
                 // This array will contain "CommandExecution" objects. These objects describe the name and time of a
                 // command that was executed in the past.
-                recentExecutions: []
+                recentExecutions: recentExecutions
             }
         },
         methods: {
@@ -59,6 +63,10 @@
              *
              * Added 28.03.2020
              *
+             * Changed 19.04.2020
+             * Using the commandParametersLength computed property now, because the statement required to get the
+             * "length" of an object was too messy...
+             *
              * @return {boolean}
              */
             checkParameters: function() {
@@ -66,7 +74,7 @@
                 // nice idea to do that at some point...
 
                 // Simply going to check if all the parameters have been put in.
-                return this.commandParameters.length === this.selectedCommand.parameters.length
+                return this.commandParametersLength === this.selectedCommand.parameters.length
             },
             /**
              * Sets the "commandParameters" to an empty object again
@@ -110,6 +118,18 @@
                 }
             }
         },
+        computed: {
+            /**
+             * Returns the amount of parameters that have been given for the command.
+             *
+             * CHANGELOG
+             *
+             * Added 19.04.2020
+             */
+            commandParametersLength: function () {
+                return Object.keys(this.commandParameters).length;
+            }
+        },
         watch: {
             /**
              * Watcher for the "selectedCommand" data field
@@ -123,11 +143,17 @@
              * and would thus pass additional parameter values to the server backend to be executed, potentially
              * causing problems there.
              *
+             * @deprecated
+             *
              * CHANGELOG
              *
              * Added 29.03.2020
+             *
+             * Deprecated 19.04.2020
+             * This functionality is now being handled by the ParameterInput component itself.
              */
             selectedCommand: function (newCommand, oldCommand) {
+                return;
                 if (newCommand !== oldCommand) {
                     // This function will assign an empty object to commandParameters.
                     this.clearParameters();
@@ -143,14 +169,20 @@
          * 2) A list if all the recent CommandExecutions, so that this list can be supplied to the recent commands
          * widget.
          *
+         * @deprecated
+         *
          * CHANGELOG
          *
          * Added 28.03.2020
+         *
+         * Deprecated 19.04.2020
+         * So it turns out, that using the lifecycle hooks for initializing data is not the best idea. This should
+         * rather be done in the data function itself.
          */
         created: function() {
             // Call the Api to get the commands
-            this.commands = this.api.getRegisteredCommands();
-            this.updateRecentCommands();
+            //this.commands = this.api.getRegisteredCommands();
+            //this.updateRecentCommands();
         }
     }
 </script>
