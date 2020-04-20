@@ -94,5 +94,6 @@
     }
     .command-selector select {
         width: 100%;
+        font-size: 1.2em;
     }
 </style>

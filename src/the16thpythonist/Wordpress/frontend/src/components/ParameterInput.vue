@@ -139,5 +139,42 @@
 </script>
 
 <style scoped>
+    .command-parameters {
+        padding: 5px;
+        background-color: #f5f5f5;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #d7d7d7;
+        display: flex;
+        flex-direction: column;
+    }
 
+    .command-parameter-input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .command-parameter-input input {
+        width: 100%;
+    }
+
+    .command-parameter-info {
+        margin-bottom: 2px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .command-parameter-info label {
+        margin-left: 3px;
+        font-size: 1.15em;
+        font-style: normal;
+    }
+
+    .command-parameter-type {
+        font-size: 0.85em;
+        color: #919191;
+    }
 </style>
