@@ -1,6 +1,6 @@
 <template>
     <div class="command-parameters">
-        <div class="command-parameter-input" v-for="(parameter, index) in parameters">
+        <div v-if="parameters.length > 0" class="command-parameter-input" v-for="(parameter, index) in parameters">
             <div class="command-parameter-info">
                 <label
                         class="command-parameter-name"
@@ -22,6 +22,13 @@
                     v-model="parameterValues[parameter.name]"
                     :id="parameter.name"
                     :name="parameter.name">
+        </div>
+        <!-- 20.04.2020: This is a text message indicating that no parameters are required if the list of
+         parameters is empty -->
+        <div class="command-parameter-input" v-if="parameters.length === 0">
+            <div class="command-parameter-type">
+                This command does not accept parameters...
+            </div>
         </div>
     </div>
 </template>
