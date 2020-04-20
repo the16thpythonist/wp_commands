@@ -1,5 +1,8 @@
 <template>
     <div class="command-widget">
+        <p class="command-widget-info">
+            <em>Select</em> a command, <em>enter parameters</em> and <em>execute</em> it by pressing the button!
+        </p>
         <!--
         v-model of this component is bound to the currently selected Command object
         -->
@@ -11,7 +14,7 @@
         -->
         <ParameterInput :command="selectedCommand" v-model="commandParameters"></ParameterInput>
 
-        <button @click.prevent="onExecute">Execute</button>
+        <button class="execute-button" @click.prevent="onExecute">Run Command!</button>
         <RecentCommands :command-executions="recentExecutions"></RecentCommands>
     </div>
 </template>
@@ -188,5 +191,40 @@
 </script>
 
 <style scoped>
+    .command-widget {
+        display: flex;
+        flex-direction: column;
+    }
 
+    .command-widget>*{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .execute-button {
+        align-self: center;
+        margin-top: 8px;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 25px;
+        padding-right: 25px;
+        font-weight: bold;
+        font-size: 1.4em;
+        letter-spacing: 0px;
+        background-color: #3ECF8E;
+        box-shadow: 0px 3px 10px 0px #c3c3c3;
+        color: white;
+        border-style: none;
+        border-radius: 2px;
+    }
+
+    .execute-button:hover {
+        background-color: #3fdd9b;
+    }
+
+    .command-widget-info {
+        font-size: 1.2em;
+        text-align: left;
+    }
 </style>
