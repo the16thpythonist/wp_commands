@@ -138,6 +138,11 @@ class WpCommandsRegistration
      * CommandDashboardRegistration, but it didnt make sense there conceptionally, so it has been moved here.
      * Added the registration of the "wp_ajax_get_command_arg_types", which will return an array of types for the
      * arguments.
+     *
+     * Changed 21.04.2020
+     * Added 'wp_ajax_get_registered_command_names' for a callback, which returns all registered commands
+     * Added 'wp_ajax_get_command_parameter_extended_info' for a callback, which returns a json object structure
+     * with info for all the commands parameters.
      */
     public function registerAjax() {
         // Adding a function which will provide a list of the most recent commands, that have been executed
@@ -146,13 +151,58 @@ class WpCommandsRegistration
         // 17.03.2020
         add_action('wp_ajax_get_command_default_args', [$this, 'ajaxGetArgumentDefaultValues']);
         add_action('wp_ajax_get_command_arg_types', [$this, 'ajaxGetArgumentTypes']);
+
+        // 21.04.2020
+        add_action('wp_ajax_get_registered_command_names', [$this, 'ajaxGetRegisteredCommandNames']);
+        add_action('wp_ajax_get_command_parameter_extended_info', [$this, 'ajaxGetCommandParameterExtendedInfo']);
     }
 
     // AJAX CALLBACKS
     // **************
 
     /**
-     * Responds to an AJAX GET request with the action 'get_recent_commands'.
+     * Callback for the AJAX GET request with the action 'get_registered_command_names'
+     *
+     * No parameters required.
+     * Returns an array with the string command names.
+     *
+     * CHANGELOG
+     *
+     * Added 21.04.2020
+     */
+    public function ajaxGetRegisteredCommandNames() {
+        $command_names = $this->command_facade->registeredCommands();
+        echo json_encode($command_names);
+        wp_die();
+    }
+
+    /**
+     * Callback for the AJAX GET request with the action 'get_command_parameter_extended_info'
+     *
+     * The request must contain the following URL parameters:
+     * - name:      The string name of the commands for which to get the parameter info
+     * Will return a json string, which is an object, whose keys are the parameter names and the values
+     * are objects, whose keys are:
+     * - default
+     * - type
+     * - optional
+     *
+     * CHANGELOG
+     *
+     * Added 21.04.2020
+     *
+     * @throws \ReflectionException
+     */
+    public function ajaxGetCommandParameterExtendedInfo() {
+        $command_name = $_GET['name'];
+        $parameter_info = $this->command_facade->getCommandParameterExtendedInfo($command_name);
+        echo json_encode($parameter_info);
+        wp_die();
+    }
+
+    /**
+     * Callback for the AJAX GET request with the action 'get_recent_commands'.
+     *
      * The request must contain the following URL parameters:
      * - amount:    The int amount of most recent commands to be returned
      * The response will be an array containing associative arrays with the keys
