@@ -130,6 +130,9 @@ class CommandFacade
      *
      * Added 19.03.2020
      *
+     * Changed 21.04.2020
+     * This method didnt have a return method; Added it.
+     *
      * @param string $command_name
      * @return array
      * @throws \ReflectionException
@@ -142,6 +145,74 @@ class CommandFacade
         foreach ($names as $name) {
             $types[$name] = $parameter_inspection->getType($name, true);
         }
+        return $types;
+    }
+
+    /**
+     * Returns an assoc array with the parameter names as keys and the boolean value of whether or not is optional as v.
+     *
+     * CHANGELOG
+     *
+     * Added 21.04.2020
+     *
+     * @param string $command_name
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getCommandParameterOptionality(string $command_name): array
+    {
+        $parameter_inspection = $this->getCommandParameterInspection($command_name);
+        $names = $parameter_inspection->allParameterNames();
+        $optionality = [];
+        foreach ($names as $name) {
+            $optionality[$name] = $parameter_inspection->isOptional($name);
+        }
+        return $optionality;
+    }
+
+    /**
+     * Returns assoc array with parameter names as keys and assoc info array as values.
+     *
+     * The associative arrays, which are the values for all the parameter names contain the following keys:
+     * - type: The string name of the type, which the parameter expects
+     * - default: The string default value for the parameter
+     * - optional: The boolean value of whether or not this parameter is optional
+     *
+     * DEV. INFO
+     *
+     * This method was created, because I realized, that it is quite bad design to only provide the individual
+     * information about type, default value and optionality in separate associative arrays. For this a new
+     * Inspection object would have to be created three times as well as three loops etc. So this method now provides
+     * all the information without having to expose the Inspection object to the outside scope.
+     * My initial concerns with providing all data at once was, that I would either do it with the inspection object,
+     * which would introduce complexity and which is subject to future changes, or I would have to change this method
+     * too often if i just names it "...ParameterInfo". But now I named it with an additonal "extended" and for the sake
+     * of backwards compatibility I will leave this method as it is. If at any point additional information is being
+     * added to parameter inspection, I will add another method and call it "AdvancedInfo" or smth...
+     *
+     * CHANGELOG
+     *
+     * Added 21.04.2020
+     *
+     * @param string $command_name
+     * @return array
+     * @throws \ReflectionException
+     */
+    public function getCommandParameterExtendedInfo(string $command_name): array
+    {
+        $parameter_inspection = $this->getCommandParameterInspection($command_name);
+        $names = $parameter_inspection->allParameterNames();
+        $info_map = [];
+        foreach ($names as $name) {
+            $_info = [
+                'type'          => $parameter_inspection->getType($name, true),
+                'default'       => $parameter_inspection->getDefault($name, true),
+                'optional'      => $parameter_inspection->isOptional($name)
+            ];
+
+            $info_map[$name] = $_info;
+        }
+        return $info_map;
     }
 
     /**
