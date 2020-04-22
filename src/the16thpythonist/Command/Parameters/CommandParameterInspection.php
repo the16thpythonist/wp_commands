@@ -125,6 +125,9 @@ class CommandParameterInspection
      *
      * Added 19.03.2020
      *
+     * Changed 22.04.2020
+     * Fixed a bug, where I used the "call_user_func" in the wrong way. Using "call_user_func_array" now.
+     *
      * @param string $parameter_name
      * @param bool $as_string
      * @return mixed
@@ -150,6 +153,9 @@ class CommandParameterInspection
      *
      * Added 19.03.2020
      *
+     * Changed 22.04.2020
+     * Fixed a bug, where I used the "call_user_func" in the wrong way. Using "call_user_func_array" now.
+     *
      * @param string $parameter_name
      * @param bool $as_string
      * @return string
@@ -158,7 +164,7 @@ class CommandParameterInspection
     {
         if ($as_string) {
             $type = $this->parameters[$parameter_name]->type;
-            return call_user_func([$type, 'getName'], []);
+            return call_user_func_array([$type, 'getName'], []);
         } else {
             return $this->parameters[$parameter_name]->type;
         }

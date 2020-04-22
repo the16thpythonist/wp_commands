@@ -174,6 +174,7 @@ class CommandFacade
      * Returns assoc array with parameter names as keys and assoc info array as values.
      *
      * The associative arrays, which are the values for all the parameter names contain the following keys:
+     * - name: The string name of the parameter
      * - type: The string name of the type, which the parameter expects
      * - default: The string default value for the parameter
      * - optional: The boolean value of whether or not this parameter is optional
@@ -193,6 +194,9 @@ class CommandFacade
      * CHANGELOG
      *
      * Added 21.04.2020
+     *
+     * Changed 22.04.2020
+     * Added the additional key "name" to the returned assoc array.
      *
      * @param string $command_name
      * @return array

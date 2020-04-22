@@ -123,6 +123,18 @@
                     setTimeout(this.updateRecentCommands, 1000);
                 }
             },
+            /**
+             * Initializes the component state from the values requested from the server.
+             *
+             * This function makes requests to the server to obtain the information about all the available commands
+             * and the recent history of executed commands. These values are then assigned to the data fields of the
+             * component, thus displaying them on the page.
+             *
+             * CHANGELOG
+             *
+             * Added 22.04.2020
+             *
+             */
             initialize: function() {
                 let _this = this;
 
@@ -187,8 +199,6 @@
          * 2) A list if all the recent CommandExecutions, so that this list can be supplied to the recent commands
          * widget.
          *
-         * @deprecated
-         *
          * CHANGELOG
          *
          * Added 28.03.2020
@@ -196,6 +206,12 @@
          * Deprecated 19.04.2020
          * So it turns out, that using the lifecycle hooks for initializing data is not the best idea. This should
          * rather be done in the data function itself.
+         *
+         * Changed 22.04.2020
+         * un-deprecated this method because I changed the api object, which interfaces with the server to use promises.
+         * And since the promises dont return values instantly, but rather whenever the server answers they could not
+         * be used in the "data" function (because the strictly speaking the data fields are not known as references
+         * at that point).
          */
         mounted: function() {
             this.initialize();

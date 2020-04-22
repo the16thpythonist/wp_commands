@@ -1,6 +1,6 @@
 <template>
     <div class="command-parameters">
-        <div v-show="parameters.length > 0" class="command-parameter-input" v-for="(parameter, index) in parameters">
+        <div v-if="parameters.length > 0" class="command-parameter-input" v-for="(parameter, index) in parameters">
             <div class="command-parameter-info">
                 <label
                         class="command-parameter-name"
@@ -25,7 +25,7 @@
         </div>
         <!-- 20.04.2020: This is a text message indicating that no parameters are required if the list of
          parameters is empty -->
-        <div class="command-parameter-input" v-show="parameters.length === 0">
+        <div class="command-parameter-input" v-if="parameters.length === 0">
             <div class="command-parameter-type">
                 This command does not accept parameters...
             </div>
@@ -45,6 +45,10 @@
             // The initialization of the command was moved here.
             // The values start out as a shallow copy of the value property and then get populated with the default
             // values from the parameter specification.
+
+            // Changed 22.04.2020
+            // Moved the initialization back to the "created" hook.
+
             let values = {...this.value};
 
             // actually returning the object with the data variables
@@ -77,6 +81,17 @@
             },
             parameterValues: {
                 deep: true,
+                /**
+                 * This function gets called every time the "parameterValues" method changes.
+                 *
+                 * This function will emit the new value of the parameterValues field through the "input" event to the
+                 * parent component. This is part of the requirements to enable the usage of "v-model" with a custom
+                 * component.
+                 *
+                 * CHANGELOG
+                 *
+                 * Added 20.04.2020
+                 */
                 handler: function (value) {
                     this.$emit('input', value);
                 }
@@ -133,6 +148,9 @@
          * Deprecated 19.04.2020
          * So using the lifecycle hook turned out to be a bad solution. The better solution for doing initialization
          * would be to do it within the very data function.
+         *
+         * Changed 22.04.2020
+         * Un-deprecated this method, because I found out, that it is possible to use this hook.
          */
         created: function () {
             this.fillDefaultValues();

@@ -83,6 +83,28 @@
                     this.$emit('input', value);
                 }
             },
+            /**
+             * This function is being called every time the "value" variable changes.
+             *
+             * DEVELOPMENT INFO
+             *
+             * So the "value" prop of this component is used to implement custom "v-model" capabilities for this
+             * component. The whole purpose of using v-model is a two way data binding. The state of the component can
+             * either change internally through user input or smth. or if the external parent component, which is bound
+             * via v-model changes the value.
+             * Although it turned out, that since this component uses he intermediate data field "selectedCommand",
+             * the v-model worked as a reaction to the user input, but nothing changed when the parent component changed
+             * the value.
+             * This is what this function does now. It detects, when the parent component changes "value" and then
+             * translates this change to the intermediate data field "selectedCommand", which actually represents the
+             * state of this component.
+             *
+             * CHANGELOG
+             *
+             * Added 22.04.2020
+             *
+             * @param value
+             */
             value: function (value) {
                 this.selectedCommand = value;
             }

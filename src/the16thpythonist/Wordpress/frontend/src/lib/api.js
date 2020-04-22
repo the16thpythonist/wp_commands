@@ -138,10 +138,14 @@ function WpCommandsApiMock() {
     // PUBLIC METHODS
 
     /**
+     * Returns a list of "Command" objects, which represent all the available commands to be executed on the server.
      *
      * CHANGELOG
      *
      * Added 28.03.2020
+     *
+     * Changed 22.04.2020
+     * Made this function return a promise instead of directly returning the value
      *
      * @return
      */
@@ -157,6 +161,9 @@ function WpCommandsApiMock() {
      *
      * Added 28.03.2020
      *
+     * Changed 22.04.2020
+     * Made this function return a promise instead of directly returning the value
+     *
      * @param commandName
      * @return
      */
@@ -171,6 +178,7 @@ function WpCommandsApiMock() {
     };
 
     /**
+     * Returns an array of "CommandExecution" objects, each defining a command that has been recently executed.
      *
      * CHANGELOG
      *
@@ -179,6 +187,9 @@ function WpCommandsApiMock() {
      * Changed 19.04.2020
      * Contained a bug, where the "this" was missing before the "recentExecutions" and thus it was not accessing the
      * object field, but causing a reference error
+     *
+     * Changed 22.04.2020
+     * Made this function return a promise instead of directly returning the value
      *
      * @return [CommandExecution]
      */
@@ -189,10 +200,14 @@ function WpCommandsApiMock() {
     };
 
     /**
+     * Sends a request to the server to execute the command with the given name, using the given parameters.
      *
      * CHANGELOG
      *
      * Added 28.03.2020
+     *
+     * Changed 22.04.2020
+     * Made this function return a promise instead of directly returning the value
      *
      * @param commandName
      * @param parameters
