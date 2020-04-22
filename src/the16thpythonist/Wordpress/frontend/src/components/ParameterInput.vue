@@ -1,6 +1,6 @@
 <template>
     <div class="command-parameters">
-        <div v-if="parameters.length > 0" class="command-parameter-input" v-for="(parameter, index) in parameters">
+        <div v-show="parameters.length > 0" class="command-parameter-input" v-for="(parameter, index) in parameters">
             <div class="command-parameter-info">
                 <label
                         class="command-parameter-name"
@@ -25,7 +25,7 @@
         </div>
         <!-- 20.04.2020: This is a text message indicating that no parameters are required if the list of
          parameters is empty -->
-        <div class="command-parameter-input" v-if="parameters.length === 0">
+        <div class="command-parameter-input" v-show="parameters.length === 0">
             <div class="command-parameter-type">
                 This command does not accept parameters...
             </div>
@@ -46,11 +46,6 @@
             // The values start out as a shallow copy of the value property and then get populated with the default
             // values from the parameter specification.
             let values = {...this.value};
-            this.command.parameters.forEach((parameter) => {
-                if (parameter.optional) {
-                    values[parameter.name] = parameter.default;
-                }
-            });
 
             // actually returning the object with the data variables
             return {
@@ -140,7 +135,7 @@
          * would be to do it within the very data function.
          */
         created: function () {
-            // this.fillDefaultValues();
+            this.fillDefaultValues();
         }
     }
 </script>

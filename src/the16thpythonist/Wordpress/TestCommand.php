@@ -24,7 +24,7 @@ class TestCommand extends Command
         'int_arg'           => [
             'optional'      => false,
             'type'          => IntType::class,
-            'default'       => null
+            'default'       => 100
         ],
         'string_arg'        => [
             'optional'      => true,

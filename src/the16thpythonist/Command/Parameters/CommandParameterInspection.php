@@ -133,7 +133,7 @@ class CommandParameterInspection
     {
         if ($as_string) {
             $type = $this->parameters[$parameter_name]->type;
-            return call_user_func([$type, 'unapply'], [$this->parameters[$parameter_name]->default]);
+            return call_user_func_array([$type, 'unapply'], [$this->parameters[$parameter_name]->default]);
         } else {
             return $this->parameters[$parameter_name]->default;
         }

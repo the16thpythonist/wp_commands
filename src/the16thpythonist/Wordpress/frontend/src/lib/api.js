@@ -1,15 +1,21 @@
 import command from './command'
 import axios from 'axios'
+import he from "he"
 
-function Ajax(ajaxUrl) {
+function Ajax() {
 
-    this.ajaxUrl = ajaxUrl;
+    this.ajaxUrl = SERVER.ajaxUrl;
 
     // PUBLIC METHODS
 
     this.get = function (name, args, timeout=1000) {
-        let params = {...{action:"name"}, ...args};
-        return axios.get(this.ajaxUrl, {params: params});
+        let params = {...{action:name}, ...args};
+        return axios.get(this.ajaxUrl, {params: params}).then(function (result) {
+            console.log(result);
+            return result.data;
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
 
     // PUBLIC METHODS
@@ -24,26 +30,32 @@ function WpCommandsApi() {
     function getRegisteredCommandNames() {
         let get_promise = ajax.get('get_registered_command_names', {});
         return get_promise.then(function (result) {
-            return JSON.parse(result);
+            return result;
         })
     }
 
     function getCommandParameterExtendedInfo(command_name) {
         let get_promise = ajax.get('get_command_parameter_extended_info', {'name': command_name});
         return get_promise.then(function (result) {
-            return JSON.parse(result);
+            return result;
         })
     }
 
     function getCommandParameters(command_name) {
         let command_parameter_info_promise = getCommandParameterExtendedInfo(command_name);
         return command_parameter_info_promise.then(function (parameter_info) {
-            return command.CommandParameter(
-                parameter_info['name'],
-                parameter_info['default'],
-                parameter_info['type'],
-                parameter_info['optional']
-            )
+            let parameters = [];
+            for (let [name, info] of Object.entries(parameter_info)) {
+                let _parameter = new command.CommandParameter(
+                    info.name,
+                    info.default,
+                    info.type,
+                    info.optional
+                );
+                console.log(_parameter);
+                parameters.push(_parameter);
+            }
+            return parameters;
         })
     }
 
@@ -51,39 +63,39 @@ function WpCommandsApi() {
 
     this.getRegisteredCommands = function () {
         let command_names_promise = getRegisteredCommandNames();
-        let commands_promise = command_names_promise.then(function (command_names) {
+        return command_names_promise.then(function (_command_names) {
+            let command_names = _command_names;
             let parameter_promises = [];
             command_names.forEach(function (command_name) {
-                let parameter_promise = getCommandParameterExtendedInfo(command_name);
+                let parameter_promise = getCommandParameters(command_name);
                 parameter_promises.push(parameter_promise);
             });
 
             return Promise.all(parameter_promises).then(function (parameters) {
                 let commands = [];
-                command_names.forEach(function (command_name, index) {
-                    let _command_parameters = parameters[index];
-                    let _command = command.Command(command_name, _command_parameters);
+                command_names.forEach(function (name, index) {
+                    let _command = new command.Command(name, parameters[index]);
                     commands.push(_command);
                 });
                 return commands;
-            })
-        })
-    };
+            });
+        });
 
-    this.getCommandParameters = function (commandName) {
-        return [];
     };
 
     this.getRecentCommandExecutions = function () {
         let get_promise = ajax.get('get_recent_commands', {'amount': 5});
-        return get_promise.then(function (result) {
-            let _object = JSON.parse(result);
-
-            return command.CommandExecution(
-                _object['name'],
-                new Date(_object['date']),
-                _object['log']
-            );
+        return get_promise.then(function (results) {
+            let executions = [];
+            for (let result of results) {
+                let _execution = new command.CommandExecution(
+                    result.name,
+                    new Date(result.date),
+                    he.decode(result.log)
+                );
+                executions.push(_execution);
+            }
+            return executions;
         })
     };
 
@@ -188,7 +200,7 @@ function WpCommandsApiMock() {
      */
     this.executeCommand = function (commandName, parameters) {
         return new Promise(function (resolve, reject) {
-            this.recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
+            recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
             console.log(`Executing command "${commandName}" with parameters: ${JSON.stringify(parameters)}`);
             resolve(true);
         });

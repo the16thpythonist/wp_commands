@@ -205,6 +205,7 @@ class CommandFacade
         $info_map = [];
         foreach ($names as $name) {
             $_info = [
+                'name'          => $name,
                 'type'          => $parameter_inspection->getType($name, true),
                 'default'       => $parameter_inspection->getDefault($name, true),
                 'optional'      => $parameter_inspection->isOptional($name)

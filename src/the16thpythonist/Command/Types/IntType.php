@@ -61,7 +61,7 @@ class IntType extends ParameterType
         if (static::check($value)) {
             return sprintf("%s", $value);
         } else {
-            $message = sprintf("Cannot unapply IntType on value, which is not type '%s'", static::NAME);
+            $message = sprintf("Cannot unapply IntType on value, which is not type '%s' %s", static::NAME, var_export($value, true));
             throw new \TypeError($message);
         }
     }

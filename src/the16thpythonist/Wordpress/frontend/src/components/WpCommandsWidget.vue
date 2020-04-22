@@ -39,12 +39,12 @@
                 // The Api object is used to interface with the server. In its methods it sends the appropriate AJAX
                 // requests to the endpoints of the wordpress server to retrieve information such as all the
                 // registered commands, command parameters etc.
-                api: new api.WpCommandsApiMock(),
+                api: new api.WpCommandsApi(),
                 // This array will hold the list of "Command" objects. Each of these objects will represent a command
                 // which has been registered and which can be executed.
                 commands: [],
                 // This object will be the command, that has been selected by the user using the CommandSelector.
-                selectedCommand: {},
+                selectedCommand: {parameters: []},
                 // This object will store the information about the parameter value, which the user has put in for the
                 // selected command. The keys of the object will be the parameter names and the values will be the
                 // values from the input fields.
@@ -115,10 +115,12 @@
                     this.api.executeCommand(
                         this.selectedCommand.name,
                         this.commandParameters
-                    );
+                    ).then(function (value) {
+                        console.log(value);
+                    });
 
                     // After the command has been started we obviously want it to appear in the recent commands
-                    this.updateRecentCommands();
+                    setTimeout(this.updateRecentCommands, 1000);
                 }
             },
             initialize: function() {
@@ -195,7 +197,7 @@
          * So it turns out, that using the lifecycle hooks for initializing data is not the best idea. This should
          * rather be done in the data function itself.
          */
-        created: function() {
+        mounted: function() {
             this.initialize();
         }
     }

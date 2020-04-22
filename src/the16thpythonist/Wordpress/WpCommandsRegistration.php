@@ -9,6 +9,7 @@
 namespace the16thpythonist\Wordpress;
 
 use Log\LogPost;
+use PHPUnit\Exception;
 use the16thpythonist\Command\CommandFacade;
 
 /**
@@ -123,7 +124,13 @@ class WpCommandsRegistration
         wp_enqueue_script('commands-utility', plugin_dir_url(__FILE__) . 'command.js');
 
         wp_enqueue_script('vue', 'https://unpkg.com/vue');
-        wp_enqueue_script('frontend', plugin_dir_url(__FILE__) . 'frontend/dist/wpcommandlib.umd.js');
+
+        wp_register_script('frontend', plugin_dir_url(__FILE__) . 'frontend/dist/wpcommandlib.umd.js');
+        $localize = [
+            'ajaxUrl'   => admin_url('admin-ajax.php')
+        ];
+        wp_localize_script('frontend', 'SERVER', $localize);
+        wp_enqueue_script('frontend');
     }
 
     /**
@@ -194,9 +201,14 @@ class WpCommandsRegistration
      * @throws \ReflectionException
      */
     public function ajaxGetCommandParameterExtendedInfo() {
-        $command_name = $_GET['name'];
-        $parameter_info = $this->command_facade->getCommandParameterExtendedInfo($command_name);
-        echo json_encode($parameter_info);
+        try {
+            $command_name = $_GET['name'];
+            $parameter_info = $this->command_facade->getCommandParameterExtendedInfo($command_name);
+            echo json_encode($parameter_info);
+        } catch (\Error $e){
+            echo $e->getMessage();
+        }
+
         wp_die();
     }
 

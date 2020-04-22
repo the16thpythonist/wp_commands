@@ -82,6 +82,9 @@
                 handler: function (value) {
                     this.$emit('input', value);
                 }
+            },
+            value: function (value) {
+                this.selectedCommand = value;
             }
         }
     }
