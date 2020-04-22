@@ -35,27 +35,23 @@
             RecentCommands
         },
         data: function () {
-            // Moved the init here
-            let api_object = new api.WpCommandsApiMock();
-            let commands = api_object.getRegisteredCommands();
-            let recentExecutions = api_object.getRecentCommandExecutions();
             return {
                 // The Api object is used to interface with the server. In its methods it sends the appropriate AJAX
                 // requests to the endpoints of the wordpress server to retrieve information such as all the
                 // registered commands, command parameters etc.
-                api: api_object,
+                api: new api.WpCommandsApiMock(),
                 // This array will hold the list of "Command" objects. Each of these objects will represent a command
                 // which has been registered and which can be executed.
-                commands: commands,
+                commands: [],
                 // This object will be the command, that has been selected by the user using the CommandSelector.
-                selectedCommand: commands[0],
+                selectedCommand: {},
                 // This object will store the information about the parameter value, which the user has put in for the
                 // selected command. The keys of the object will be the parameter names and the values will be the
                 // values from the input fields.
                 commandParameters: {},
                 // This array will contain "CommandExecution" objects. These objects describe the name and time of a
                 // command that was executed in the past.
-                recentExecutions: recentExecutions
+                recentExecutions: []
             }
         },
         methods: {
@@ -100,7 +96,12 @@
              * Added 29.03.2020
              */
             updateRecentCommands: function() {
-                this.recentExecutions = this.api.getRecentCommandExecutions();
+                let _this = this;
+
+                this.api.getRecentCommandExecutions().then(function (recentExecutions) {
+                    _this.recentExecutions = recentExecutions;
+                })
+                // this.recentExecutions = this.api.getRecentCommandExecutions();
             },
             /**
              * Callback function for the "Execute" button
@@ -119,6 +120,18 @@
                     // After the command has been started we obviously want it to appear in the recent commands
                     this.updateRecentCommands();
                 }
+            },
+            initialize: function() {
+                let _this = this;
+
+                this.api.getRegisteredCommands().then(function (commands) {
+                    _this.commands = commands;
+                    _this.selectedCommand = commands[0];
+                });
+
+                this.api.getRecentCommandExecutions().then(function (recentExecutions) {
+                    _this.recentExecutions = recentExecutions;
+                });
             }
         },
         computed: {
@@ -183,9 +196,7 @@
          * rather be done in the data function itself.
          */
         created: function() {
-            // Call the Api to get the commands
-            //this.commands = this.api.getRegisteredCommands();
-            //this.updateRecentCommands();
+            this.initialize();
         }
     }
 </script>

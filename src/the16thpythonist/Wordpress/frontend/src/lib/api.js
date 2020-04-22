@@ -7,7 +7,7 @@ function Ajax(ajaxUrl) {
 
     // PUBLIC METHODS
 
-    this.get = function (name, args, timeout) {
+    this.get = function (name, args, timeout=1000) {
         let params = {...{action:"name"}, ...args};
         return axios.get(this.ajaxUrl, {params: params});
     };
@@ -17,15 +17,57 @@ function Ajax(ajaxUrl) {
 
 function WpCommandsApi() {
 
-    this.ajax = new Ajax();
+    const ajax = new Ajax();
 
     // PROTECTED METHODS
+
+    function getRegisteredCommandNames() {
+        let get_promise = ajax.get('get_registered_command_names', {});
+        return get_promise.then(function (result) {
+            return JSON.parse(result);
+        })
+    }
+
+    function getCommandParameterExtendedInfo(command_name) {
+        let get_promise = ajax.get('get_command_parameter_extended_info', {'name': command_name});
+        return get_promise.then(function (result) {
+            return JSON.parse(result);
+        })
+    }
+
+    function getCommandParameters(command_name) {
+        let command_parameter_info_promise = getCommandParameterExtendedInfo(command_name);
+        return command_parameter_info_promise.then(function (parameter_info) {
+            return command.CommandParameter(
+                parameter_info['name'],
+                parameter_info['default'],
+                parameter_info['type'],
+                parameter_info['optional']
+            )
+        })
+    }
 
     // PUBLIC METHODS
 
     this.getRegisteredCommands = function () {
-        let promise = this.ajax.get();
-        return [];
+        let command_names_promise = getRegisteredCommandNames();
+        let commands_promise = command_names_promise.then(function (command_names) {
+            let parameter_promises = [];
+            command_names.forEach(function (command_name) {
+                let parameter_promise = getCommandParameterExtendedInfo(command_name);
+                parameter_promises.push(parameter_promise);
+            });
+
+            return Promise.all(parameter_promises).then(function (parameters) {
+                let commands = [];
+                command_names.forEach(function (command_name, index) {
+                    let _command_parameters = parameters[index];
+                    let _command = command.Command(command_name, _command_parameters);
+                    commands.push(_command);
+                });
+                return commands;
+            })
+        })
     };
 
     this.getCommandParameters = function (commandName) {
@@ -33,11 +75,20 @@ function WpCommandsApi() {
     };
 
     this.getRecentCommandExecutions = function () {
-        return [];
+        let get_promise = ajax.get('get_recent_commands', {'amount': 5});
+        return get_promise.then(function (result) {
+            let _object = JSON.parse(result);
+
+            return command.CommandExecution(
+                _object['name'],
+                new Date(_object['date']),
+                _object['log']
+            );
+        })
     };
 
     this.executeCommand = function (commandName, parameters) {
-        return true;
+        return ajax.get(commandName, parameters);
     }
 }
 
@@ -64,7 +115,7 @@ function WpCommandsApiMock() {
 
     const logPath = 'https://google.de';
 
-    this.recentExecutions = [
+    const recentExecutions = [
         new command.CommandExecution('background-task1', new Date(), logPath),
         new command.CommandExecution('background-task2', new Date(), logPath),
         new command.CommandExecution('background-task1', new Date(), logPath)
@@ -80,10 +131,12 @@ function WpCommandsApiMock() {
      *
      * Added 28.03.2020
      *
-     * @return {Command[]}
+     * @return
      */
     this.getRegisteredCommands = function () {
-        return Object.values(registeredCommands);
+        return new Promise(function (resolve, reject) {
+            resolve(Object.values(registeredCommands));
+        });
     };
 
     /**
@@ -93,7 +146,7 @@ function WpCommandsApiMock() {
      * Added 28.03.2020
      *
      * @param commandName
-     * @return {*}
+     * @return
      */
     this.getCommandParameters = function (commandName) {
         let keys = Object.keys(registeredCommands);
@@ -118,7 +171,9 @@ function WpCommandsApiMock() {
      * @return [CommandExecution]
      */
     this.getRecentCommandExecutions = function () {
-        return this.recentExecutions;
+        return new Promise(function (resolve, reject) {
+            resolve(recentExecutions);
+        });
     };
 
     /**
@@ -129,12 +184,15 @@ function WpCommandsApiMock() {
      *
      * @param commandName
      * @param parameters
-     * @return {boolean}
+     * @return
      */
     this.executeCommand = function (commandName, parameters) {
-        this.recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
-        console.log(`Executing command "${commandName}" with parameters: ${JSON.stringify(parameters)}`);
-        return true;
+        return new Promise(function (resolve, reject) {
+            this.recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
+            console.log(`Executing command "${commandName}" with parameters: ${JSON.stringify(parameters)}`);
+            resolve(true);
+        });
+
     }
 }
 
