@@ -288,6 +288,10 @@ abstract class Command
             $this->log->error($e->getMessage());
             $this->log->info('Command ended with exit code 1');
             $exit_code = 1;
+        } catch (\Error $e) {
+            $this->log->error($e->getMessage());
+            $this->log->info('Command ended with exit code 1');
+            $exit_code = 1;
         } finally {
             $this->log->stop();
             return $exit_code;

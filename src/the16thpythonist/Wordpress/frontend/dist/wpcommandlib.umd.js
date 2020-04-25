@@ -209,6 +209,17 @@ exports.f = DESCRIPTORS ? nativeGetOwnPropertyDescriptor : function getOwnProper
 
 /***/ }),
 
+/***/ "06f4":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_3dcaad8a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6473");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_3dcaad8a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_3dcaad8a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_3dcaad8a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "07ac":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -905,6 +916,17 @@ module.exports = function (CONSTRUCTOR_NAME) {
 
 /***/ }),
 
+/***/ "28b6":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_2a63ceef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("32ae");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_2a63ceef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_2a63ceef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_2a63ceef_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "2cf4":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1155,6 +1177,13 @@ module.exports = function buildURL(url, params, paramsSerializer) {
   return url;
 };
 
+
+/***/ }),
+
+/***/ "32ae":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -1691,13 +1720,6 @@ module.exports = function mergeConfig(config1, config2) {
 
 /***/ }),
 
-/***/ "4a98":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "4d64":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1944,14 +1966,14 @@ module.exports = function dispatchRequest(config) {
 
 /***/ }),
 
-/***/ "53af":
+/***/ "52ec":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_1f6b8248_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4a98");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_1f6b8248_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_1f6b8248_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_001816bb_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("5977");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_001816bb_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_001816bb_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CommandSelector_vue_vue_type_style_index_0_id_1f6b8248_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_001816bb_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -1987,6 +2009,13 @@ module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
   return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
 };
 
+
+/***/ }),
+
+/***/ "5977":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -2045,6 +2074,13 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+
+/***/ "6473":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -2254,17 +2290,6 @@ module.exports = {
   values: createMethod(false)
 };
 
-
-/***/ }),
-
-/***/ "7386":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_ab13ba2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("f256");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_ab13ba2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_ab13ba2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WpCommandsWidget_vue_vue_type_style_index_0_id_ab13ba2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -2722,17 +2747,6 @@ if (typeof store.inspectSource != 'function') {
 
 module.exports = store.inspectSource;
 
-
-/***/ }),
-
-/***/ "8a8c":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_4d72d02c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("d54b");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_4d72d02c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_4d72d02c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ParameterInput_vue_vue_type_style_index_0_id_4d72d02c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -5136,13 +5150,6 @@ module.exports = function (it, TAG, STATIC) {
 
 /***/ }),
 
-/***/ "d54b":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "d925":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6286,13 +6293,6 @@ module.exports.f = function (C) {
 
 /***/ }),
 
-/***/ "f256":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "f5df":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6468,19 +6468,19 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"21e366db-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=596fd1e4&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2685d800-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App.vue?vue&type=template&id=3ff6c109&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('WpCommandsWidget')],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=596fd1e4&
+// CONCATENATED MODULE: ./src/App.vue?vue&type=template&id=3ff6c109&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"21e366db-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/WpCommandsWidget.vue?vue&type=template&id=ab13ba2a&scoped=true&
-var WpCommandsWidgetvue_type_template_id_ab13ba2a_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-widget"},[_vm._m(0),_c('CommandSelector',{attrs:{"commands":_vm.commands},model:{value:(_vm.selectedCommand),callback:function ($$v) {_vm.selectedCommand=$$v},expression:"selectedCommand"}}),_c('ParameterInput',{attrs:{"command":_vm.selectedCommand},model:{value:(_vm.commandParameters),callback:function ($$v) {_vm.commandParameters=$$v},expression:"commandParameters"}}),_c('button',{staticClass:"execute-button",on:{"click":function($event){$event.preventDefault();return _vm.onExecute($event)}}},[_vm._v("Run Command!")]),_c('RecentCommands',{attrs:{"command-executions":_vm.recentExecutions}})],1)}
-var WpCommandsWidgetvue_type_template_id_ab13ba2a_scoped_true_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',{staticClass:"command-widget-info"},[_c('em',[_vm._v("Select")]),_vm._v(" a command, "),_c('em',[_vm._v("enter parameters")]),_vm._v(" and "),_c('em',[_vm._v("execute")]),_vm._v(" it by pressing the button! ")])}]
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2685d800-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/WpCommandsWidget.vue?vue&type=template&id=3dcaad8a&scoped=true&
+var WpCommandsWidgetvue_type_template_id_3dcaad8a_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-widget"},[_vm._m(0),_c('CommandSelector',{attrs:{"commands":_vm.commands},model:{value:(_vm.selectedCommand),callback:function ($$v) {_vm.selectedCommand=$$v},expression:"selectedCommand"}}),_c('ParameterInput',{attrs:{"command":_vm.selectedCommand},model:{value:(_vm.commandParameters),callback:function ($$v) {_vm.commandParameters=$$v},expression:"commandParameters"}}),_c('button',{staticClass:"execute-button",on:{"click":function($event){$event.preventDefault();return _vm.onExecute($event)}}},[_vm._v("Run Command!")]),_c('RecentCommands',{attrs:{"command-executions":_vm.recentExecutions}})],1)}
+var WpCommandsWidgetvue_type_template_id_3dcaad8a_scoped_true_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',{staticClass:"command-widget-info"},[_c('em',[_vm._v("Select")]),_vm._v(" a command, "),_c('em',[_vm._v("enter parameters")]),_vm._v(" and "),_c('em',[_vm._v("execute")]),_vm._v(" it by pressing the button! ")])}]
 
 
-// CONCATENATED MODULE: ./src/components/WpCommandsWidget.vue?vue&type=template&id=ab13ba2a&scoped=true&
+// CONCATENATED MODULE: ./src/components/WpCommandsWidget.vue?vue&type=template&id=3dcaad8a&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
@@ -6488,12 +6488,12 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.keys.js
 var es_object_keys = __webpack_require__("b64b");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"21e366db-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=template&id=1f6b8248&scoped=true&
-var CommandSelectorvue_type_template_id_1f6b8248_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-selector"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.selectedCommand),expression:"selectedCommand"}],on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.selectedCommand=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},_vm._l((_vm.commands),function(command,index){return _c('option',{domProps:{"selected":index === 1,"value":command}},[_vm._v(_vm._s(command.name))])}),0)])}
-var CommandSelectorvue_type_template_id_1f6b8248_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2685d800-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/CommandSelector.vue?vue&type=template&id=2a63ceef&scoped=true&
+var CommandSelectorvue_type_template_id_2a63ceef_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-selector"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.selectedCommand),expression:"selectedCommand"}],on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.selectedCommand=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},_vm._l((_vm.commands),function(command,index){return _c('option',{domProps:{"selected":index === 1,"value":command}},[_vm._v(_vm._s(command.name))])}),0)])}
+var CommandSelectorvue_type_template_id_2a63ceef_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=template&id=1f6b8248&scoped=true&
+// CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=template&id=2a63ceef&scoped=true&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.symbol.js
 var es_symbol = __webpack_require__("a4d3");
@@ -6658,6 +6658,29 @@ function _objectSpread2(target) {
         this.$emit('input', value);
       }
     },
+
+    /**
+     * This function is being called every time the "value" variable changes.
+     *
+     * DEVELOPMENT INFO
+     *
+     * So the "value" prop of this component is used to implement custom "v-model" capabilities for this
+     * component. The whole purpose of using v-model is a two way data binding. The state of the component can
+     * either change internally through user input or smth. or if the external parent component, which is bound
+     * via v-model changes the value.
+     * Although it turned out, that since this component uses he intermediate data field "selectedCommand",
+     * the v-model worked as a reaction to the user input, but nothing changed when the parent component changed
+     * the value.
+     * This is what this function does now. It detects, when the parent component changes "value" and then
+     * translates this change to the intermediate data field "selectedCommand", which actually represents the
+     * state of this component.
+     *
+     * CHANGELOG
+     *
+     * Added 22.04.2020
+     *
+     * @param value
+     */
     value: function value(_value) {
       this.selectedCommand = _value;
     }
@@ -6665,8 +6688,8 @@ function _objectSpread2(target) {
 });
 // CONCATENATED MODULE: ./src/components/CommandSelector.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_CommandSelectorvue_type_script_lang_js_ = (CommandSelectorvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/CommandSelector.vue?vue&type=style&index=0&id=1f6b8248&scoped=true&lang=css&
-var CommandSelectorvue_type_style_index_0_id_1f6b8248_scoped_true_lang_css_ = __webpack_require__("53af");
+// EXTERNAL MODULE: ./src/components/CommandSelector.vue?vue&type=style&index=0&id=2a63ceef&scoped=true&lang=css&
+var CommandSelectorvue_type_style_index_0_id_2a63ceef_scoped_true_lang_css_ = __webpack_require__("28b6");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -6774,22 +6797,22 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_CommandSelectorvue_type_script_lang_js_,
-  CommandSelectorvue_type_template_id_1f6b8248_scoped_true_render,
-  CommandSelectorvue_type_template_id_1f6b8248_scoped_true_staticRenderFns,
+  CommandSelectorvue_type_template_id_2a63ceef_scoped_true_render,
+  CommandSelectorvue_type_template_id_2a63ceef_scoped_true_staticRenderFns,
   false,
   null,
-  "1f6b8248",
+  "2a63ceef",
   null
   
 )
 
 /* harmony default export */ var CommandSelector = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"21e366db-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=template&id=4d72d02c&scoped=true&
-var ParameterInputvue_type_template_id_4d72d02c_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-parameters"},[_vm._l((_vm.parameters),function(parameter,index){return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.parameters.length > 0),expression:"parameters.length > 0"}],staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-info"},[_c('label',{staticClass:"command-parameter-name",attrs:{"for":parameter.name}},[_vm._v(" "+_vm._s(parameter.name)+" ")]),_c('div',{staticClass:"command-parameter-type"},[_vm._v("Type: "+_vm._s(parameter.type))])]),(parameter.optional)?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name,"placeholder":parameter.default},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}})])}),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.parameters.length === 0),expression:"parameters.length === 0"}],staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-type"},[_vm._v(" This command does not accept parameters... ")])])],2)}
-var ParameterInputvue_type_template_id_4d72d02c_scoped_true_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2685d800-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=template&id=001816bb&scoped=true&
+var ParameterInputvue_type_template_id_001816bb_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"command-parameters"},[_vm._l((_vm.parameters),function(parameter,index){return (_vm.parameters.length > 0)?_c('div',{staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-info"},[_c('label',{staticClass:"command-parameter-name",attrs:{"for":parameter.name}},[_vm._v(" "+_vm._s(parameter.name)+" ")]),_c('div',{staticClass:"command-parameter-type"},[_vm._v("Type: "+_vm._s(parameter.type))])]),(parameter.optional)?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name,"placeholder":parameter.default},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.parameterValues[parameter.name]),expression:"parameterValues[parameter.name]"}],attrs:{"type":"text","id":parameter.name,"name":parameter.name},domProps:{"value":(_vm.parameterValues[parameter.name])},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.parameterValues, parameter.name, $event.target.value)}}})]):_vm._e()}),(_vm.parameters.length === 0)?_c('div',{staticClass:"command-parameter-input"},[_c('div',{staticClass:"command-parameter-type"},[_vm._v(" This command does not accept parameters... ")])]):_vm._e()],2)}
+var ParameterInputvue_type_template_id_001816bb_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=template&id=4d72d02c&scoped=true&
+// CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=template&id=001816bb&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ParameterInput.vue?vue&type=script&lang=js&
 
@@ -6842,6 +6865,8 @@ var ParameterInputvue_type_template_id_4d72d02c_scoped_true_staticRenderFns = []
     // The initialization of the command was moved here.
     // The values start out as a shallow copy of the value property and then get populated with the default
     // values from the parameter specification.
+    // Changed 22.04.2020
+    // Moved the initialization back to the "created" hook.
     var values = _objectSpread2({}, this.value); // actually returning the object with the data variables
 
 
@@ -6874,6 +6899,18 @@ var ParameterInputvue_type_template_id_4d72d02c_scoped_true_staticRenderFns = []
     },
     parameterValues: {
       deep: true,
+
+      /**
+       * This function gets called every time the "parameterValues" method changes.
+       *
+       * This function will emit the new value of the parameterValues field through the "input" event to the
+       * parent component. This is part of the requirements to enable the usage of "v-model" with a custom
+       * component.
+       *
+       * CHANGELOG
+       *
+       * Added 20.04.2020
+       */
       handler: function handler(value) {
         this.$emit('input', value);
       }
@@ -6934,6 +6971,9 @@ var ParameterInputvue_type_template_id_4d72d02c_scoped_true_staticRenderFns = []
    * Deprecated 19.04.2020
    * So using the lifecycle hook turned out to be a bad solution. The better solution for doing initialization
    * would be to do it within the very data function.
+   *
+   * Changed 22.04.2020
+   * Un-deprecated this method, because I found out, that it is possible to use this hook.
    */
   created: function created() {
     this.fillDefaultValues();
@@ -6941,8 +6981,8 @@ var ParameterInputvue_type_template_id_4d72d02c_scoped_true_staticRenderFns = []
 });
 // CONCATENATED MODULE: ./src/components/ParameterInput.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_ParameterInputvue_type_script_lang_js_ = (ParameterInputvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/ParameterInput.vue?vue&type=style&index=0&id=4d72d02c&scoped=true&lang=css&
-var ParameterInputvue_type_style_index_0_id_4d72d02c_scoped_true_lang_css_ = __webpack_require__("8a8c");
+// EXTERNAL MODULE: ./src/components/ParameterInput.vue?vue&type=style&index=0&id=001816bb&scoped=true&lang=css&
+var ParameterInputvue_type_style_index_0_id_001816bb_scoped_true_lang_css_ = __webpack_require__("52ec");
 
 // CONCATENATED MODULE: ./src/components/ParameterInput.vue
 
@@ -6955,17 +6995,17 @@ var ParameterInputvue_type_style_index_0_id_4d72d02c_scoped_true_lang_css_ = __w
 
 var ParameterInput_component = normalizeComponent(
   components_ParameterInputvue_type_script_lang_js_,
-  ParameterInputvue_type_template_id_4d72d02c_scoped_true_render,
-  ParameterInputvue_type_template_id_4d72d02c_scoped_true_staticRenderFns,
+  ParameterInputvue_type_template_id_001816bb_scoped_true_render,
+  ParameterInputvue_type_template_id_001816bb_scoped_true_staticRenderFns,
   false,
   null,
-  "4d72d02c",
+  "001816bb",
   null
   
 )
 
 /* harmony default export */ var ParameterInput = (ParameterInput_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"21e366db-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/RecentCommands.vue?vue&type=template&id=3ef12eec&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2685d800-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/RecentCommands.vue?vue&type=template&id=3ef12eec&scoped=true&
 var RecentCommandsvue_type_template_id_3ef12eec_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"recent-commands"},_vm._l((_vm.commandExecutions),function(execution,index){return _c('div',{staticClass:"command-execution"},[_c('span',{staticClass:"execution-time"},[_vm._v(_vm._s(execution.time))]),_vm._v(": "),_c('span',{staticClass:"execution-name"},[_vm._v(_vm._s(execution.name))]),_vm._v(" was executed. "),_c('a',{attrs:{"href":execution.log}},[_vm._v("View the Log!")])])}),0)}
 var RecentCommandsvue_type_template_id_3ef12eec_scoped_true_staticRenderFns = []
 
@@ -7289,9 +7329,62 @@ var he_default = /*#__PURE__*/__webpack_require__.n(he);
 
 
 
+/**
+ * This is a wrapper class to simplify calling ajax actions on the wordpress backend.
+ *
+ * BACKGROUND
+ *
+ * With wordpress executing custom ajax actions works a little bit differently: All the requests have to be sent to one
+ * common url. Which callback is being executed simply depends on the additional "action" parameter passed with the GET
+ * request.
+ *
+ * EXAMPLE
+ *
+ * Consider the following example, where you want to execute the ajax callback function "set_count" on the server with
+ * the argument "count" set to 10. The server will return a boolean value of whether or not the process was successful.
+ * As soon as the response has arrived you want to display it in an alert.
+ *
+ * ```javascript
+ * let ajax = new Ajax();
+ * let promise = ajax.get('set_count', {'count': 10});
+ * promise.then(function(result) {
+ *     alert(result);
+ * });
+ * ```
+ *
+ * CHANGELOG
+ *
+ * Added 19.04.2020
+ *
+ * @constructor
+ */
 
 function Ajax() {
+  // The "SERVER" variable is dynamically created by the server and injected into the frontend code. It is an object
+  // which contains data fields with information, which the server makes available to the JS code.
+  // This includes for example the URL string for the address which has to be querried to execute ajax actions on
+  // the wordpress server.
   this.ajaxUrl = SERVER.ajaxUrl; // PUBLIC METHODS
+
+  /**
+   * Sends a GET request to the wordpress server, which will execute the callback with the given name
+   *
+   * The parameters given by "args" will be passed to the callback call as GET parameters
+   *
+   * CHANGELOG
+   *
+   * Added 19.04.2020
+   *
+   * Changed 22.04.2020
+   * Previously I though the result of the axios promise would simply be the string returned from the server, but as
+   * it turned out it is an object, which already contains the decoded JSON as the "data" field. So now a promise is
+   * returned, which will yield this decoded JSON object as the result.
+   *
+   * @param name
+   * @param args
+   * @param timeout
+   * @return {Promise<T>}
+   */
 
   this.get = function (name, args) {
     var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
@@ -7311,9 +7404,31 @@ function Ajax() {
   }; // PUBLIC METHODS
 
 }
+/**
+ * This is a wrapper class for requesting relevant information from the WpCommands backend.
+ *
+ * BACKGROUND
+ *
+ * CHANGELOG
+ *
+ * Added 22.04.2020
+ *
+ * @constructor
+ */
+
 
 function WpCommandsApi() {
   var ajax = new Ajax(); // PROTECTED METHODS
+
+  /**
+   * Returns a promise, which results in an array of strings, which are the names of all the available commands.
+   *
+   * CHANGELOG
+   *
+   * Added 22.04.2020
+   *
+   * @return {Promise<T>}
+   */
 
   function getRegisteredCommandNames() {
     var get_promise = ajax.get('get_registered_command_names', {});
@@ -7321,6 +7436,18 @@ function WpCommandsApi() {
       return result;
     });
   }
+  /**
+   * Returns a promise, which results in an object, whose values are objects which contain info about the parameters
+   * of the given command_name
+   *
+   * CHANGELOG
+   *
+   * Added 22.04.2020
+   *
+   * @param command_name
+   * @return {Promise<T>}
+   */
+
 
   function getCommandParameterExtendedInfo(command_name) {
     var get_promise = ajax.get('get_command_parameter_extended_info', {
@@ -7330,6 +7457,18 @@ function WpCommandsApi() {
       return result;
     });
   }
+  /**
+   * Returns a promise, which results in an array of CommandParameter objects, that describe the parameters to the
+   * given command_name
+   *
+   * CHANGELOG
+   *
+   * Added 22.04.2020
+   *
+   * @param command_name
+   * @return {Promise<[]>}
+   */
+
 
   function getCommandParameters(command_name) {
     var command_parameter_info_promise = getCommandParameterExtendedInfo(command_name);
@@ -7350,6 +7489,16 @@ function WpCommandsApi() {
       return parameters;
     });
   } // PUBLIC METHODS
+
+  /**
+   * Returns a promise, which results in an array of Command objects, describing all the available commands to be ex.
+   *
+   * CHANGELOG
+   *
+   * Added 22.04.2020
+   *
+   * @return {Promise<[]>}
+   */
 
 
   this.getRegisteredCommands = function () {
@@ -7372,6 +7521,17 @@ function WpCommandsApi() {
       });
     });
   };
+  /**
+   * Returns a promise, which results in an array of CommandExecution objects, each describing one of the recently
+   * executed commands by name, date of execution and the log url
+   *
+   * CHANGELOG
+   *
+   * Added 22.04.2020
+   *
+   * @return {Promise<[]>}
+   */
+
 
   this.getRecentCommandExecutions = function () {
     var get_promise = ajax.get('get_recent_commands', {
@@ -7387,6 +7547,12 @@ function WpCommandsApi() {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var result = _step.value;
 
+          // STRING DECODING:
+          // So one of the problems, that occurred with this function is that using the string from "result.log"
+          // directly did not work, because the special characters were still URL encoded. I think this is because
+          // the json parsing is done implicitly within axios somewhere it just handles strings like this.
+          // The solution is the line "he.decode()" this function will decode the URL encoding and make it work
+          // as an actual string. This is the purpose of the "he" library.
           var _execution = new command.CommandExecution(result.name, new Date(result.date), he_default.a.decode(result.log));
 
           executions.push(_execution);
@@ -7400,6 +7566,22 @@ function WpCommandsApi() {
       return executions;
     });
   };
+  /**
+   * Returns a promise, which results in a boolean value indicating if the execution of the command on the server
+   * was successful or not.
+   *
+   * Given a command name and the parameters for the commands execution, this function will send a GET request to
+   * the server issuing it to execute the command.
+   *
+   * CHANGELOG
+   *
+   * Added 22.04.2020
+   *
+   * @param commandName
+   * @param parameters
+   * @return {Promise<T>}
+   */
+
 
   this.executeCommand = function (commandName, parameters) {
     return ajax.get(commandName, parameters);
@@ -7425,10 +7607,14 @@ function WpCommandsApiMock() {
   // PUBLIC METHODS
 
   /**
+   * Returns a list of "Command" objects, which represent all the available commands to be executed on the server.
    *
    * CHANGELOG
    *
    * Added 28.03.2020
+   *
+   * Changed 22.04.2020
+   * Made this function return a promise instead of directly returning the value
    *
    * @return
    */
@@ -7443,6 +7629,9 @@ function WpCommandsApiMock() {
    * CHANGELOG
    *
    * Added 28.03.2020
+   *
+   * Changed 22.04.2020
+   * Made this function return a promise instead of directly returning the value
    *
    * @param commandName
    * @return
@@ -7460,6 +7649,7 @@ function WpCommandsApiMock() {
     }
   };
   /**
+   * Returns an array of "CommandExecution" objects, each defining a command that has been recently executed.
    *
    * CHANGELOG
    *
@@ -7468,6 +7658,9 @@ function WpCommandsApiMock() {
    * Changed 19.04.2020
    * Contained a bug, where the "this" was missing before the "recentExecutions" and thus it was not accessing the
    * object field, but causing a reference error
+   *
+   * Changed 22.04.2020
+   * Made this function return a promise instead of directly returning the value
    *
    * @return [CommandExecution]
    */
@@ -7479,10 +7672,14 @@ function WpCommandsApiMock() {
     });
   };
   /**
+   * Sends a request to the server to execute the command with the given name, using the given parameters.
    *
    * CHANGELOG
    *
    * Added 28.03.2020
+   *
+   * Changed 22.04.2020
+   * Made this function return a promise instead of directly returning the value
    *
    * @param commandName
    * @param parameters
@@ -7627,6 +7824,19 @@ function WpCommandsApiMock() {
         setTimeout(this.updateRecentCommands, 1000);
       }
     },
+
+    /**
+     * Initializes the component state from the values requested from the server.
+     *
+     * This function makes requests to the server to obtain the information about all the available commands
+     * and the recent history of executed commands. These values are then assigned to the data fields of the
+     * component, thus displaying them on the page.
+     *
+     * CHANGELOG
+     *
+     * Added 22.04.2020
+     *
+     */
     initialize: function initialize() {
       var _this = this;
 
@@ -7692,8 +7902,6 @@ function WpCommandsApiMock() {
    * 2) A list if all the recent CommandExecutions, so that this list can be supplied to the recent commands
    * widget.
    *
-   * @deprecated
-   *
    * CHANGELOG
    *
    * Added 28.03.2020
@@ -7701,6 +7909,12 @@ function WpCommandsApiMock() {
    * Deprecated 19.04.2020
    * So it turns out, that using the lifecycle hooks for initializing data is not the best idea. This should
    * rather be done in the data function itself.
+   *
+   * Changed 22.04.2020
+   * un-deprecated this method because I changed the api object, which interfaces with the server to use promises.
+   * And since the promises dont return values instantly, but rather whenever the server answers they could not
+   * be used in the "data" function (because the strictly speaking the data fields are not known as references
+   * at that point).
    */
   mounted: function mounted() {
     this.initialize();
@@ -7708,8 +7922,8 @@ function WpCommandsApiMock() {
 });
 // CONCATENATED MODULE: ./src/components/WpCommandsWidget.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_WpCommandsWidgetvue_type_script_lang_js_ = (WpCommandsWidgetvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/WpCommandsWidget.vue?vue&type=style&index=0&id=ab13ba2a&scoped=true&lang=css&
-var WpCommandsWidgetvue_type_style_index_0_id_ab13ba2a_scoped_true_lang_css_ = __webpack_require__("7386");
+// EXTERNAL MODULE: ./src/components/WpCommandsWidget.vue?vue&type=style&index=0&id=3dcaad8a&scoped=true&lang=css&
+var WpCommandsWidgetvue_type_style_index_0_id_3dcaad8a_scoped_true_lang_css_ = __webpack_require__("06f4");
 
 // CONCATENATED MODULE: ./src/components/WpCommandsWidget.vue
 
@@ -7722,11 +7936,11 @@ var WpCommandsWidgetvue_type_style_index_0_id_ab13ba2a_scoped_true_lang_css_ = _
 
 var WpCommandsWidget_component = normalizeComponent(
   components_WpCommandsWidgetvue_type_script_lang_js_,
-  WpCommandsWidgetvue_type_template_id_ab13ba2a_scoped_true_render,
-  WpCommandsWidgetvue_type_template_id_ab13ba2a_scoped_true_staticRenderFns,
+  WpCommandsWidgetvue_type_template_id_3dcaad8a_scoped_true_render,
+  WpCommandsWidgetvue_type_template_id_3dcaad8a_scoped_true_staticRenderFns,
   false,
   null,
-  "ab13ba2a",
+  "3dcaad8a",
   null
   
 )
