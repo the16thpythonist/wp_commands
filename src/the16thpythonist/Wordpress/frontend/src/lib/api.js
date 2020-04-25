@@ -63,7 +63,7 @@ function Ajax() {
     this.get = function (name, args, timeout=1000) {
         let params = {...{action:name}, ...args};
         return axios.get(this.ajaxUrl, {params: params}).then(function (result) {
-            console.log(result);
+            // console.log(result);
             return result.data;
         }).catch(function (error) {
             console.log(error);
@@ -146,7 +146,7 @@ function WpCommandsApi() {
                     info.type,
                     info.optional
                 );
-                console.log(_parameter);
+                // console.log(_parameter);
                 parameters.push(_parameter);
             }
             return parameters;
@@ -307,7 +307,7 @@ function WpCommandsApiMock() {
             let cmd = registeredCommands[commandName];
             return cmd.parameters;
         } else {
-            console.log('Command')
+            // console.log('Command')
         }
     };
 
@@ -350,7 +350,7 @@ function WpCommandsApiMock() {
     this.executeCommand = function (commandName, parameters) {
         return new Promise(function (resolve, reject) {
             recentExecutions.push(new command.CommandExecution(commandName, new Date(), logPath));
-            console.log(`Executing command "${commandName}" with parameters: ${JSON.stringify(parameters)}`);
+            // console.log(`Executing command "${commandName}" with parameters: ${JSON.stringify(parameters)}`);
             resolve(true);
         });
 
