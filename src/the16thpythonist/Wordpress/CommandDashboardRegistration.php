@@ -236,54 +236,6 @@ class CommandDashboardRegistration
                 }
             }).$mount('#app')
         </script>
-        <div class="command-widget">
-            <p>Use the following section to <strong>select a command</strong> and press the button <strong>to execute it</strong>!</p>
-            <div id="command-container" style="display: flex; flex-direction: column;">
-                <select id="command-name" title="action" style="height: 25px;width: 80%;">
-                    <?php foreach ($command_names as $command_name): ?>
-                        <option value="<?php echo $command_name; ?>"><?php echo $command_name; ?></option>
-                    <?php endforeach; ?>
-                </select>
-
-                <div class="command-container" id="parameter-container" style="display: flex; flex-direction: column">
-                </div>
-                <input id="command-call" type="button" value="execute" style="margin-bottom: -5px;height: 25px;width: 20%">
-            </div>
-
-            <hr>
-
-            <p>
-                View the <strong>3 most recently executed Commands</strong>:
-            </p>
-            <div class="command-container" id="recent-command-container">
-
-            </div>
-
-            <script type="text/javascript">
-                //loadCSS("<?php echo plugin_dir_url(__FILE__) . 'command.css' ?>");
-                let script_url = "<?php echo plugin_dir_url(__FILE__); ?>command-widget.js";
-                console.log(`Attempting to load the script "${script_url}"`);
-                jQuery.getScript(script_url, function () {
-
-                    let call = jQuery('input#command-call');
-                    let select = jQuery('select#command-name');
-
-                    updateParameterContainer();
-                    getRecentCommands(3, displayRecentCommands);
-
-                    call.on('click', function () {
-                        let command_name = select.attr('value');
-                        let parameters = getCommandParameters();
-                        executeCommand(command_name, parameters);
-                        console.log(`Command "${command_name}" was executed!`);
-                    });
-
-                    select.on('change', function () {
-                        updateParameterContainer();
-                    })
-                });
-            </script>
-        </div>
         <?php
     }
 }
