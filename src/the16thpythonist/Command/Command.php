@@ -264,6 +264,9 @@ abstract class Command
      * Changed 19.03.2020
      * Made the method protected.
      *
+     * Changed 25.04.2020
+     * Added an additional catch clause, which will catch a general error now as well and display it as a log message
+     *
      * @return int
      * @access public
      */
@@ -311,12 +314,15 @@ abstract class Command
      * moved to the "ParameterConverter" class. We can now assume, that no matter the format $this->parameters will
      * contain a generalized representation.
      *
+     * Changed 25.04.2020
+     * Fixed a bug, where I forgot to return the final result of the computation.
+     *
      * @return array
      */
     protected function extractArgs(): array
     {
         $args = static::argsFromGET($this->parameters);
-        static::processArgs($this->parameters, $args);
+        return static::processArgs($this->parameters, $args);
     }
 
     /**
