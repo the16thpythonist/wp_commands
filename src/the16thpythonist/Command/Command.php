@@ -174,6 +174,7 @@ abstract class Command
     {
         $this->log = new $log_class(NULL, sprintf('%s%s', self::$LOG_PREFIX, $this->getName()));
         $this->log->start();
+        $this->log->debug("LOG POST CREATED");
 
         $this->parameter_converter = new ParameterConverter($this->params);
         $this->parameters = $this->parameter_converter->getParametersAssociative();
