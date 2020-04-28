@@ -98,8 +98,10 @@ to the functionality of the dashboard widget
         facade facility.
         
      
+### 0.1.0 - 28.04.2020
+
+- Refactored the front end to be completely based on VueJS now.
+     
 ## TODO
 
-- Changing the front end to use VueJS, which will make it more simple to develop for the front end.
-- Change the front end to implement the new functionalities of the extended parameter system.
 - Write more tests!
